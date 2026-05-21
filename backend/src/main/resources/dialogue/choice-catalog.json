@@ -1,0 +1,4402 @@
+{
+  "npcs": {
+    "monkey_friend": {
+      "npcId": "monkey_friend",
+      "displayName": "코몽",
+      "tone": "장난기 있지만 공감 잘하는 친구",
+      "scripts": ["monkey_injection_fear", "monkey_frustration", "monkey_play"]
+    },
+    "nurse_bunny": {
+      "npcId": "nurse_bunny",
+      "displayName": "간호사 조은",
+      "tone": "차분하고 믿음직한 간호사",
+      "scripts": ["nurse_pain", "nurse_checkin", "nurse_curious"]
+    },
+    "sleepy_sheep": {
+      "npcId": "sleepy_sheep",
+      "displayName": "건빈",
+      "tone": "느긋하고 포근한 친구",
+      "scripts": ["sleep_eyes", "sleep_family", "sleep_pace"]
+    },
+    "gardener_bear": {
+      "npcId": "gardener_bear",
+      "displayName": "정호",
+      "tone": "묵직하고 다정한 정원사",
+      "scripts": ["garden_drawing", "garden_tend", "garden_nonverbal"]
+    },
+    "squirrel_friend": {
+      "npcId": "squirrel_friend",
+      "displayName": "세현",
+      "tone": "활발하지만 곁을 편하게 지켜주는 또래 친구",
+      "scripts": ["squirrel_shade", "squirrel_word", "squirrel_apart"]
+    },
+    "dain": {
+      "npcId": "dain",
+      "displayName": "다인",
+      "tone": "또래 친구 같은 다정한 친구",
+      "scripts": ["dain_miss", "dain_school", "dain_greet"]
+    }
+  },
+
+  "scripts": {
+    "monkey_injection_fear": {
+      "scriptId": "monkey_injection_fear",
+      "npcId": "monkey_friend",
+      "title": "시술 무서움",
+      "entryNodeId": "mky_inj_01_entry",
+      "nodes": {
+        "mky_inj_01_entry": {
+          "nodeId": "mky_inj_01_entry",
+          "questionText": "오늘 좀 무서운 거 있어?",
+          "npcLines": [
+            "어… 표정이 좀 흐려졌네.",
+            "오늘 좀 무서운 거 있어?"
+          ],
+          "choices": ["mky_inj_fear", "mky_inj_unknown", "mky_inj_unsure"]
+        },
+        "mky_inj_02a_who": {
+          "nodeId": "mky_inj_02a_who",
+          "questionText": "너도 손 잡아줄 사람 있어?",
+          "npcLines": [
+            "주사라니… 코몽이도 주사 무서워서 한 번 의자 밑에 숨었어.",
+            "엄마가 와서 손 꼭 잡아주니까 그제서야 나왔지.",
+            "너도 손 잡아줄 사람 있어?"
+          ],
+          "choices": ["mky_inj_mom", "mky_inj_dunno_who", "mky_inj_monkey_holds"]
+        },
+        "mky_inj_03a1_how": {
+          "nodeId": "mky_inj_03a1_how",
+          "questionText": "엄마한테 어떻게 말할까?",
+          "npcLines": [
+            "오케이!",
+            "엄마한테 어떻게 말할까?"
+          ],
+          "choices": ["mky_inj_say_hold", "mky_inj_say_be_near", "mky_inj_just_go"]
+        },
+        "mky_inj_03a2_offer": {
+          "nodeId": "mky_inj_03a2_offer",
+          "questionText": "코몽이가 같이 가줄까?",
+          "npcLines": [
+            "음… 그럼 코몽이가 같이 가줄까?"
+          ],
+          "choices": ["mky_inj_yes_together", "mky_inj_be_near_me"]
+        },
+        "mky_inj_03a3_check": {
+          "nodeId": "mky_inj_03a3_check",
+          "questionText": "어때, 좀 든든해?",
+          "npcLines": [
+            "코몽이? 좋아!",
+            "(꼬리로 손 잡는 흉내) 자, 잡았다!",
+            "어때, 좀 든든해?"
+          ],
+          "choices": ["mky_inj_feel_good", "mky_inj_still_scared"]
+        },
+        "mky_inj_02b_ask": {
+          "nodeId": "mky_inj_02b_ask",
+          "questionText": "누구한테 물어볼 수 있어?",
+          "npcLines": [
+            "아아, 모르는 게 제일 무섭지.",
+            "코몽이도 새 거 할 때 머리가 빙글빙글해.",
+            "누구한테 물어볼 수 있어?"
+          ],
+          "choices": ["mky_inj_ask_teacher", "mky_inj_ask_mom", "mky_inj_not_ask"]
+        },
+        "mky_inj_02c_now": {
+          "nodeId": "mky_inj_02c_now",
+          "questionText": "지금은 뭐 하고 싶어?",
+          "npcLines": [
+            "음… 잘 모르는 마음도 있지. 코몽이도 그래.",
+            "지금은 뭐 하고 싶어?"
+          ],
+          "choices": ["mky_inj_with_monkey", "mky_inj_stay_still", "mky_inj_other_friend"]
+        }
+      }
+    },
+
+    "monkey_frustration": {
+      "scriptId": "monkey_frustration",
+      "npcId": "monkey_friend",
+      "title": "답답함·분노",
+      "entryNodeId": "mky_fru_01_entry",
+      "nodes": {
+        "mky_fru_01_entry": {
+          "nodeId": "mky_fru_01_entry",
+          "questionText": "안에 뭐가 막혀 있는 거 같아?",
+          "npcLines": [
+            "어, 표정이 꽉 차 보여.",
+            "안에 뭐가 막혀 있는 거 같아?"
+          ],
+          "choices": ["mky_fru_stuck", "mky_fru_angry", "mky_fru_dunno"]
+        },
+        "mky_fru_02a_relief": {
+          "nodeId": "mky_fru_02a_relief",
+          "questionText": "답답할 때 너는 뭐 하면 좀 풀려?",
+          "npcLines": [
+            "코몽이도 답답할 때 나무 위에 올라가서 가지 막 흔들었어.",
+            "근데 그 가지한테 좀 미안하더라.",
+            "답답할 때 너는 뭐 하면 좀 풀려?"
+          ],
+          "choices": ["mky_fru_pause", "mky_fru_talk", "mky_fru_just_be"]
+        },
+        "mky_fru_02b_how": {
+          "nodeId": "mky_fru_02b_how",
+          "questionText": "그 화를 어디다 두면 좋을까?",
+          "npcLines": [
+            "화나는 거구나. 코몽이도 화날 땐 가슴이 콩콩 뛰어.",
+            "그 화를 어디다 두면 좋을까?"
+          ],
+          "choices": ["mky_fru_angry_pause", "mky_fru_angry_talk", "mky_fru_angry_body"]
+        },
+        "mky_fru_03_pause": {
+          "nodeId": "mky_fru_03_pause",
+          "questionText": "멈추는 거 어떻게 할까?",
+          "npcLines": [
+            "좋아! 멈추는 거 어떻게 할까?"
+          ],
+          "choices": ["mky_fru_breathe", "mky_fru_close_eyes"]
+        },
+        "mky_fru_03_talk": {
+          "nodeId": "mky_fru_03_talk",
+          "questionText": "누구한테 말하고 싶어?",
+          "npcLines": [
+            "누구한테 말하고 싶어?"
+          ],
+          "choices": ["mky_fru_tell_mom", "mky_fru_tell_monkey"]
+        },
+        "mky_fru_03_body": {
+          "nodeId": "mky_fru_03_body",
+          "questionText": "어떻게 할까?",
+          "npcLines": [
+            "몸으로! 코몽이 스타일.",
+            "어떻게 할까?"
+          ],
+          "choices": ["mky_fru_shake_light", "mky_fru_lay_down"]
+        },
+        "mky_fru_02c_now": {
+          "nodeId": "mky_fru_02c_now",
+          "questionText": "지금은 뭐가 필요해?",
+          "npcLines": [
+            "답답한지 화나는지 잘 모를 때도 있지. 코몽이도 그래.",
+            "지금은 뭐가 필요해?"
+          ],
+          "choices": ["mky_fru_quiet", "mky_fru_hug", "mky_fru_with_monkey"]
+        }
+      }
+    },
+
+    "monkey_play": {
+      "scriptId": "monkey_play",
+      "npcId": "monkey_friend",
+      "title": "놀이로 풀기",
+      "entryNodeId": "mky_play_01_entry",
+      "nodes": {
+        "mky_play_01_entry": {
+          "nodeId": "mky_play_01_entry",
+          "questionText": "오늘은 좀 가볍게 놀까?",
+          "npcLines": [
+            "오늘은 좀 가볍게 놀까?",
+            "코몽이가 심심해서 꼬리가 간질간질해."
+          ],
+          "choices": ["mky_play_music", "mky_play_dance", "mky_play_still"]
+        },
+        "mky_play_02a_music": {
+          "nodeId": "mky_play_02a_music",
+          "questionText": "어떤 거 듣고 싶어?",
+          "npcLines": [
+            "오케이, 음악! 코몽이는 두두두두 빠른 거 좋아하는데.",
+            "너는 어떤 거 듣고 싶어?"
+          ],
+          "choices": ["mky_play_quiet", "mky_play_lively", "mky_play_rec"]
+        },
+        "mky_play_02b_dance": {
+          "nodeId": "mky_play_02b_dance",
+          "questionText": "어떻게 흔들까?",
+          "npcLines": [
+            "좋아! 코몽이도 같이 흔들게.",
+            "어떻게 흔들까?"
+          ],
+          "choices": ["mky_play_hands", "mky_play_feet", "mky_play_all"]
+        },
+        "mky_play_02c_still": {
+          "nodeId": "mky_play_02c_still",
+          "questionText": "코몽이는 어디 있을까?",
+          "npcLines": [
+            "응, 가만히 있는 것도 노는 거야.",
+            "코몽이는 어디 있을까?"
+          ],
+          "choices": ["mky_play_with_me", "mky_play_far_watch", "mky_play_soft_music"]
+        }
+      }
+    },
+
+    "nurse_pain": {
+      "scriptId": "nurse_pain",
+      "npcId": "nurse_bunny",
+      "title": "통증·시술 걱정",
+      "entryNodeId": "nurse_pain_01_entry",
+      "nodes": {
+        "nurse_pain_01_entry": {
+          "nodeId": "nurse_pain_01_entry",
+          "questionText": "오늘 몸 어디 불편한 데 있어?",
+          "npcLines": [
+            "(의자 끌어와 앉으며) 천천히 말해도 돼.",
+            "오늘 몸 어디 불편한 데 있어?"
+          ],
+          "choices": ["nurse_pain_hurts", "nurse_pain_next_worry", "nurse_pain_okay"]
+        },
+        "nurse_pain_02a_where": {
+          "nodeId": "nurse_pain_02a_where",
+          "questionText": "어디가 제일 신경 쓰여?",
+          "npcLines": [
+            "조은이도 처음엔 어디인지 말 못 했어.",
+            "손으로 짚어줘도 돼."
+          ],
+          "choices": ["nurse_pain_head", "nurse_pain_belly", "nurse_pain_dunno_where"]
+        },
+        "nurse_pain_03a_head_care": {
+          "nodeId": "nurse_pain_03a_head_care",
+          "questionText": "어떻게 해볼까?",
+          "npcLines": ["쉬는 게 빠른 길일 수도 있어.", "어떻게 해볼까?"],
+          "choices": ["nurse_pain_bed", "nurse_pain_mom_near", "nurse_pain_tell_teacher"]
+        },
+        "nurse_pain_02b_what_worry": {
+          "nodeId": "nurse_pain_02b_what_worry",
+          "questionText": "뭐가 제일 마음에 걸려?",
+          "npcLines": [
+            "(작게 끄덕) 미리 알면 가벼워질 때 있어.",
+            "뭐가 제일 마음에 걸려?"
+          ],
+          "choices": ["nurse_pain_pain_worry", "nurse_pain_time_worry", "nurse_pain_unknown_worry"]
+        },
+        "nurse_pain_02c_check": {
+          "nodeId": "nurse_pain_02c_check",
+          "questionText": "평소 잘 보는 신호 있어?",
+          "npcLines": [
+            "가벼운 날이구나.",
+            "조은이는 컨디션 신호 미리 알면 마음이 놓이거든.",
+            "그래도 평소 잘 보는 신호 있어?"
+          ],
+          "choices": ["nurse_pain_fatigue_signal", "nurse_pain_words", "nurse_pain_come_back"]
+        }
+      }
+    },
+
+    "nurse_checkin": {
+      "scriptId": "nurse_checkin",
+      "npcId": "nurse_bunny",
+      "title": "컨디션 체크",
+      "entryNodeId": "nurse_check_01_entry",
+      "nodes": {
+        "nurse_check_01_entry": {
+          "nodeId": "nurse_check_01_entry",
+          "questionText": "오늘 몸 상태는 어때?",
+          "npcLines": [
+            "(이마에 손 살짝) 조은이는 매일 아침 이 질문이 제일 중요하다고 배웠어.",
+            "오늘 몸 상태는 어때?"
+          ],
+          "choices": ["nurse_check_tired", "nurse_check_dizzy", "nurse_check_usual"]
+        },
+        "nurse_check_02a_rest": {
+          "nodeId": "nurse_check_02a_rest",
+          "questionText": "어떻게 쉬는 게 제일 편해?",
+          "npcLines": [
+            "피곤한 마음 알겠어.",
+            "조은이도 어젯밤 늦게 잠들었어.",
+            "어떻게 쉬는 게 제일 편해?"
+          ],
+          "choices": ["nurse_check_lay", "nurse_check_mom_near", "nurse_check_sleep"]
+        },
+        "nurse_check_03a_lay_with": {
+          "nodeId": "nurse_check_03a_lay_with",
+          "questionText": "혼자 누울까, 누구 옆에서 누울까?",
+          "npcLines": ["혼자 누울까, 누구 옆에서 누울까?"],
+          "choices": ["nurse_check_lay_alone", "nurse_check_lay_with_joeun", "nurse_check_lay_with_mom"]
+        },
+        "nurse_check_02b_dizzy": {
+          "nodeId": "nurse_check_02b_dizzy",
+          "questionText": "어떤 식으로 어지러워?",
+          "npcLines": [
+            "어지러운 건 꼭 알려야 해.",
+            "(가까이 와서 작은 목소리로) 조은이가 옆에 있을게.",
+            "어떤 식으로 어지러워?"
+          ],
+          "choices": ["nurse_check_spinning", "nurse_check_brief_dizzy", "nurse_check_mild_dizzy"]
+        },
+        "nurse_check_02c_usual": {
+          "nodeId": "nurse_check_02c_usual",
+          "questionText": "오늘은 뭐 하고 싶어?",
+          "npcLines": [
+            "평소랑 비슷한 날, 그것도 좋은 신호야.",
+            "오늘은 뭐 하고 싶어?"
+          ],
+          "choices": ["nurse_check_play_light", "nurse_check_walk", "nurse_check_chat"]
+        }
+      }
+    },
+
+    "nurse_curious": {
+      "scriptId": "nurse_curious",
+      "npcId": "nurse_bunny",
+      "title": "모르는 게 궁금해",
+      "entryNodeId": "nurse_curious_01_entry",
+      "nodes": {
+        "nurse_curious_01_entry": {
+          "nodeId": "nurse_curious_01_entry",
+          "questionText": "오늘 좀 궁금한 게 있는 표정이네.",
+          "npcLines": [
+            "(작게 웃으며) 조은이도 모르는 거 있으면 머릿속이 가득 차거든.",
+            "오늘 좀 궁금한 게 있는 표정이네."
+          ],
+          "choices": ["nurse_cur_next", "nurse_cur_med", "nurse_cur_chat"]
+        },
+        "nurse_curious_02a_next": {
+          "nodeId": "nurse_curious_02a_next",
+          "questionText": "누구한테 물어보면 편할까?",
+          "npcLines": [
+            "(노트 펼치며) 조은이는 모르는 거 있으면 일단 종이에 적어둬.",
+            "누구한테 물어보면 편할까?"
+          ],
+          "choices": ["nurse_cur_ask_teacher", "nurse_cur_ask_mom", "nurse_cur_ask_me"]
+        },
+        "nurse_curious_03a_what_to_ask": {
+          "nodeId": "nurse_curious_03a_what_to_ask",
+          "questionText": "어떤 한 줄로 시작할까?",
+          "npcLines": ["어떤 한 줄로 시작할까?"],
+          "choices": ["nurse_cur_ask_what_today", "nurse_cur_ask_how_long", "nurse_cur_ask_will_hurt"]
+        },
+        "nurse_curious_02b_med": {
+          "nodeId": "nurse_curious_02b_med",
+          "questionText": "어떤 부분부터 궁금해?",
+          "npcLines": [
+            "약은 다 이유가 있지.",
+            "조은이도 약 처음 받았을 때 궁금해서 이름을 하나씩 읽어봤어.",
+            "어떤 부분부터 궁금해?"
+          ],
+          "choices": ["nurse_cur_med_why", "nurse_cur_med_when", "nurse_cur_med_good"]
+        },
+        "nurse_curious_02c_chat": {
+          "nodeId": "nurse_curious_02c_chat",
+          "questionText": "무슨 얘기 할까?",
+          "npcLines": [
+            "오, 조은이도 그런 날 있어.",
+            "무슨 얘기 할까?"
+          ],
+          "choices": ["nurse_cur_chat_today", "nurse_cur_chat_anything", "nurse_cur_chat_joeun"]
+        }
+      }
+    },
+
+    "sleep_eyes": {
+      "scriptId": "sleep_eyes",
+      "npcId": "sleepy_sheep",
+      "title": "조용히 눈 감기",
+      "entryNodeId": "sleep_eyes_01_entry",
+      "nodes": {
+        "sleep_eyes_01_entry": {
+          "nodeId": "sleep_eyes_01_entry",
+          "questionText": "오늘 같이 잠깐 쉴까?",
+          "npcLines": [
+            "(하품 끄으응…) 왔구나.",
+            "건빈이는 방금 베개 자리 데워놨어.",
+            "오늘 같이 잠깐 쉴까?"
+          ],
+          "choices": ["sleep_eyes_close", "sleep_eyes_lay", "sleep_eyes_music"]
+        },
+        "sleep_eyes_02a_how": {
+          "nodeId": "sleep_eyes_02a_how",
+          "questionText": "어떻게 감을까?",
+          "npcLines": ["(눈 감으며) 같이 감자…", "어떻게 감을까?"],
+          "choices": ["sleep_eyes_breath", "sleep_eyes_still", "sleep_eyes_short"]
+        },
+        "sleep_eyes_03a_breath_check": {
+          "nodeId": "sleep_eyes_03a_breath_check",
+          "questionText": "좀 풀렸어?",
+          "npcLines": ["(코로 후우… 입으로 후우…)", "좀 풀렸어?"],
+          "choices": ["sleep_eyes_breath_ok", "sleep_eyes_breath_some", "sleep_eyes_breath_still"]
+        },
+        "sleep_eyes_02b_position": {
+          "nodeId": "sleep_eyes_02b_position",
+          "questionText": "어떻게 누울까?",
+          "npcLines": ["(담요 끌어와) 골라.", "어떻게 누울까?"],
+          "choices": ["sleep_eyes_side", "sleep_eyes_back", "sleep_eyes_mom_lap"]
+        },
+        "sleep_eyes_02c_music": {
+          "nodeId": "sleep_eyes_02c_music",
+          "questionText": "어떤 거 듣고 싶어?",
+          "npcLines": [
+            "(작게 흥얼) 건빈이는 비 오는 소리 좋아해.",
+            "너는 어떤 거 듣고 싶어?"
+          ],
+          "choices": ["sleep_eyes_music_calm", "sleep_eyes_music_nature", "sleep_eyes_music_rec"]
+        }
+      }
+    },
+
+    "sleep_family": {
+      "scriptId": "sleep_family",
+      "npcId": "sleepy_sheep",
+      "title": "가족 옆 머물기",
+      "entryNodeId": "sleep_family_01_entry",
+      "nodes": {
+        "sleep_family_01_entry": {
+          "nodeId": "sleep_family_01_entry",
+          "questionText": "오늘은 누구 옆이 좋겠어?",
+          "npcLines": [
+            "(꿈벅꿈벅) 어제 누가 옆에 있었어?",
+            "오늘은 누구 옆이 좋겠어?"
+          ],
+          "choices": ["sleep_fam_mom", "sleep_fam_dad", "sleep_fam_dunno"]
+        },
+        "sleep_family_02a_mom": {
+          "nodeId": "sleep_family_02a_mom",
+          "questionText": "엄마한테 어떻게 가까이 갈래?",
+          "npcLines": [
+            "엄마 옆… 거기 따뜻한 자리지.",
+            "어떻게 가까이 갈래?"
+          ],
+          "choices": ["sleep_fam_mom_words", "sleep_fam_mom_quiet", "sleep_fam_mom_hand"]
+        },
+        "sleep_family_03a_words": {
+          "nodeId": "sleep_family_03a_words",
+          "questionText": "엄마한테 어떤 말을 꺼낼까?",
+          "npcLines": ["엄마한테 어떤 말을 꺼낼까?"],
+          "choices": ["sleep_fam_say_near", "sleep_fam_say_hold", "sleep_fam_say_heavy"]
+        },
+        "sleep_family_02b_dad": {
+          "nodeId": "sleep_family_02b_dad",
+          "questionText": "아빠한테 어떻게 갈래?",
+          "npcLines": ["아빠 옆도 든든하지.", "어떻게 갈래?"],
+          "choices": ["sleep_fam_dad_hug", "sleep_fam_dad_quiet", "sleep_fam_dad_ask"]
+        },
+        "sleep_family_02c_dunno": {
+          "nodeId": "sleep_family_02c_dunno",
+          "questionText": "지금은 뭐가 가장 편할까?",
+          "npcLines": ["(하품) 그런 날도 있어.", "지금은 뭐가 가장 편할까?"],
+          "choices": ["sleep_fam_with_geonbin", "sleep_fam_alone_brief", "sleep_fam_anyone"]
+        }
+      }
+    },
+
+    "sleep_pace": {
+      "scriptId": "sleep_pace",
+      "npcId": "sleepy_sheep",
+      "title": "천천히 페이스",
+      "entryNodeId": "sleep_pace_01_entry",
+      "nodes": {
+        "sleep_pace_01_entry": {
+          "nodeId": "sleep_pace_01_entry",
+          "questionText": "오늘 너는 어떤 속도가 좋아?",
+          "npcLines": [
+            "(하품) 건빈이는 오늘 절반 속도야.",
+            "오늘 너는 어떤 속도가 좋아?"
+          ],
+          "choices": ["sleep_pace_slow", "sleep_pace_quick", "sleep_pace_dunno"]
+        },
+        "sleep_pace_02a_what": {
+          "nodeId": "sleep_pace_02a_what",
+          "questionText": "뭐부터 천천히 가볼까?",
+          "npcLines": ["(끄덕) 응.", "뭐부터 천천히 가볼까?"],
+          "choices": ["sleep_pace_meal", "sleep_pace_treat", "sleep_pace_all"]
+        },
+        "sleep_pace_03a_meal": {
+          "nodeId": "sleep_pace_03a_meal",
+          "questionText": "어떤 식으로 천천히 먹을까?",
+          "npcLines": ["어떤 식으로 천천히 먹을까?"],
+          "choices": ["sleep_pace_meal_count", "sleep_pace_meal_family", "sleep_pace_meal_rest"]
+        },
+        "sleep_pace_02b_quick": {
+          "nodeId": "sleep_pace_02b_quick",
+          "questionText": "그럼 빨리 가는 방법 하나만 같이 정해볼래?",
+          "npcLines": [
+            "빨리 끝내고 싶은 마음, 건빈이도 알아.",
+            "그래도 한 가지만 같이 정하고 가자."
+          ],
+          "choices": ["sleep_pace_quick_stop", "sleep_pace_quick_safe", "sleep_pace_quick_pause"]
+        },
+        "sleep_pace_02c_dunno": {
+          "nodeId": "sleep_pace_02c_dunno",
+          "questionText": "지금 몸은 어떻게 느껴져?",
+          "npcLines": [
+            "(꿈벅꿈벅) 그런 날도 있어.",
+            "지금 몸은 어떻게 느껴져?"
+          ],
+          "choices": ["sleep_pace_heavy", "sleep_pace_meh", "sleep_pace_light"]
+        }
+      }
+    },
+
+    "garden_drawing": {
+      "scriptId": "garden_drawing",
+      "npcId": "gardener_bear",
+      "title": "그림으로 꺼내기",
+      "entryNodeId": "garden_draw_01_entry",
+      "nodes": {
+        "garden_draw_01_entry": {
+          "nodeId": "garden_draw_01_entry",
+          "questionText": "마음에 떠오르는 게 있는 거 같네.",
+          "npcLines": [
+            "(모종삽 내려놓고) 방금 새싹이 빼꼼했는데,",
+            "너 표정이랑 비슷했어."
+          ],
+          "choices": ["garden_draw_fear", "garden_draw_friend", "garden_draw_dunno"]
+        },
+        "garden_draw_02a_color": {
+          "nodeId": "garden_draw_02a_color",
+          "questionText": "그 마음이 색깔이라면 어떤 색이야?",
+          "npcLines": [
+            "무서운 마음은 작아도 무거울 때 있지.",
+            "정호도 새 꽃씨 처음 심을 때 그랬어. 자랄까 안 자랄까.",
+            "그 마음이 색깔이라면 어떤 색이야?"
+          ],
+          "choices": ["garden_draw_black", "garden_draw_red", "garden_draw_unsure"]
+        },
+        "garden_draw_03a_black_what": {
+          "nodeId": "garden_draw_03a_black_what",
+          "questionText": "까만 색을 어떻게 그려볼까?",
+          "npcLines": ["까만 색을 어떻게 그려볼까?"],
+          "choices": ["garden_draw_black_big", "garden_draw_black_dot", "garden_draw_black_line"]
+        },
+        "garden_draw_02b_friend": {
+          "nodeId": "garden_draw_02b_friend",
+          "questionText": "그 친구를 어떻게 그려볼까?",
+          "npcLines": [
+            "(새싹 옆 무릎 굽히며) 정호도 친구가 오래 안 보이면 마음이 무거워져.",
+            "그 친구를 어떻게 그려볼까?"
+          ],
+          "choices": ["garden_draw_friend_face", "garden_draw_friend_together", "garden_draw_friend_greet"]
+        },
+        "garden_draw_02c_dunno": {
+          "nodeId": "garden_draw_02c_dunno",
+          "questionText": "정원에서 잠깐 둘러볼래?",
+          "npcLines": [
+            "마음이 또렷이 안 잡힐 때도 있지.",
+            "정원에서 잠깐 둘러볼래?"
+          ],
+          "choices": ["garden_draw_seedling", "garden_draw_sit_quiet", "garden_draw_later"]
+        }
+      }
+    },
+
+    "garden_tend": {
+      "scriptId": "garden_tend",
+      "npcId": "gardener_bear",
+      "title": "정원 일 같이 하기",
+      "entryNodeId": "garden_tend_01_entry",
+      "nodes": {
+        "garden_tend_01_entry": {
+          "nodeId": "garden_tend_01_entry",
+          "questionText": "정원에 손 한 번 거들어볼래?",
+          "npcLines": [
+            "(흙 묻은 손 털며) 정호는 마음 무거울 때 흙 만지면 좀 가벼워지더라.",
+            "정원에 손 한 번 거들어볼래?"
+          ],
+          "choices": ["garden_tend_what", "garden_tend_brief", "garden_tend_watch"]
+        },
+        "garden_tend_02a_what": {
+          "nodeId": "garden_tend_02a_what",
+          "questionText": "어떤 거 골라볼래?",
+          "npcLines": [
+            "(작게 끄덕) 오늘 정호 할 일이 셋이거든.",
+            "같이 골라줘."
+          ],
+          "choices": ["garden_tend_seed", "garden_tend_water", "garden_tend_leaf"]
+        },
+        "garden_tend_03a_seed_what": {
+          "nodeId": "garden_tend_03a_seed_what",
+          "questionText": "어떤 마음 한 알 심을까?",
+          "npcLines": ["어떤 마음 한 알 심을까?"],
+          "choices": ["garden_tend_seed_strength", "garden_tend_seed_friend", "garden_tend_seed_dunno"]
+        },
+        "garden_tend_02b_brief": {
+          "nodeId": "garden_tend_02b_brief",
+          "questionText": "잠깐 할 일 하나 골라줄래?",
+          "npcLines": [
+            "(작게 끄덕) 잠깐도 좋아.",
+            "짧게 할 수 있는 일도 셋 있어."
+          ],
+          "choices": ["garden_tend_weed", "garden_tend_smell", "garden_tend_beside"]
+        },
+        "garden_tend_02c_watch": {
+          "nodeId": "garden_tend_02c_watch",
+          "questionText": "어디 보고 싶어?",
+          "npcLines": [
+            "오, 그것도 좋은 자리.",
+            "어디 보고 싶어?"
+          ],
+          "choices": ["garden_tend_watch_seedling", "garden_tend_watch_flower", "garden_tend_watch_whole"]
+        }
+      }
+    },
+
+    "garden_nonverbal": {
+      "scriptId": "garden_nonverbal",
+      "npcId": "gardener_bear",
+      "title": "색·가리키기 비언어",
+      "entryNodeId": "garden_nv_01_entry",
+      "nodes": {
+        "garden_nv_01_entry": {
+          "nodeId": "garden_nv_01_entry",
+          "questionText": "오늘 마음 어떻게 보여줄래?",
+          "npcLines": [
+            "(꽃 가리키며) 정호는 마음이 무거우면 꽃 가리키면서 가족한테 보여주거든.",
+            "너는 오늘 마음 어떻게 보여줄래?"
+          ],
+          "choices": ["garden_nv_color", "garden_nv_point", "garden_nv_drawing"]
+        },
+        "garden_nv_02a_color": {
+          "nodeId": "garden_nv_02a_color",
+          "questionText": "지금 마음이 어떤 색이야?",
+          "npcLines": ["정원에도 매일 색이 달라.", "지금 마음이 어떤 색이야?"],
+          "choices": ["garden_nv_blue", "garden_nv_yellow", "garden_nv_multi"]
+        },
+        "garden_nv_03a_blue_where": {
+          "nodeId": "garden_nv_03a_blue_where",
+          "questionText": "파란 색이 마음 어디에 있어?",
+          "npcLines": ["파란 색이 마음 어디에 있어?"],
+          "choices": ["garden_nv_blue_chest", "garden_nv_blue_head", "garden_nv_blue_all"]
+        },
+        "garden_nv_02b_point": {
+          "nodeId": "garden_nv_02b_point",
+          "questionText": "어디를 가리킬래?",
+          "npcLines": [
+            "손가락도 진짜 말이야.",
+            "정호도 새싹 가리키면서 자주 얘기해.",
+            "어디를 가리킬래?"
+          ],
+          "choices": ["garden_nv_point_body", "garden_nv_point_family", "garden_nv_point_garden"]
+        },
+        "garden_nv_02c_drawing": {
+          "nodeId": "garden_nv_02c_drawing",
+          "questionText": "뭐 그려볼래?",
+          "npcLines": ["그림. 좋아.", "뭐 그려볼래?"],
+          "choices": ["garden_nv_draw_mood", "garden_nv_draw_favorite", "garden_nv_draw_free"]
+        }
+      }
+    },
+
+    "squirrel_shade": {
+      "scriptId": "squirrel_shade",
+      "npcId": "squirrel_friend",
+      "title": "그늘에 가만히",
+      "entryNodeId": "squirrel_shade_01_entry",
+      "nodes": {
+        "squirrel_shade_01_entry": {
+          "nodeId": "squirrel_shade_01_entry",
+          "questionText": "한번 와봐!",
+          "npcLines": [
+            "야야! 표정 봤어, 너 오늘 좀 무거워 보여.",
+            "(도토리 굴리며 다가오며) 내가 자리 잡아놨거든.",
+            "한번 와봐!"
+          ],
+          "choices": ["squirrel_shade_yes", "squirrel_shade_brief", "squirrel_shade_more"]
+        },
+        "squirrel_shade_02a_how": {
+          "nodeId": "squirrel_shade_02a_how",
+          "questionText": "어떻게 있고 싶어?",
+          "npcLines": ["(옆 자리 톡톡) 어떻게 있고 싶어?", "세현이 옆이면 다 돼."],
+          "choices": ["squirrel_shade_silent", "squirrel_shade_oneword", "squirrel_shade_lean"]
+        },
+        "squirrel_shade_03a_silent_check": {
+          "nodeId": "squirrel_shade_03a_silent_check",
+          "questionText": "어때, 좀 가벼워졌어?",
+          "npcLines": ["(같이 가만히 있는 시간)", "어때, 좀 가벼워졌어?"],
+          "choices": ["squirrel_shade_lighter", "squirrel_shade_dunno", "squirrel_shade_heavy"]
+        },
+        "squirrel_shade_02b_brief": {
+          "nodeId": "squirrel_shade_02b_brief",
+          "questionText": "그 다음엔 어디 가게?",
+          "npcLines": ["오, 그 다음엔 어디 가게?", "(꼬리로 신호)"],
+          "choices": ["squirrel_shade_treat", "squirrel_shade_family", "squirrel_shade_just_go"]
+        },
+        "squirrel_shade_02c_more": {
+          "nodeId": "squirrel_shade_02c_more",
+          "questionText": "어떻게 더 있을까?",
+          "npcLines": ["오, 좀 더? 좋아!", "(나뭇잎 떨어뜨리며 자리 만들며) 어떻게 더 있을까?"],
+          "choices": ["squirrel_shade_more_still", "squirrel_shade_more_story", "squirrel_shade_more_go"]
+        }
+      }
+    },
+
+    "squirrel_word": {
+      "scriptId": "squirrel_word",
+      "npcId": "squirrel_friend",
+      "title": "한 줄 게임",
+      "entryNodeId": "squirrel_word_01_entry",
+      "nodes": {
+        "squirrel_word_01_entry": {
+          "nodeId": "squirrel_word_01_entry",
+          "questionText": "오늘 한 줄짜리 게임 어때?",
+          "npcLines": [
+            "야! 오늘 한 줄짜리 게임 어때?",
+            "(도토리 굴리며) 마음에서 떠오르는 한 단어, 던져봐!"
+          ],
+          "choices": ["squirrel_word_dunno", "squirrel_word_hard", "squirrel_word_okay"]
+        },
+        "squirrel_word_02a_dunno": {
+          "nodeId": "squirrel_word_02a_dunno",
+          "questionText": "머리에 살짝 스친 단어 뭐 있어?",
+          "npcLines": [
+            "음, 모르겠으면 그냥 떠오르는 거.",
+            "머리에 살짝 스친 단어 뭐 있어?"
+          ],
+          "choices": ["squirrel_word_tired", "squirrel_word_heavy", "squirrel_word_blank"]
+        },
+        "squirrel_word_02b_hard": {
+          "nodeId": "squirrel_word_02b_hard",
+          "questionText": "누구한테 한 번 더 던져볼까?",
+          "npcLines": [
+            "어! 힘들다는 한마디 잘 꺼냈어!",
+            "(꼬리로 옆 자리 톡톡) 누구한테 한 번 더 던져볼까?"
+          ],
+          "choices": ["squirrel_word_mom", "squirrel_word_teacher", "squirrel_word_here"]
+        },
+        "squirrel_word_03b_mom_what": {
+          "nodeId": "squirrel_word_03b_mom_what",
+          "questionText": "엄마한테 어떤 한 줄?",
+          "npcLines": ["엄마한테 어떤 한 줄?"],
+          "choices": ["squirrel_word_say_hard", "squirrel_word_say_hug", "squirrel_word_say_near"]
+        },
+        "squirrel_word_02c_okay": {
+          "nodeId": "squirrel_word_02c_okay",
+          "questionText": "그럼 오늘은 뭐 할 거야?",
+          "npcLines": [
+            "오! 괜찮은 날도 진짜 좋은 한마디야.",
+            "그럼 오늘은 뭐 할 거야?"
+          ],
+          "choices": ["squirrel_word_walk", "squirrel_word_friend", "squirrel_word_stay"]
+        }
+      }
+    },
+
+    "squirrel_apart": {
+      "scriptId": "squirrel_apart",
+      "npcId": "squirrel_friend",
+      "title": "잠깐 떨어졌다 합류",
+      "entryNodeId": "squirrel_apart_01_entry",
+      "nodes": {
+        "squirrel_apart_01_entry": {
+          "nodeId": "squirrel_apart_01_entry",
+          "questionText": "잠깐 다른 데 갔다 와도 돼!",
+          "npcLines": [
+            "야, 잠깐 다른 데 갔다 와도 돼!",
+            "(꼬리 휙) 여긴 그대로 있을게.",
+            "도토리도 안 도망가게 지킬게."
+          ],
+          "choices": ["squirrel_apart_go", "squirrel_apart_stay", "squirrel_apart_together"]
+        },
+        "squirrel_apart_02a_where": {
+          "nodeId": "squirrel_apart_02a_where",
+          "questionText": "어디 갔다 오게?",
+          "npcLines": ["오, 어디 갔다 오게?", "(꼬리로 신호)"],
+          "choices": ["squirrel_apart_walk_round", "squirrel_apart_alone", "squirrel_apart_dunno"]
+        },
+        "squirrel_apart_03a_walk_with": {
+          "nodeId": "squirrel_apart_03a_walk_with",
+          "questionText": "한 바퀴! 누구랑 갈래?",
+          "npcLines": ["오, 한 바퀴!", "누구랑 갈래?"],
+          "choices": ["squirrel_apart_walk_alone", "squirrel_apart_walk_sehyeon", "squirrel_apart_walk_dain"]
+        },
+        "squirrel_apart_02b_stay": {
+          "nodeId": "squirrel_apart_02b_stay",
+          "questionText": "어떻게 있고 싶어?",
+          "npcLines": ["오, 그래!", "(나뭇잎 떨어뜨리며) 어떻게 있고 싶어?"],
+          "choices": ["squirrel_apart_stay_still", "squirrel_apart_stay_more_word", "squirrel_apart_stay_brief"]
+        },
+        "squirrel_apart_02c_together": {
+          "nodeId": "squirrel_apart_02c_together",
+          "questionText": "어디로?",
+          "npcLines": ["(꼬리로 가리키며) 어디로?"],
+          "choices": ["squirrel_apart_garden", "squirrel_apart_friends", "squirrel_apart_nurse"]
+        }
+      }
+    },
+
+    "dain_miss": {
+      "scriptId": "dain_miss",
+      "npcId": "dain",
+      "title": "친구 보고 싶음",
+      "entryNodeId": "dain_miss_01_entry",
+      "nodes": {
+        "dain_miss_01_entry": {
+          "nodeId": "dain_miss_01_entry",
+          "questionText": "너는 요즘 누가 떠올라?",
+          "npcLines": [
+            "(옆에 앉으며) 다인이 어제 그림 그리다 학교 친구 한 명 갑자기 생각났거든.",
+            "안 보이면 마음이 좀 무거워지더라.",
+            "너는 요즘 누가 떠올라?"
+          ],
+          "choices": ["dain_miss_a_lot", "dain_miss_sometimes", "dain_miss_no"]
+        },
+        "dain_miss_02a_what": {
+          "nodeId": "dain_miss_02a_what",
+          "questionText": "뭐 하면 좀 나을까?",
+          "npcLines": [
+            "그 마음 잘 알아.",
+            "나도 어제 그러다 그림으로 인사 보냈어.",
+            "뭐 하면 좀 나을까?"
+          ],
+          "choices": ["dain_miss_hi", "dain_miss_draw", "dain_miss_think"]
+        },
+        "dain_miss_03a_how_send": {
+          "nodeId": "dain_miss_03a_how_send",
+          "questionText": "뭐라고 보낼까?",
+          "npcLines": ["뭐라고 보낼까?"],
+          "choices": ["dain_miss_say_miss", "dain_miss_say_meet", "dain_miss_letter"]
+        },
+        "dain_miss_02b_sometimes": {
+          "nodeId": "dain_miss_02b_sometimes",
+          "questionText": "보고 싶어지면 어떻게 해?",
+          "npcLines": [
+            "가끔 그러는 거 자연스러워.",
+            "보고 싶어지면 어떻게 해?"
+          ],
+          "choices": ["dain_miss_think_alone", "dain_miss_family_chat", "dain_miss_tell_later"]
+        },
+        "dain_miss_02c_no": {
+          "nodeId": "dain_miss_02c_no",
+          "questionText": "그럼 우리 뭐 할까?",
+          "npcLines": [
+            "오, 그것도 OK!",
+            "그럼 우리 뭐 할까?"
+          ],
+          "choices": ["dain_miss_other_chat", "dain_miss_game", "dain_miss_quiet"]
+        }
+      }
+    },
+
+    "dain_school": {
+      "scriptId": "dain_school",
+      "npcId": "dain",
+      "title": "학교 소식 궁금",
+      "entryNodeId": "dain_school_01_entry",
+      "nodes": {
+        "dain_school_01_entry": {
+          "nodeId": "dain_school_01_entry",
+          "questionText": "너는 학교 소식 좀 들어?",
+          "npcLines": [
+            "(가까이 몸 기울이며) 있잖아, 다인이 어제 학교 친구가 자리 바꿨다는 얘기 들었거든.",
+            "나는 학교 못 간 지 길어지면 가끔 이런 거 궁금해지더라.",
+            "너는 학교 소식 좀 들어?"
+          ],
+          "choices": ["dain_school_a_lot", "dain_school_sometimes", "dain_school_no"]
+        },
+        "dain_school_02a_who": {
+          "nodeId": "dain_school_02a_who",
+          "questionText": "누구한테 물어볼까?",
+          "npcLines": [
+            "안 가면 더 궁금해지지.",
+            "누구한테 물어볼까?"
+          ],
+          "choices": ["dain_school_mom", "dain_school_friend", "dain_school_dain"]
+        },
+        "dain_school_03a_mom_what": {
+          "nodeId": "dain_school_03a_mom_what",
+          "questionText": "엄마한테 뭐 물어볼래?",
+          "npcLines": ["엄마한테 뭐 물어볼래?"],
+          "choices": ["dain_school_mom_how", "dain_school_mom_missed", "dain_school_mom_friends"]
+        },
+        "dain_school_02b_sometimes": {
+          "nodeId": "dain_school_02b_sometimes",
+          "questionText": "그럴 때 뭐가 떠올라?",
+          "npcLines": ["그럴 때 뭐가 떠올라?"],
+          "choices": ["dain_school_some_friends", "dain_school_some_class", "dain_school_some_all"]
+        },
+        "dain_school_02c_no": {
+          "nodeId": "dain_school_02c_no",
+          "questionText": "그럼 우리 뭐 할까?",
+          "npcLines": [
+            "지금은 별로구나.",
+            "그럼 우리 뭐 할까?"
+          ],
+          "choices": ["dain_school_other_chat", "dain_school_quiet", "dain_school_other_friend"]
+        }
+      }
+    },
+
+    "dain_greet": {
+      "scriptId": "dain_greet",
+      "npcId": "dain",
+      "title": "짧게 인사 보내기",
+      "entryNodeId": "dain_greet_01_entry",
+      "nodes": {
+        "dain_greet_01_entry": {
+          "nodeId": "dain_greet_01_entry",
+          "questionText": "너는 어떤 한 마디 보내고 싶어?",
+          "npcLines": [
+            "(펜 굴리며) 야, 다인이 어제 친구한테 '잘 지내?' 한 줄 보냈는데 답장 왔어.",
+            "우리 같이 인사 게임 어때?",
+            "너는 어떤 한 마디 보내고 싶어?"
+          ],
+          "choices": ["dain_greet_miss", "dain_greet_well", "dain_greet_meet"]
+        },
+        "dain_greet_02a_how": {
+          "nodeId": "dain_greet_02a_how",
+          "questionText": "어떻게 전할까?",
+          "npcLines": ["좋은 한마디야.", "어떻게 전할까?"],
+          "choices": ["dain_greet_speak", "dain_greet_write", "dain_greet_draw"]
+        },
+        "dain_greet_03a_when": {
+          "nodeId": "dain_greet_03a_when",
+          "questionText": "언제 보낼래?",
+          "npcLines": ["언제 보낼래?"],
+          "choices": ["dain_greet_when_now", "dain_greet_when_later", "dain_greet_when_mom"]
+        },
+        "dain_greet_02b_well_how": {
+          "nodeId": "dain_greet_02b_well_how",
+          "questionText": "어떻게 보낼까?",
+          "npcLines": [
+            "'잘 지내?'라는 한마디, 따뜻한 거야.",
+            "어떻게 보낼까?"
+          ],
+          "choices": ["dain_greet_well_short", "dain_greet_well_drawing", "dain_greet_well_mom"]
+        },
+        "dain_greet_02c_meet_when": {
+          "nodeId": "dain_greet_02c_meet_when",
+          "questionText": "어떤 약속이면 좋을까?",
+          "npcLines": [
+            "다음에 만나자, 좋은 약속이야.",
+            "어떤 약속이면 좋을까?"
+          ],
+          "choices": ["dain_greet_meet_soon", "dain_greet_meet_school", "dain_greet_meet_home"]
+        }
+      }
+    }
+  },
+
+  "choices": {
+    "mky_inj_fear": {
+      "choiceIntentId": "mky_inj_fear",
+      "text": "주사가 무서워요",
+      "nextNodeId": "mky_inj_02a_who",
+      "isEnding": false,
+      "valence": "NEGATIVE",
+      "tone": "WORRIED",
+      "intensity": 3,
+      "concernFlags": ["procedure_fear", "pain_concern"],
+      "protectiveFactors": ["can_name_fear", "emotion_named"],
+      "topicKeywords": ["주사"],
+      "sentimentWords": [
+        { "phrase": "무서워요", "tone": "NEGATIVE" }
+      ]
+    },
+    "mky_inj_unknown": {
+      "choiceIntentId": "mky_inj_unknown",
+      "text": "다음에 뭐 할지 잘 몰라서요",
+      "nextNodeId": "mky_inj_02b_ask",
+      "isEnding": false,
+      "valence": "NEUTRAL",
+      "tone": "WORRIED",
+      "intensity": 2,
+      "concernFlags": ["uncertainty", "information_need"],
+      "protectiveFactors": ["uncertainty_named"],
+      "topicKeywords": ["모름"],
+      "sentimentWords": []
+    },
+    "mky_inj_unsure": {
+      "choiceIntentId": "mky_inj_unsure",
+      "text": "잘 모르겠어요",
+      "nextNodeId": "mky_inj_02c_now",
+      "isEnding": false,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": [],
+      "topicKeywords": [],
+      "sentimentWords": []
+    },
+    "mky_inj_mom": {
+      "choiceIntentId": "mky_inj_mom",
+      "text": "엄마요",
+      "nextNodeId": "mky_inj_03a1_how",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": []
+    },
+    "mky_inj_dunno_who": {
+      "choiceIntentId": "mky_inj_dunno_who",
+      "text": "잘 모르겠어요",
+      "nextNodeId": "mky_inj_03a2_offer",
+      "isEnding": false,
+      "valence": "NEUTRAL",
+      "tone": "WORRIED",
+      "intensity": 2,
+      "concernFlags": ["uncertainty", "hesitation_to_share"],
+      "protectiveFactors": [],
+      "topicKeywords": [],
+      "sentimentWords": []
+    },
+    "mky_inj_monkey_holds": {
+      "choiceIntentId": "mky_inj_monkey_holds",
+      "text": "코몽이가 잡아줘요",
+      "nextNodeId": "mky_inj_03a3_check",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "social_connection", "can_name_fear"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": []
+    },
+    "mky_inj_say_hold": {
+      "choiceIntentId": "mky_inj_say_hold",
+      "text": "「손 잡고 있어줘」라고 할래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족", "손잡기"],
+      "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마도 네 마음을 알기 쉬울 거야.",
+        "오늘 와줘서 고마워."
+      ],
+      "closingLine": "(꼬리로 손 잡으며) 또 와!"
+    },
+    "mky_inj_say_be_near": {
+      "choiceIntentId": "mky_inj_say_be_near",
+      "text": "「옆에만 있어줘」라고 할래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "옆에만 있어도 든든하지.",
+        "한 번 슬쩍 부탁해봐 — 옆자리 비워주실 거야."
+      ],
+      "closingLine": "옆자리 비워두고 기다릴게!"
+    },
+    "mky_inj_just_go": {
+      "choiceIntentId": "mky_inj_just_go",
+      "text": "그냥 가서 손 잡을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "family_support_preference"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "말이 어렵다면 손을 살짝 잡아도 돼.",
+        "그래도 아프거나 무서우면 한마디로 알려보자."
+      ],
+      "closingLine": "(꼬리 살랑) 잘 갔다 와!"
+    },
+    "mky_inj_yes_together": {
+      "choiceIntentId": "mky_inj_yes_together",
+      "text": "좋아요, 같이 가요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["support_seeking", "playful_coping", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오케이! 다음에 무서울 때 코몽이 떠올려.",
+        "(꼬리로 손 흔들며) 같이 갈게."
+      ],
+      "closingLine": "코몽이는 항상 여기야!"
+    },
+    "mky_inj_be_near_me": {
+      "choiceIntentId": "mky_inj_be_near_me",
+      "text": "그냥 옆에 있어주세요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응, 옆에 있을게.",
+        "무서울 때마다 코몽이 떠올려."
+      ],
+      "closingLine": "(꼬리 살랑) 여기 있을게."
+    },
+    "mky_inj_feel_good": {
+      "choiceIntentId": "mky_inj_feel_good",
+      "text": "응, 든든해요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "playful_coping"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": [
+        { "phrase": "든든해요", "tone": "POSITIVE" }
+      ],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오케이! 그럼 다음에 주사 맞을 때 코몽이 꼬리 떠올려."
+      ],
+      "closingLine": "꼬리 흔들면서 기다릴게!"
+    },
+    "mky_inj_still_scared": {
+      "choiceIntentId": "mky_inj_still_scared",
+      "text": "음, 아직 무서워요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEGATIVE",
+      "tone": "WORRIED",
+      "intensity": 2,
+      "concernFlags": ["procedure_fear"],
+      "protectiveFactors": ["can_name_fear", "emotion_named"],
+      "topicKeywords": ["주사"],
+      "sentimentWords": [
+        { "phrase": "무서워요", "tone": "NEGATIVE" }
+      ],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "그럼 엄마 손도 같이 잡아.",
+        "둘이면 두 배로 든든해."
+      ],
+      "closingLine": "무서울 때 또 와. 옆에 있을게."
+    },
+    "mky_inj_ask_teacher": {
+      "choiceIntentId": "mky_inj_ask_teacher",
+      "text": "선생님께 물어볼래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking", "information_seeking"],
+      "topicKeywords": ["의료진"],
+      "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "좋아. 선생님께 차근차근 물어볼 수 있어.",
+        "'오늘 뭐 해요?' 한 마디만.",
+        "모르는 건 묻는 게 빠른 길이거든."
+      ],
+      "closingLine": "들은 거 와서 알려줘!"
+    },
+    "mky_inj_ask_mom": {
+      "choiceIntentId": "mky_inj_ask_mom",
+      "text": "엄마한테 물어볼래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking", "information_seeking"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "엄마랑 같이 알아보면 든든하지.",
+        "혼자 끙끙대지 말기 약속!"
+      ],
+      "closingLine": "다음에 와서 어땠는지 알려줘."
+    },
+    "mky_inj_not_ask": {
+      "choiceIntentId": "mky_inj_not_ask",
+      "text": "안 물어볼래요, 그냥 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [],
+      "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": [
+        "응, 지금은 그게 편하면 그래도 돼.",
+        "궁금해지면 그때 와도 늦지 않아."
+      ],
+      "closingLine": "마음 가벼울 때 들러!"
+    },
+    "mky_inj_with_monkey": {
+      "choiceIntentId": "mky_inj_with_monkey",
+      "text": "그냥 같이 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오케이! 코몽이도 그게 좋아.",
+        "(옆에 와서 앉으며) 말 안 해도 돼."
+      ],
+      "closingLine": "(꼬리 살랑) 가만히 있어도 좋아."
+    },
+    "mky_inj_stay_still": {
+      "choiceIntentId": "mky_inj_stay_still",
+      "text": "잠깐 가만히 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "TIRED",
+      "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["sets_boundary", "rest_need_named"],
+      "topicKeywords": ["휴식"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응, 가만히 있어도 충분해.",
+        "(꼬리 살랑) 코몽이 옆에서 같이 있을게."
+      ],
+      "closingLine": "쉬다가 또 와!"
+    },
+    "mky_inj_other_friend": {
+      "choiceIntentId": "mky_inj_other_friend",
+      "text": "다른 친구 만나러 갈래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "social_connection"],
+      "topicKeywords": ["친구"],
+      "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "오, 좋아! 가볍게 놀다 와.",
+        "코몽이는 여기서 기다릴게."
+      ],
+      "closingLine": "친구랑 놀고 또 와!"
+    },
+
+    "mky_fru_stuck": {
+      "choiceIntentId": "mky_fru_stuck",
+      "text": "진짜 답답해요",
+      "nextNodeId": "mky_fru_02a_relief",
+      "isEnding": false,
+      "valence": "NEGATIVE",
+      "tone": "WORRIED",
+      "intensity": 2,
+      "concernFlags": ["anger_or_frustration"],
+      "protectiveFactors": ["emotion_named"],
+      "topicKeywords": ["답답함"],
+      "sentimentWords": [
+        { "phrase": "답답해요", "tone": "NEGATIVE" }
+      ]
+    },
+    "mky_fru_angry": {
+      "choiceIntentId": "mky_fru_angry",
+      "text": "화가 나요",
+      "nextNodeId": "mky_fru_02b_how",
+      "isEnding": false,
+      "valence": "NEGATIVE",
+      "tone": "WORRIED",
+      "intensity": 2,
+      "concernFlags": ["anger_or_frustration"],
+      "protectiveFactors": ["emotion_named", "can_name_fear"],
+      "topicKeywords": ["분노"],
+      "sentimentWords": [
+        { "phrase": "화가 나요", "tone": "NEGATIVE" }
+      ]
+    },
+    "mky_fru_dunno": {
+      "choiceIntentId": "mky_fru_dunno",
+      "text": "잘 모르겠어요",
+      "nextNodeId": "mky_fru_02c_now",
+      "isEnding": false,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": [],
+      "topicKeywords": [],
+      "sentimentWords": []
+    },
+    "mky_fru_pause": {
+      "choiceIntentId": "mky_fru_pause",
+      "text": "잠깐 멈추고 싶어요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["pause_coping", "self_regulation"],
+      "topicKeywords": ["멈춤"],
+      "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "오케이, 멈춤 모드!",
+        "눈 한 번 꼭 감았다 떠봐. 코몽이도 같이 할게.",
+        "(눈 꼭 감고) 됐다."
+      ],
+      "closingLine": "또 답답하면 와!"
+    },
+    "mky_fru_talk": {
+      "choiceIntentId": "mky_fru_talk",
+      "text": "누구한테 말하고 싶어요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["support_seeking", "verbal_expression"],
+      "topicKeywords": ["말하기"],
+      "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "그래, 말하면 풀려.",
+        "제일 편한 사람한테 '나 좀 답답해' 한마디만."
+      ],
+      "closingLine": "다음에 와서 어땠는지 알려줘!"
+    },
+    "mky_fru_just_be": {
+      "choiceIntentId": "mky_fru_just_be",
+      "text": "그냥 코몽이랑 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오케이! 코몽이도 좋아.",
+        "(옆에 앉으며) 같이 있자."
+      ],
+      "closingLine": "(꼬리 살랑) 또 와."
+    },
+    "mky_fru_angry_pause": {
+      "choiceIntentId": "mky_fru_angry_pause",
+      "text": "잠깐 멈춰볼래요",
+      "nextNodeId": "mky_fru_03_pause",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["pause_coping", "self_regulation"],
+      "topicKeywords": ["멈춤"],
+      "sentimentWords": []
+    },
+    "mky_fru_angry_talk": {
+      "choiceIntentId": "mky_fru_angry_talk",
+      "text": "말로 풀어볼래요",
+      "nextNodeId": "mky_fru_03_talk",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression"],
+      "topicKeywords": ["말하기"],
+      "sentimentWords": []
+    },
+    "mky_fru_angry_body": {
+      "choiceIntentId": "mky_fru_angry_body",
+      "text": "몸으로 풀어볼래요",
+      "nextNodeId": "mky_fru_03_body",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "self_regulation"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": []
+    },
+    "mky_fru_breathe": {
+      "choiceIntentId": "mky_fru_breathe",
+      "text": "숨 길게 쉬어볼래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["breathing_coping", "self_regulation"],
+      "topicKeywords": ["호흡"],
+      "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "오케이, 코로 쭈욱… 입으로 후우.",
+        "코몽이도 같이. (후우) 됐어."
+      ],
+      "closingLine": "(꼬리 살랑) 호흡 잊지 마, 또 와!"
+    },
+    "mky_fru_close_eyes": {
+      "choiceIntentId": "mky_fru_close_eyes",
+      "text": "눈 감고 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_care_action"],
+      "topicKeywords": ["멈춤"],
+      "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "응, 눈 감고 잠깐만.",
+        "마음이 조금 차분해질 때까지."
+      ],
+      "closingLine": "(꼬리 살짝) 다음에 또 와서 같이 감자."
+    },
+    "mky_fru_tell_mom": {
+      "choiceIntentId": "mky_fru_tell_mom",
+      "text": "엄마한테",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking", "verbal_expression"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "(꼬리 살랑) 엄마한테 슬쩍 가서 '나 좀 화났어' 라고 해봐.",
+        "말로 꺼내면 마음이 한결 가벼워져."
+      ],
+      "closingLine": "(꼬리 살랑) 풀고 또 와!"
+    },
+    "mky_fru_tell_monkey": {
+      "choiceIntentId": "mky_fru_tell_monkey",
+      "text": "그냥 코몽이한테",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "playful_coping"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오케이! 코몽이가 다 들을게.",
+        "(귀 쫑긋)"
+      ],
+      "closingLine": "다음에 또 와서 말해도 돼!"
+    },
+    "mky_fru_shake_light": {
+      "choiceIntentId": "mky_fru_shake_light",
+      "text": "가볍게 흔들어볼래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "self_regulation"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "좋아! 발 까딱 손 흔들.",
+        "너무 세게 말고."
+      ],
+      "closingLine": "또 흔들고 싶을 때 와!"
+    },
+    "mky_fru_lay_down": {
+      "choiceIntentId": "mky_fru_lay_down",
+      "text": "그냥 누워있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "TIRED",
+      "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["rest_need_named", "sets_boundary"],
+      "topicKeywords": ["휴식"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응, 누워서 풀리기도 해.",
+        "코몽이도 누울게."
+      ],
+      "closingLine": "(같이 누워서) 또 와!"
+    },
+    "mky_fru_quiet": {
+      "choiceIntentId": "mky_fru_quiet",
+      "text": "잠깐 조용히 있을래요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "TIRED",
+      "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["휴식"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응, 조용한 거 좋지.",
+        "코몽이도 입 꾹."
+      ],
+      "closingLine": "(입 꾹) 또 와."
+    },
+    "mky_fru_hug": {
+      "choiceIntentId": "mky_fru_hug",
+      "text": "안아줄 사람이 필요해요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"],
+      "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "응, 안기고 싶은 마음 자연스러워.",
+        "가족한테 슬쩍 가서 손 내밀어봐. 안아주실걸."
+      ],
+      "closingLine": "안긴 뒤에 또 와!"
+    },
+    "mky_fru_with_monkey": {
+      "choiceIntentId": "mky_fru_with_monkey",
+      "text": "그냥 같이 있고 싶어요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(꼬리 살랑) 코몽이가 옆에서 같이 있을게."
+      ],
+      "closingLine": "(꼬리 살랑) 또 와."
+    },
+
+    "mky_play_music": {
+      "choiceIntentId": "mky_play_music",
+      "text": "음악 듣고 싶어요",
+      "nextNodeId": "mky_play_02a_music",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "agency_coping"],
+      "topicKeywords": ["음악"],
+      "sentimentWords": []
+    },
+    "mky_play_dance": {
+      "choiceIntentId": "mky_play_dance",
+      "text": "몸을 좀 흔들고 싶어요",
+      "nextNodeId": "mky_play_02b_dance",
+      "isEnding": false,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "playful_coping"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": []
+    },
+    "mky_play_still": {
+      "choiceIntentId": "mky_play_still",
+      "text": "그냥 가만히 있을래요",
+      "nextNodeId": "mky_play_02c_still",
+      "isEnding": false,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["휴식"],
+      "sentimentWords": []
+    },
+    "mky_play_quiet": {
+      "choiceIntentId": "mky_play_quiet",
+      "text": "조용한 거요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity"],
+      "topicKeywords": ["음악", "잔잔"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "잔잔한 거구나.",
+        "한 곡만 들어도 마음이 살짝 달라져."
+      ],
+      "closingLine": "또 같이 들으러 와!"
+    },
+    "mky_play_lively": {
+      "choiceIntentId": "mky_play_lively",
+      "text": "신나는 거요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "playful_coping"],
+      "topicKeywords": ["음악", "신남"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "오케이! 들으면서 발 까딱까딱 해봐.",
+        "코몽이도 옆에서 꼬리 흔들게."
+      ],
+      "closingLine": "또 와서 흔들자!"
+    },
+    "mky_play_rec": {
+      "choiceIntentId": "mky_play_rec",
+      "text": "추천해주세요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity"],
+      "topicKeywords": ["음악"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "음… 햇볕 좋은 날 같은 거?",
+        "따뜻한 거 한 곡 골라봐."
+      ],
+      "closingLine": "다음에 와서 어땠는지 알려줘!"
+    },
+    "mky_play_hands": {
+      "choiceIntentId": "mky_play_hands",
+      "text": "손만 살짝",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "sets_boundary"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "좋아, 살짝만.",
+        "(코몽이 손 흔드는 흉내) 힘들면 바로 멈춰."
+      ],
+      "closingLine": "같이 손 흔들러 또 와!"
+    },
+    "mky_play_feet": {
+      "choiceIntentId": "mky_play_feet",
+      "text": "발만 까딱까딱",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "오케이, 발 까딱!",
+        "(꼬리도 까딱) 됐다."
+      ],
+      "closingLine": "발 까딱 하러 또 와!"
+    },
+    "mky_play_all": {
+      "choiceIntentId": "mky_play_all",
+      "text": "다 같이 흔들",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "positive_activity"],
+      "topicKeywords": ["놀이"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "전부 다!",
+        "코몽이는 꼬리, 너는 손발.",
+        "너무 무리는 하지 말고."
+      ],
+      "closingLine": "다음엔 더 신나게 흔들자!"
+    },
+    "mky_play_with_me": {
+      "choiceIntentId": "mky_play_with_me",
+      "text": "옆에 와주세요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["코몽"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "오케이!",
+        "(옆에 와서 앉으며) 가만히 같이 있자. (하품)"
+      ],
+      "closingLine": "(옆에 누워서) 또 와!"
+    },
+    "mky_play_far_watch": {
+      "choiceIntentId": "mky_play_far_watch",
+      "text": "멀리서 봐주세요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "NEUTRAL",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["휴식"],
+      "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응, 멀리서.",
+        "(나무 위에서 손 흔들며) 코몽이 여기 있어."
+      ],
+      "closingLine": "나무 위에서 기다릴게!"
+    },
+    "mky_play_soft_music": {
+      "choiceIntentId": "mky_play_soft_music",
+      "text": "음악 작게 틀어주세요",
+      "nextNodeId": null,
+      "isEnding": true,
+      "valence": "POSITIVE",
+      "tone": "CALM",
+      "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "sets_boundary"],
+      "topicKeywords": ["음악", "잔잔"],
+      "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "오케이, 잔잔한 거 작게.",
+        "코몽이도 졸린다. (하품)"
+      ],
+      "closingLine": "(하품) 다음엔 더 작게 틀어두자."
+    },
+
+    "nurse_pain_hurts": {
+      "choiceIntentId": "nurse_pain_hurts", "text": "좀 아파요",
+      "nextNodeId": "nurse_pain_02a_where", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["pain_concern", "body_discomfort"],
+      "protectiveFactors": ["body_state_named", "emotion_named"],
+      "topicKeywords": ["통증"],
+      "sentimentWords": [{"phrase": "아파요", "tone": "NEGATIVE"}]
+    },
+    "nurse_pain_next_worry": {
+      "choiceIntentId": "nurse_pain_next_worry", "text": "다음 시술이 걱정돼요",
+      "nextNodeId": "nurse_pain_02b_what_worry", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["procedure_fear", "worry_present"],
+      "protectiveFactors": ["can_name_fear", "emotion_named"],
+      "topicKeywords": ["시술"],
+      "sentimentWords": [{"phrase": "걱정돼요", "tone": "NEGATIVE"}]
+    },
+    "nurse_pain_okay": {
+      "choiceIntentId": "nurse_pain_okay", "text": "지금은 괜찮아요",
+      "nextNodeId": "nurse_pain_02c_check", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_body_state"],
+      "topicKeywords": ["컨디션"], "sentimentWords": []
+    },
+    "nurse_pain_head": {
+      "choiceIntentId": "nurse_pain_head", "text": "머리요",
+      "nextNodeId": "nurse_pain_03a_head_care", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["pain_concern", "body_discomfort"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["통증"], "sentimentWords": []
+    },
+    "nurse_pain_belly": {
+      "choiceIntentId": "nurse_pain_belly", "text": "배요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["pain_concern", "body_discomfort"],
+      "protectiveFactors": ["body_state_named", "medical_support_preference"],
+      "topicKeywords": ["통증"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(노트 펼치며) 배 아픈 건 식사나 물 신호일 때도 있어.",
+        "선생님께 알리고 같이 확인하자."
+      ],
+      "closingLine": "(노트에 메모하며) 또 와."
+    },
+    "nurse_pain_dunno_where": {
+      "choiceIntentId": "nurse_pain_dunno_where", "text": "잘 모르겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "WORRIED", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named", "sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": [
+        "(작게 끄덕) 아직 몸 느낌을 찾는 중일 수 있어.",
+        "잠깐 옆에 앉아 있다 가."
+      ],
+      "closingLine": "(의자 끌어다 놓으며) 또 와."
+    },
+    "nurse_pain_bed": {
+      "choiceIntentId": "nurse_pain_bed", "text": "침대로 갈래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_care_action", "rest_need_named"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(끄덕) 같이 가줄게.", "베개 자리 데워둘게."],
+      "closingLine": "푹 쉬다 와."
+    },
+    "nurse_pain_mom_near": {
+      "choiceIntentId": "nurse_pain_mom_near", "text": "엄마 옆이 좋아요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마한테 '머리 좀 무거워' 한 줄.",
+        "옆에 있어 달라고 말해보자."
+      ],
+      "closingLine": "엄마 옆에서 푹 쉬다 와."
+    },
+    "nurse_pain_tell_teacher": {
+      "choiceIntentId": "nurse_pain_tell_teacher", "text": "선생님께 알릴래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking", "verbal_expression"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(가까이 와서 작은 목소리로) 좋은 선택.",
+        "같이 가서 어디가 불편한지 말해보자."
+      ],
+      "closingLine": "여기 자리 비워둘게."
+    },
+    "nurse_pain_pain_worry": {
+      "choiceIntentId": "nurse_pain_pain_worry", "text": "아플까봐요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["procedure_fear", "pain_concern"],
+      "protectiveFactors": ["can_name_fear", "support_seeking"],
+      "topicKeywords": ["시술"],
+      "sentimentWords": [{"phrase": "아플까봐", "tone": "NEGATIVE"}],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(노트 펼치며) 선생님께 '덜 아프게 하는 방법 있어요?' 라고.",
+        "조은이도 옆에서 같이 들을게."
+      ],
+      "closingLine": "노트 챙겨두고 기다릴게."
+    },
+    "nurse_pain_time_worry": {
+      "choiceIntentId": "nurse_pain_time_worry", "text": "오래 걸릴까봐",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["worry_present", "information_need"],
+      "protectiveFactors": ["emotion_named", "information_seeking"],
+      "topicKeywords": ["시술"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "시술마다 다르지만 대부분 짧아.",
+        "오늘 거 정확히 몇 분인지 선생님께 같이 물어보자. 시간 보이면 마음이 좀 잡혀."
+      ],
+      "closingLine": "물어보고 와서 알려줘."
+    },
+    "nurse_pain_unknown_worry": {
+      "choiceIntentId": "nurse_pain_unknown_worry", "text": "뭐 하는지 몰라서요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["uncertainty", "information_need"],
+      "protectiveFactors": ["uncertainty_named", "information_seeking"],
+      "topicKeywords": ["시술"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "모르는 게 제일 무섭지.",
+        "조은이가 종이에 순서 같이 적어줄게. 한 단계씩 보면 마음 가벼워져."
+      ],
+      "closingLine": "노트 펴고 기다릴게."
+    },
+    "nurse_pain_fatigue_signal": {
+      "choiceIntentId": "nurse_pain_fatigue_signal", "text": "피곤해질 때 알게 돼요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["body_state_named", "self_regulation"],
+      "topicKeywords": ["컨디션"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "(작게 끄덕) 그 신호 잘 봐.",
+        "무리하지 말고 천천히 보내."
+      ],
+      "closingLine": "(끄덕) 잘 보내."
+    },
+    "nurse_pain_words": {
+      "choiceIntentId": "nurse_pain_words", "text": "말로 알릴래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "medical_support_preference"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "말로 알리는 거, 진짜 잘하는 거야.",
+        "조은이도 처음엔 그렇게 배웠어. '오늘 좀 무거워요' 같이 짧은 한 줄이면 돼."
+      ],
+      "closingLine": "전한 거 어땠는지 와서 알려줘."
+    },
+    "nurse_pain_come_back": {
+      "choiceIntentId": "nurse_pain_come_back", "text": "조은이한테 와요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "여기 자리는 항상 비워둘게.",
+        "와줘서 고마워."
+      ],
+      "closingLine": "(작게 끄덕) 언제든."
+    },
+
+    "nurse_check_tired": {
+      "choiceIntentId": "nurse_check_tired", "text": "좀 피곤해요",
+      "nextNodeId": "nurse_check_02a_rest", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 2,
+      "concernFlags": ["fatigue_present"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["피로"],
+      "sentimentWords": [{"phrase": "피곤해요", "tone": "NEGATIVE"}]
+    },
+    "nurse_check_dizzy": {
+      "choiceIntentId": "nurse_check_dizzy", "text": "어지러워요",
+      "nextNodeId": "nurse_check_02b_dizzy", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 3,
+      "concernFlags": ["body_discomfort"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["어지러움"],
+      "sentimentWords": [{"phrase": "어지러워요", "tone": "NEGATIVE"}]
+    },
+    "nurse_check_usual": {
+      "choiceIntentId": "nurse_check_usual", "text": "평소랑 비슷해요",
+      "nextNodeId": "nurse_check_02c_usual", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_body_state"],
+      "topicKeywords": ["컨디션"], "sentimentWords": []
+    },
+    "nurse_check_lay": {
+      "choiceIntentId": "nurse_check_lay", "text": "누워있을래요",
+      "nextNodeId": "nurse_check_03a_lay_with", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["rest_need_named", "self_care_action"],
+      "topicKeywords": ["휴식"], "sentimentWords": []
+    },
+    "nurse_check_mom_near": {
+      "choiceIntentId": "nurse_check_mom_near", "text": "엄마 옆에 있고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_connection"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마 옆은 진짜 안전한 자리지.",
+        "가서 잠깐 기대 있어. 마음이 천천히 가라앉을 거야."
+      ],
+      "closingLine": "엄마 옆에서 푹 쉬어."
+    },
+    "nurse_check_sleep": {
+      "choiceIntentId": "nurse_check_sleep", "text": "자고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 2,
+      "concernFlags": ["fatigue_present", "needs_rest"],
+      "protectiveFactors": ["self_care_action", "rest_need_named"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "(작게 끄덕) 자는 게 가장 좋은 약일 때 있어.",
+        "푹 자."
+      ],
+      "closingLine": "다음에 또 봐."
+    },
+    "nurse_check_lay_alone": {
+      "choiceIntentId": "nurse_check_lay_alone", "text": "혼자 조용히",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "(끄덕) 응.",
+        "무슨 일 있으면 조은이 부르면 돼."
+      ],
+      "closingLine": "(의자에서 기다릴게) 또 와."
+    },
+    "nurse_check_lay_with_joeun": {
+      "choiceIntentId": "nurse_check_lay_with_joeun", "text": "조은이 옆에서",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_connection"],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(의자 끌어와 앉으며) 그래.",
+        "가만히 옆에 있을게."
+      ],
+      "closingLine": "(의자 안 치우고) 또 와."
+    },
+    "nurse_check_lay_with_mom": {
+      "choiceIntentId": "nurse_check_lay_with_mom", "text": "엄마랑",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마한테 '옆에 있어줘' 한 줄.",
+        "같이 있어 달라고 말해보자."
+      ],
+      "closingLine": "엄마 손 잡고 푹 자."
+    },
+    "nurse_check_spinning": {
+      "choiceIntentId": "nurse_check_spinning", "text": "방이 빙빙 돌아요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 3,
+      "concernFlags": ["body_discomfort", "distress_present"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["어지러움"],
+      "sentimentWords": [{"phrase": "빙빙 돌아요", "tone": "NEGATIVE"}],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "지금 어지러운 거 그냥 두지 말자.",
+        "조은이 손 잡고, 천천히 일어나서 같이 가자."
+      ],
+      "closingLine": "오늘 와줘서 고마워."
+    },
+    "nurse_check_brief_dizzy": {
+      "choiceIntentId": "nurse_check_brief_dizzy", "text": "잠깐만 그래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["body_discomfort"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["어지러움"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "그래도 한 번 알려드리자.",
+        "혹시 약 먹은 시간이랑 관련 있는지도 같이 보자."
+      ],
+      "closingLine": "어땠는지 와서 알려줘."
+    },
+    "nurse_check_mild_dizzy": {
+      "choiceIntentId": "nurse_check_mild_dizzy", "text": "조금 어지러워요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["body_discomfort"],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["어지러움"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "조금이어도 알아두는 게 좋아.",
+        "잠깐 앉아서 천천히 숨 쉬어봐. 가라앉지 않으면 조은이한테 알려줘."
+      ],
+      "closingLine": "괜찮아지면 또 와."
+    },
+    "nurse_check_play_light": {
+      "choiceIntentId": "nurse_check_play_light", "text": "가볍게 놀고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "positive_mood"],
+      "topicKeywords": ["놀이"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "(작게 끄덕) 좋아.",
+        "가벼운 거면 뭐든. 마음 가는 대로 보내."
+      ],
+      "closingLine": "(작게 웃으며) 즐거운 일 갖다 줘."
+    },
+    "nurse_check_walk": {
+      "choiceIntentId": "nurse_check_walk", "text": "잠깐 산책요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "agency_coping"],
+      "topicKeywords": ["산책"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "마을 한 바퀴 천천히.",
+        "무리는 안 하고."
+      ],
+      "closingLine": "한 바퀴 돌고 와."
+    },
+    "nurse_check_chat": {
+      "choiceIntentId": "nurse_check_chat", "text": "조은이랑 얘기하고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "verbal_expression"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오, 같이 앉을까?",
+        "(노트 덮으며) 조은이도 쉬는 시간 좋아해."
+      ],
+      "closingLine": "(의자 두고) 이쪽으로 와."
+    },
+
+    "nurse_cur_next": {
+      "choiceIntentId": "nurse_cur_next", "text": "다음에 뭐 하는지 궁금해요",
+      "nextNodeId": "nurse_curious_02a_next", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need", "uncertainty"],
+      "protectiveFactors": ["information_seeking"],
+      "topicKeywords": ["정보"], "sentimentWords": []
+    },
+    "nurse_cur_med": {
+      "choiceIntentId": "nurse_cur_med", "text": "약은 왜 먹는지 궁금해요",
+      "nextNodeId": "nurse_curious_02b_med", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need"],
+      "protectiveFactors": ["information_seeking"],
+      "topicKeywords": ["약"], "sentimentWords": []
+    },
+    "nurse_cur_chat": {
+      "choiceIntentId": "nurse_cur_chat", "text": "그냥 누구랑 얘기하고 싶었어요",
+      "nextNodeId": "nurse_curious_02c_chat", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "verbal_expression"],
+      "topicKeywords": ["일상"], "sentimentWords": []
+    },
+    "nurse_cur_ask_teacher": {
+      "choiceIntentId": "nurse_cur_ask_teacher", "text": "선생님께 물어볼래요",
+      "nextNodeId": "nurse_curious_03a_what_to_ask", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking", "information_seeking"],
+      "topicKeywords": ["의료진"], "sentimentWords": []
+    },
+    "nurse_cur_ask_mom": {
+      "choiceIntentId": "nurse_cur_ask_mom", "text": "엄마랑 같이 물어볼래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking", "information_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "엄마 손이 닿으면 마음 한결 가벼워지지.",
+        "둘이서 물어보면 들은 거 더 잘 기억나."
+      ],
+      "closingLine": "엄마랑 들은 거 와서 알려줘."
+    },
+    "nurse_cur_ask_me": {
+      "choiceIntentId": "nurse_cur_ask_me", "text": "조은이 알려주세요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(노트 펼치며) 조은이 아는 만큼 알려줄게.",
+        "모르는 건 같이 적어두자. 다음에 선생님 만날 때 같이 가져가면 돼."
+      ],
+      "closingLine": "같이 갈래?"
+    },
+    "nurse_cur_ask_what_today": {
+      "choiceIntentId": "nurse_cur_ask_what_today", "text": "'오늘 뭐 해요?'",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["information_seeking", "verbal_expression", "medical_support_preference"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(끄덕) 짧고 좋아.",
+        "오늘 무슨 일 있는지 미리 알면 마음이 한결 가벼워질 거야."
+      ],
+      "closingLine": "들은 거 와서 같이 적자."
+    },
+    "nurse_cur_ask_how_long": {
+      "choiceIntentId": "nurse_cur_ask_how_long", "text": "'얼마나 걸려요?'",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["information_seeking", "support_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "시간 보이면 마음이 좀 잡혀.",
+        "엄마도 시간 들으면 같이 기다려주실 거야."
+      ],
+      "closingLine": "시간 알면 와서 알려줘."
+    },
+    "nurse_cur_ask_will_hurt": {
+      "choiceIntentId": "nurse_cur_ask_will_hurt", "text": "'아플까요?'",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["pain_concern", "procedure_fear"],
+      "protectiveFactors": ["can_name_fear", "information_seeking"],
+      "topicKeywords": ["시술"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "(작게 끄덕) 그것도 꼭 물어봐.",
+        "덜 아프게 하는 방법이 있는지 같이 들어보자."
+      ],
+      "closingLine": "(작게 끄덕) 무서울 땐 와."
+    },
+    "nurse_cur_med_why": {
+      "choiceIntentId": "nurse_cur_med_why", "text": "왜 이걸 먹어요?",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need"],
+      "protectiveFactors": ["information_seeking", "medical_support_preference"],
+      "topicKeywords": ["약"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "약은 너 나아지게 도와주는 거야.",
+        "약마다 하는 일이 달라서, 자세한 건 선생님께 같이 가서 물어보자."
+      ],
+      "closingLine": "같이 물어보고 또 와."
+    },
+    "nurse_cur_med_when": {
+      "choiceIntentId": "nurse_cur_med_when", "text": "언제까지 먹어요?",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need"],
+      "protectiveFactors": ["information_seeking"],
+      "topicKeywords": ["약"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "선생님께 '언제까지 먹어요?' 라고 물어봐.",
+        "기간 보이면 마음이 가벼워."
+      ],
+      "closingLine": "들은 기간 같이 적자."
+    },
+    "nurse_cur_med_good": {
+      "choiceIntentId": "nurse_cur_med_good", "text": "먹으면 뭐가 좋아져요?",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["information_seeking", "positive_mood"],
+      "topicKeywords": ["약"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "아픈 게 조금씩 작아지거나, 몸이 회복하는 거 도와줘.",
+        "(작게 웃으며) 정확한 변화는 선생님이 더 잘 알아. 같이 가서 들어보자."
+      ],
+      "closingLine": "(작게 웃으며) 들은 거 와서 얘기해줘."
+    },
+    "nurse_cur_chat_today": {
+      "choiceIntentId": "nurse_cur_chat_today", "text": "오늘 있었던 일이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(의자 끌어와 앉으며) 응.",
+        "천천히 풀어줘. 조은이 노트 덮을게."
+      ],
+      "closingLine": "노트 덮고 듣고 있을게."
+    },
+    "nurse_cur_chat_anything": {
+      "choiceIntentId": "nurse_cur_chat_anything", "text": "뭐든지요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "positive_mood"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오, 그것도 좋아.",
+        "조은이는 듣는 거 잘해."
+      ],
+      "closingLine": "(의자 끌어와) 또 와."
+    },
+    "nurse_cur_chat_joeun": {
+      "choiceIntentId": "nurse_cur_chat_joeun", "text": "조은이 얘기 듣고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "positive_mood"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "음… 어제 옆 방 친구가 그림책 빌려달라고 했어.",
+        "근데 그 책 내 거 아닌데. (작게 웃으며)"
+      ],
+      "closingLine": "(작게 웃으며) 또 와."
+    },
+
+    "sleep_eyes_close": {
+      "choiceIntentId": "sleep_eyes_close", "text": "눈 감고 있을래요",
+      "nextNodeId": "sleep_eyes_02a_how", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_care_action", "rest_need_named"],
+      "topicKeywords": ["휴식"], "sentimentWords": []
+    },
+    "sleep_eyes_lay": {
+      "choiceIntentId": "sleep_eyes_lay", "text": "누워있을래요",
+      "nextNodeId": "sleep_eyes_02b_position", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["rest_need_named", "self_care_action"],
+      "topicKeywords": ["휴식"], "sentimentWords": []
+    },
+    "sleep_eyes_music": {
+      "choiceIntentId": "sleep_eyes_music", "text": "음악 들으면서요",
+      "nextNodeId": "sleep_eyes_02c_music", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_care_action", "positive_activity"],
+      "topicKeywords": ["음악", "휴식"], "sentimentWords": []
+    },
+    "sleep_eyes_breath": {
+      "choiceIntentId": "sleep_eyes_breath", "text": "숨에 맞춰서요",
+      "nextNodeId": "sleep_eyes_03a_breath_check", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["breathing_coping", "self_regulation"],
+      "topicKeywords": ["호흡"], "sentimentWords": []
+    },
+    "sleep_eyes_still": {
+      "choiceIntentId": "sleep_eyes_still", "text": "가만히만요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(하품) 응. 가만히도 일이야.", "건빈이가 옆에서 같이 있을게."],
+      "closingLine": "베개 자리 데워둘게."
+    },
+    "sleep_eyes_short": {
+      "choiceIntentId": "sleep_eyes_short", "text": "조금만요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_regulation", "sets_boundary"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_THEN_ACTIVITY",
+      "endingNpcLines": ["(끄덕끄덕) 짧게도 마음은 가벼워져.", "마음 풀리면 그때 일어나자."],
+      "closingLine": "(끄덕끄덕) 푹 자고 또 와."
+    },
+    "sleep_eyes_breath_ok": {
+      "choiceIntentId": "sleep_eyes_breath_ok", "text": "응, 풀렸어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["breathing_coping", "self_regulation", "positive_mood"],
+      "topicKeywords": ["호흡"],
+      "sentimentWords": [{"phrase": "풀렸어요", "tone": "POSITIVE"}],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": ["(작게 웃으며) 다행이야.", "그 호흡, 기억해뒀다 다음에도 써."],
+      "closingLine": "(작게 웃으며) 또 와."
+    },
+    "sleep_eyes_breath_some": {
+      "choiceIntentId": "sleep_eyes_breath_some", "text": "조금이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_regulation", "breathing_coping"],
+      "topicKeywords": ["호흡", "휴식"], "sentimentWords": [],
+      "endingType": "REST_THEN_ACTIVITY",
+      "endingNpcLines": ["(끄덕) 더 잠잠해질 때까지.", "건빈이도 같이 숨 쉴게."],
+      "closingLine": "숨 잠잠해지면 또 와."
+    },
+    "sleep_eyes_breath_still": {
+      "choiceIntentId": "sleep_eyes_breath_still", "text": "아직이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["emotion_named", "support_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["그럼 엄마한테 '같이 호흡 한 번' 해달라고 해봐.", "같이 하면 조금 덜 막막해질 수 있어."],
+      "closingLine": "엄마 옆에서 풀리면 와줘."
+    },
+    "sleep_eyes_side": {
+      "choiceIntentId": "sleep_eyes_side", "text": "옆으로요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["rest_need_named", "self_care_action"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(같이 옆으로 누우며) 응.", "건빈이는 왼쪽이 좋더라."],
+      "closingLine": "푹신한 자리 비워둘게."
+    },
+    "sleep_eyes_back": {
+      "choiceIntentId": "sleep_eyes_back", "text": "바로 누울래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["rest_need_named", "self_care_action"],
+      "topicKeywords": ["휴식"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(끄덕) 천장 보는 것도 좋아.", "별 세는 것처럼 천장 무늬 세봐."],
+      "closingLine": "(돌아누우며) 또 와."
+    },
+    "sleep_eyes_mom_lap": {
+      "choiceIntentId": "sleep_eyes_mom_lap", "text": "엄마 무릎 베고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마 무릎은 진짜 따뜻한 자리지.",
+        "슬쩍 가서 누워봐. 엄마도 알아챌 거야."
+      ],
+      "closingLine": "엄마 무릎에서 푹 쉬다 와."
+    },
+    "sleep_eyes_music_calm": {
+      "choiceIntentId": "sleep_eyes_music_calm", "text": "잔잔한 거요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "self_care_action"],
+      "topicKeywords": ["음악", "잔잔"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(끄덕) 한 곡만 틀고 끝까지 들어.", "건빈이도 옆에서 같이 들을게."],
+      "closingLine": "한 곡 다 들으면 또 와."
+    },
+    "sleep_eyes_music_nature": {
+      "choiceIntentId": "sleep_eyes_music_nature", "text": "자연 소리요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "self_care_action"],
+      "topicKeywords": ["음악", "잔잔"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["비 소리, 바람 소리.", "머리 안이 닦이는 느낌이야."],
+      "closingLine": "(귀 기울이며) 또 와."
+    },
+    "sleep_eyes_music_rec": {
+      "choiceIntentId": "sleep_eyes_music_rec", "text": "추천해주세요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity"],
+      "topicKeywords": ["음악"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": ["음… '잠 오는 듯한 거' 한 곡 골라봐.", "들으면서 천천히 가."],
+      "closingLine": "다음에 와서 어땠는지 알려줘."
+    },
+
+    "sleep_fam_mom": {
+      "choiceIntentId": "sleep_fam_mom", "text": "엄마요",
+      "nextNodeId": "sleep_family_02a_mom", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": []
+    },
+    "sleep_fam_dad": {
+      "choiceIntentId": "sleep_fam_dad", "text": "아빠요",
+      "nextNodeId": "sleep_family_02b_dad", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": []
+    },
+    "sleep_fam_dunno": {
+      "choiceIntentId": "sleep_fam_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": "sleep_family_02c_dunno", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named"],
+      "topicKeywords": [], "sentimentWords": []
+    },
+    "sleep_fam_mom_words": {
+      "choiceIntentId": "sleep_fam_mom_words", "text": "말로 부를래요",
+      "nextNodeId": "sleep_family_03a_words", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "family_support_preference"],
+      "topicKeywords": ["가족", "말하기"], "sentimentWords": []
+    },
+    "sleep_fam_mom_quiet": {
+      "choiceIntentId": "sleep_fam_mom_quiet", "text": "조용히 가서 앉을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(작게 웃으며) 말이 어렵다면 옆에 조용히 앉아도 돼.", "필요하면 한마디만 보태보자."],
+      "closingLine": "다녀와."
+    },
+    "sleep_fam_mom_hand": {
+      "choiceIntentId": "sleep_fam_mom_hand", "text": "손 잡고 있고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족", "손잡기"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["손 잡고 싶다고 말해도 돼.", "'잠깐만 잡아줘' 한마디면 충분해."],
+      "closingLine": "엄마 손 잡고 푹 자."
+    },
+    "sleep_fam_say_near": {
+      "choiceIntentId": "sleep_fam_say_near", "text": "「옆에 있어줘」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["그 한 줄이면 마음을 전할 수 있어.", "끝까지 길게 안 해도 돼."],
+      "closingLine": "엄마 옆에서 푹 쉬다 와."
+    },
+    "sleep_fam_say_hold": {
+      "choiceIntentId": "sleep_fam_say_hold", "text": "「손 잡아줘」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족", "손잡기"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "(끄덕) 손 잡으면 둘 다 따뜻해지지.",
+        "한 번 슬쩍 손 내밀어봐."
+      ],
+      "closingLine": "(끄덕) 따뜻해지면 또 와."
+    },
+    "sleep_fam_say_heavy": {
+      "choiceIntentId": "sleep_fam_say_heavy", "text": "「오늘 좀 무거워」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["verbal_expression", "emotion_named", "family_support_preference"],
+      "topicKeywords": ["가족", "마음"],
+      "sentimentWords": [{"phrase": "무거워", "tone": "NEGATIVE"}],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["처음 꺼낼 땐 두근거리지만, 듣는 사람도 네 마음을 알 수 있어.", "옆에 있어 달라고 천천히 말해보자."],
+      "closingLine": "엄마 옆자리에서 푹 쉬어."
+    },
+    "sleep_fam_dad_hug": {
+      "choiceIntentId": "sleep_fam_dad_hug", "text": "가서 안길래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["family_support_preference", "support_need_named"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["(끄덕) 안기고 싶다고 말해도 돼.", "괜찮은 만큼만 기대보자."],
+      "closingLine": "(끄덕) 푹 안기다 와."
+    },
+    "sleep_fam_dad_quiet": {
+      "choiceIntentId": "sleep_fam_dad_quiet", "text": "조용히 옆에 앉을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(작게 웃으며) 같은 자리에 있는 게 다야.", "말이 적어도 옆에 있다는 건 전해져."],
+      "closingLine": "다녀와."
+    },
+    "sleep_fam_dad_ask": {
+      "choiceIntentId": "sleep_fam_dad_ask", "text": "부탁할래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "family_support_preference", "support_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "아빠한테 한 번 부탁해봐.",
+        "아빠도 옆에 와주실 거야."
+      ],
+      "closingLine": "아빠랑 어땠는지 와서 알려줘."
+    },
+    "sleep_fam_with_geonbin": {
+      "choiceIntentId": "sleep_fam_with_geonbin", "text": "건빈이 옆에 더 있을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["건빈"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["(끄덕끄덕) 그래.", "건빈이는 여기 자리 잘 데워놓고 있을게."],
+      "closingLine": "여기도 따뜻해."
+    },
+    "sleep_fam_alone_brief": {
+      "choiceIntentId": "sleep_fam_alone_brief", "text": "잠깐 혼자요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["응. 어디 가지 말라곤 안 해.", "혼자 시간도 약일 때 있어."],
+      "closingLine": "혼자 시간 갖다 와."
+    },
+    "sleep_fam_anyone": {
+      "choiceIntentId": "sleep_fam_anyone", "text": "누구든 옆에 있어줬으면",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_connection"],
+      "protectiveFactors": ["support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["가까운 어른에게 '와줘' 하고 말해보자.", "누구든 편한 사람부터."],
+      "closingLine": "옆자리 따뜻해지면 와."
+    },
+
+    "sleep_pace_slow": {
+      "choiceIntentId": "sleep_pace_slow", "text": "천천히 가고 싶어요",
+      "nextNodeId": "sleep_pace_02a_what", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "self_regulation"],
+      "topicKeywords": ["페이스"], "sentimentWords": []
+    },
+    "sleep_pace_quick": {
+      "choiceIntentId": "sleep_pace_quick", "text": "빨리 끝내고 싶어요",
+      "nextNodeId": "sleep_pace_02b_quick", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "WORRIED", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["페이스"], "sentimentWords": []
+    },
+    "sleep_pace_dunno": {
+      "choiceIntentId": "sleep_pace_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": "sleep_pace_02c_dunno", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named"],
+      "topicKeywords": [], "sentimentWords": []
+    },
+    "sleep_pace_meal": {
+      "choiceIntentId": "sleep_pace_meal", "text": "밥 먹기요",
+      "nextNodeId": "sleep_pace_03a_meal", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_care_action", "sets_boundary"],
+      "topicKeywords": ["식사"], "sentimentWords": []
+    },
+    "sleep_pace_treat": {
+      "choiceIntentId": "sleep_pace_treat", "text": "치료요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["procedure_fear"],
+      "protectiveFactors": ["medical_support_preference", "verbal_expression"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": ["선생님께 '오늘 조금만 천천히' 라고 해봐.", "어른이 같이 속도를 맞춰줄 수 있어."],
+      "closingLine": "들은 거 와서 알려줘."
+    },
+    "sleep_pace_all": {
+      "choiceIntentId": "sleep_pace_all", "text": "다 천천히요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["fatigue_present"],
+      "protectiveFactors": ["sets_boundary", "self_regulation"],
+      "topicKeywords": ["페이스"], "sentimentWords": [],
+      "endingType": "REST_THEN_ACTIVITY",
+      "endingNpcLines": ["(작게 웃으며) 응, 다.", "오늘은 절반 속도가 정상."],
+      "closingLine": "건빈이도 같이 천천히 갈게."
+    },
+    "sleep_pace_meal_count": {
+      "choiceIntentId": "sleep_pace_meal_count", "text": "한 입씩 세면서요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "self_care_action"],
+      "topicKeywords": ["식사"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["(끄덕) 셈.", "마음이 차분해지는 방법이야."],
+      "closingLine": "셈 끝나면 또 와."
+    },
+    "sleep_pace_meal_family": {
+      "choiceIntentId": "sleep_pace_meal_family", "text": "가족이랑 같이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "self_care_action"],
+      "topicKeywords": ["가족", "식사"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "옆에 누가 있으면 한 입씩 잘 들어가지.",
+        "엄마한테 슬쩍 가봐 — 같이 먹어주실걸."
+      ],
+      "closingLine": "다 먹고 와."
+    },
+    "sleep_pace_meal_rest": {
+      "choiceIntentId": "sleep_pace_meal_rest", "text": "쉬어가며요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["self_regulation", "rest_need_named"],
+      "topicKeywords": ["식사", "휴식"], "sentimentWords": [],
+      "endingType": "REST_THEN_ACTIVITY",
+      "endingNpcLines": ["(끄덕) 쉬어가도 돼.", "한 입 먹고 한숨 자도 돼."],
+      "closingLine": "쉬엄쉬엄 먹고 와."
+    },
+    "sleep_pace_quick_stop": {
+      "choiceIntentId": "sleep_pace_quick_stop", "text": "힘들면 멈출게요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "sets_boundary"],
+      "topicKeywords": ["페이스"], "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": ["(끄덕) 그거면 됐어.", "멈춤 신호는 어른한테 보내."],
+      "closingLine": "잠깐 멈췄다 와도 돼."
+    },
+    "sleep_pace_quick_safe": {
+      "choiceIntentId": "sleep_pace_quick_safe", "text": "빨리 가도 조심할게요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "positive_body_state"],
+      "topicKeywords": ["페이스"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["그래.", "그래도 한 호흡씩."],
+      "closingLine": "한 호흡씩 다녀와."
+    },
+    "sleep_pace_quick_pause": {
+      "choiceIntentId": "sleep_pace_quick_pause", "text": "가운데 한 번만 쉴게요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "pause_coping"],
+      "topicKeywords": ["페이스", "휴식"], "sentimentWords": [],
+      "endingType": "REST_THEN_ACTIVITY",
+      "endingNpcLines": ["(작게 웃으며) 중간에 한 번 쉬는 게,", "끝까지 가는 비결이야."],
+      "closingLine": "가운데 쉬고 또 와."
+    },
+    "sleep_pace_heavy": {
+      "choiceIntentId": "sleep_pace_heavy", "text": "무거워요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "TIRED", "intensity": 2,
+      "concernFlags": ["fatigue_high", "body_discomfort"],
+      "protectiveFactors": ["body_state_named", "emotion_named"],
+      "topicKeywords": ["피로"],
+      "sentimentWords": [{"phrase": "무거워요", "tone": "NEGATIVE"}],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["그럼 오늘은 더 쉬는 쪽.", "건빈이 옆에서 그대로."],
+      "closingLine": "푹 쉬다 또 와."
+    },
+    "sleep_pace_meh": {
+      "choiceIntentId": "sleep_pace_meh", "text": "그냥 그래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["body_state_named"],
+      "topicKeywords": ["컨디션"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["그럼 그대로.", "가는 방향만 천천히."],
+      "closingLine": "천천히 와."
+    },
+    "sleep_pace_light": {
+      "choiceIntentId": "sleep_pace_light", "text": "조금 가벼워요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_body_state", "positive_mood"],
+      "topicKeywords": ["컨디션"],
+      "sentimentWords": [{"phrase": "가벼워요", "tone": "POSITIVE"}],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": ["(끄덕) 그럼 살짝 움직여봐.", "마을 한 바퀴 가벼운 산책 같은 거."],
+      "closingLine": "산책하고 와."
+    },
+
+    "garden_draw_fear": {
+      "choiceIntentId": "garden_draw_fear", "text": "무서운 마음이 있어요",
+      "nextNodeId": "garden_draw_02a_color", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["worry_present"],
+      "protectiveFactors": ["emotion_named", "can_name_fear"],
+      "topicKeywords": ["마음"],
+      "sentimentWords": [{"phrase": "무서운", "tone": "NEGATIVE"}]
+    },
+    "garden_draw_friend": {
+      "choiceIntentId": "garden_draw_friend", "text": "친구 생각이 나요",
+      "nextNodeId": "garden_draw_02b_friend", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["relationship_named", "emotion_named"],
+      "topicKeywords": ["친구"], "sentimentWords": []
+    },
+    "garden_draw_dunno": {
+      "choiceIntentId": "garden_draw_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": "garden_draw_02c_dunno", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named"],
+      "topicKeywords": [], "sentimentWords": []
+    },
+    "garden_draw_black": {
+      "choiceIntentId": "garden_draw_black", "text": "까만 색이요",
+      "nextNodeId": "garden_draw_03a_black_what", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["creative_expression", "emotion_named", "alternative_expression"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": []
+    },
+    "garden_draw_red": {
+      "choiceIntentId": "garden_draw_red", "text": "빨간 색이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["anger_or_frustration"],
+      "protectiveFactors": ["creative_expression", "emotion_named"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["(작게 끄덕) 뜨거운 색이지.", "종이에 풀어줘."],
+      "closingLine": "다 그리면 와서 보여줘."
+    },
+    "garden_draw_unsure": {
+      "choiceIntentId": "garden_draw_unsure", "text": "모르겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["색이 안 떠오를 때도 있어.", "손 가는 대로 한 줄만."],
+      "closingLine": "다음에 보여줘."
+    },
+    "garden_draw_black_big": {
+      "choiceIntentId": "garden_draw_black_big", "text": "크게 칠하고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["creative_expression", "emotion_named"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["응. 다 칠하고 정호 옆에 와서 보여줘.", "그림으로 다 꺼내도 돼."],
+      "closingLine": "다 그리면 와줘."
+    },
+    "garden_draw_black_dot": {
+      "choiceIntentId": "garden_draw_black_dot", "text": "작게 한 점만요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "sets_boundary"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["한 점도 그림이야.", "옆에 다른 색 두면 더 깊어져."],
+      "closingLine": "다음에 보여줘."
+    },
+    "garden_draw_black_line": {
+      "choiceIntentId": "garden_draw_black_line", "text": "선으로요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "self_regulation"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["정호도 선 그릴 때 마음이 가라앉아.", "천천히 한 선씩."],
+      "closingLine": "선 다 그으면 보여줘."
+    },
+    "garden_draw_friend_face": {
+      "choiceIntentId": "garden_draw_friend_face", "text": "얼굴을요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["creative_expression", "relationship_named"],
+      "topicKeywords": ["친구", "그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "얼굴 한 번 떠올리고.",
+        "옆에 친구 이름 한 줄 적어도 좋아."
+      ],
+      "closingLine": "다음에 보여줘."
+    },
+    "garden_draw_friend_together": {
+      "choiceIntentId": "garden_draw_friend_together", "text": "둘이 같이 있는 모습이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["creative_expression", "relationship_named", "social_connection"],
+      "topicKeywords": ["친구", "그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["그림이 그 자리에 친구를 데려와줄 때 있어."],
+      "closingLine": "그림 들고 또 와."
+    },
+    "garden_draw_friend_greet": {
+      "choiceIntentId": "garden_draw_friend_greet", "text": "작은 인사 그림이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "social_connection", "agency_coping"],
+      "topicKeywords": ["친구", "그림"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["그리고 나서 친구한테 보낼 수 있어."],
+      "closingLine": "보낸 거 어땠는지 와서 알려줘."
+    },
+    "garden_draw_seedling": {
+      "choiceIntentId": "garden_draw_seedling", "text": "새싹 보고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(새싹 옆 무릎 굽히며) 같이 보자.",
+        "이건 어제 빼꼼했어."
+      ],
+      "closingLine": "새싹 옆에서 기다릴게."
+    },
+    "garden_draw_sit_quiet": {
+      "choiceIntentId": "garden_draw_sit_quiet", "text": "조용히 앉을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "(작게 끄덕) 정호도 흙 만지면서 가만히 있을게."
+      ],
+      "closingLine": "(흙 만지며) 또 와."
+    },
+    "garden_draw_later": {
+      "choiceIntentId": "garden_draw_later", "text": "다음에 올래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["정원은 같은 자리에 있어.", "정해두지 않아도 돼."],
+      "closingLine": "정원은 항상 여기 있어."
+    },
+
+    "garden_tend_what": {
+      "choiceIntentId": "garden_tend_what", "text": "뭐 해요?",
+      "nextNodeId": "garden_tend_02a_what", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "positive_activity"],
+      "topicKeywords": ["정원"], "sentimentWords": []
+    },
+    "garden_tend_brief": {
+      "choiceIntentId": "garden_tend_brief", "text": "잠깐만 도울게요",
+      "nextNodeId": "garden_tend_02b_brief", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "sets_boundary"],
+      "topicKeywords": ["정원"], "sentimentWords": []
+    },
+    "garden_tend_watch": {
+      "choiceIntentId": "garden_tend_watch", "text": "그냥 보기만 할래요",
+      "nextNodeId": "garden_tend_02c_watch", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": []
+    },
+    "garden_tend_seed": {
+      "choiceIntentId": "garden_tend_seed", "text": "씨앗 심기",
+      "nextNodeId": "garden_tend_03a_seed_what", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "self_regulation"],
+      "topicKeywords": ["정원"], "sentimentWords": []
+    },
+    "garden_tend_water": {
+      "choiceIntentId": "garden_tend_water", "text": "물 주기",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "positive_activity"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "(물뿌리개 건네며) 천천히. 너무 많이 안 줘도 돼.",
+        "물 보면 마음도 시원해져."
+      ],
+      "closingLine": "(물뿌리개 두고) 또 와."
+    },
+    "garden_tend_leaf": {
+      "choiceIntentId": "garden_tend_leaf", "text": "잎 닦기",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "positive_activity"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "(부드러운 천 건네며) 한 장씩 닦자.",
+        "정호도 이거 하면 머리가 비워지더라."
+      ],
+      "closingLine": "(천 두고) 또 와."
+    },
+    "garden_tend_seed_strength": {
+      "choiceIntentId": "garden_tend_seed_strength", "text": "힘이 났으면 좋겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "positive_activity", "agency_coping"],
+      "topicKeywords": ["정원", "마음"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "(씨앗 손에 올려주며) 그 마음 한 알.",
+        "다 자라면 같이 보러 와."
+      ],
+      "closingLine": "새싹 올라오면 보러 와."
+    },
+    "garden_tend_seed_friend": {
+      "choiceIntentId": "garden_tend_seed_friend", "text": "친구 만나고 싶은 마음",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["relationship_named", "social_connection", "emotion_named"],
+      "topicKeywords": ["친구", "정원"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(끄덕) 그건 빨리 자라는 씨앗이야.",
+        "옆에 친구 이름 한 줄 적어두자."
+      ],
+      "closingLine": "(이름 적은 씨앗 옆에) 또 와."
+    },
+    "garden_tend_seed_dunno": {
+      "choiceIntentId": "garden_tend_seed_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named", "positive_activity"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "그럼 그냥 한 알 심자.",
+        "자라면서 마음 이름이 떠오를 거야."
+      ],
+      "closingLine": "심은 자리 옆에서 기다릴게."
+    },
+    "garden_tend_weed": {
+      "choiceIntentId": "garden_tend_weed", "text": "잡초 뽑기",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "positive_activity"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "(같이 무릎 굽히며) 마음 정리되는 일이지.",
+        "한 줌만 뽑고 가자."
+      ],
+      "closingLine": "(무릎 굽힌 자리) 또 와."
+    },
+    "garden_tend_smell": {
+      "choiceIntentId": "garden_tend_smell", "text": "향기 한 번 맡기",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["breathing_coping", "positive_activity", "self_regulation"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": [
+        "(꽃 가까이 가리키며) 한 번 코로 들이쉬어봐.",
+        "향기는 머리도 가볍게 해줘."
+      ],
+      "closingLine": "꽃 옆에서 기다릴게."
+    },
+    "garden_tend_beside": {
+      "choiceIntentId": "garden_tend_beside", "text": "그냥 옆에 있을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "(흙 묻은 손 털며) 정호 흙 만지는 거 옆에서 봐도 돼."
+      ],
+      "closingLine": "(흙 손 털며) 또 와."
+    },
+    "garden_tend_watch_seedling": {
+      "choiceIntentId": "garden_tend_watch_seedling", "text": "새싹이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(새싹 옆 무릎 굽히며) 같이 보자.",
+        "이건 어제 빼꼼했어."
+      ],
+      "closingLine": "(새싹 보면서) 또 와."
+    },
+    "garden_tend_watch_flower": {
+      "choiceIntentId": "garden_tend_watch_flower", "text": "꽃이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "positive_mood"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "꽃 색이 매일 달라.",
+        "오늘 어떤 색인지 같이 봐."
+      ],
+      "closingLine": "내일 색은 또 다를 거야."
+    },
+    "garden_tend_watch_whole": {
+      "choiceIntentId": "garden_tend_watch_whole", "text": "전체 정원이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "agency_coping"],
+      "topicKeywords": ["정원", "산책"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "응, 한 바퀴 같이 돌까?",
+        "천천히."
+      ],
+      "closingLine": "한 바퀴 돌고 와."
+    },
+
+    "garden_nv_color": {
+      "choiceIntentId": "garden_nv_color", "text": "색깔로요",
+      "nextNodeId": "garden_nv_02a_color", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["prefers_nonverbal_expression"],
+      "protectiveFactors": ["alternative_expression", "creative_expression"],
+      "topicKeywords": ["색"], "sentimentWords": []
+    },
+    "garden_nv_point": {
+      "choiceIntentId": "garden_nv_point", "text": "손가락으로 가리킬래요",
+      "nextNodeId": "garden_nv_02b_point", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["prefers_nonverbal_expression"],
+      "protectiveFactors": ["alternative_expression"],
+      "topicKeywords": ["손가락"], "sentimentWords": []
+    },
+    "garden_nv_drawing": {
+      "choiceIntentId": "garden_nv_drawing", "text": "그림으로 그릴래요",
+      "nextNodeId": "garden_nv_02c_drawing", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림"], "sentimentWords": []
+    },
+    "garden_nv_blue": {
+      "choiceIntentId": "garden_nv_blue", "text": "파란 색이요",
+      "nextNodeId": "garden_nv_03a_blue_where", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["creative_expression", "emotion_named", "alternative_expression"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": []
+    },
+    "garden_nv_yellow": {
+      "choiceIntentId": "garden_nv_yellow", "text": "노란 색이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["노란 색. 따뜻한 색이네.", "종이에 풀어줘."],
+      "closingLine": "다 그리면 와서 보여줘."
+    },
+    "garden_nv_multi": {
+      "choiceIntentId": "garden_nv_multi", "text": "여러 색이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "emotion_named", "alternative_expression"],
+      "topicKeywords": ["그림", "색"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["여러 색. 마음이 여러 마음이구나.", "그것도 그림이야."],
+      "closingLine": "다 칠하면 와."
+    },
+    "garden_nv_blue_chest": {
+      "choiceIntentId": "garden_nv_blue_chest", "text": "가슴 안에요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["creative_expression", "emotion_named"],
+      "topicKeywords": ["그림", "마음"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "(작게 끄덕) 가슴 안 파랑.",
+        "종이에 둥글게 그려봐."
+      ],
+      "closingLine": "다음에 보여줘."
+    },
+    "garden_nv_blue_head": {
+      "choiceIntentId": "garden_nv_blue_head", "text": "머리에서요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["creative_expression", "emotion_named"],
+      "topicKeywords": ["그림", "마음"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "머리 위에 비처럼.",
+        "비처럼 흘러내리는 선으로 그려도 좋아."
+      ],
+      "closingLine": "비 다 그리면 보여줘."
+    },
+    "garden_nv_blue_all": {
+      "choiceIntentId": "garden_nv_blue_all", "text": "온몸에요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present", "body_discomfort"],
+      "protectiveFactors": ["emotion_named", "support_seeking"],
+      "topicKeywords": ["마음"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "온몸이면 좀 무거운 거.",
+        "그 색 어른한테도 한 번 알려두자."
+      ],
+      "closingLine": "어른한테 알린 뒤 또 와."
+    },
+    "garden_nv_point_body": {
+      "choiceIntentId": "garden_nv_point_body", "text": "몸 어딘가요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["body_discomfort"],
+      "protectiveFactors": ["alternative_expression", "medical_support_preference"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": [
+        "그럼 조은이한테 가서 가리켜주자.",
+        "조은이가 옆에서 같이 봐줄 거야."
+      ],
+      "closingLine": "조은이한테 다녀와."
+    },
+    "garden_nv_point_family": {
+      "choiceIntentId": "garden_nv_point_family", "text": "가족이 있는 쪽이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_connection"],
+      "protectiveFactors": ["alternative_expression", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "(작게 끄덕) 응.",
+        "그 쪽으로 같이 가줄게."
+      ],
+      "closingLine": "(같이 걸으며) 또 와."
+    },
+    "garden_nv_point_garden": {
+      "choiceIntentId": "garden_nv_point_garden", "text": "그냥 정원 한 곳을",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["alternative_expression", "calm_state_named"],
+      "topicKeywords": ["정원"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "오, 한 곳?",
+        "같이 거기 앉자. 무슨 자리인지 물어보고 싶어졌어."
+      ],
+      "closingLine": "(같이 앉아) 또 와."
+    },
+    "garden_nv_draw_mood": {
+      "choiceIntentId": "garden_nv_draw_mood", "text": "오늘 마음이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "emotion_named"],
+      "topicKeywords": ["그림", "마음"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "응. 한 장만 작게도 좋아.",
+        "다 그리면 옆에 와서 보여줘."
+      ],
+      "closingLine": "(모종삽 들고) 정원에서 기다릴게."
+    },
+    "garden_nv_draw_favorite": {
+      "choiceIntentId": "garden_nv_draw_favorite", "text": "좋아하는 거요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "positive_mood"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "(작게 끄덕) 그것도 마음이야.",
+        "좋아하는 거 그리면서 마음도 조금 편해질 수 있어."
+      ],
+      "closingLine": "(작게 끄덕) 그린 거 보여줘."
+    },
+    "garden_nv_draw_free": {
+      "choiceIntentId": "garden_nv_draw_free", "text": "모르겠어요, 손 가는 대로",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "정호도 그래.",
+        "가장 솔직한 그림이야."
+      ],
+      "closingLine": "그린 거 들고 와."
+    },
+
+    "squirrel_shade_yes": {
+      "choiceIntentId": "squirrel_shade_yes", "text": "갈래요",
+      "nextNodeId": "squirrel_shade_02a_how", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "social_connection"],
+      "topicKeywords": ["그늘"], "sentimentWords": []
+    },
+    "squirrel_shade_brief": {
+      "choiceIntentId": "squirrel_shade_brief", "text": "잠깐만 있고 갈게요",
+      "nextNodeId": "squirrel_shade_02b_brief", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "agency_coping"],
+      "topicKeywords": ["그늘"], "sentimentWords": []
+    },
+    "squirrel_shade_more": {
+      "choiceIntentId": "squirrel_shade_more", "text": "좀 더 있고 싶어요",
+      "nextNodeId": "squirrel_shade_02c_more", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["sets_boundary", "calm_state_named", "rest_need_named"],
+      "topicKeywords": ["그늘", "휴식"], "sentimentWords": []
+    },
+    "squirrel_shade_silent": {
+      "choiceIntentId": "squirrel_shade_silent", "text": "말 없이요",
+      "nextNodeId": "squirrel_shade_03a_silent_check", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["그늘"], "sentimentWords": []
+    },
+    "squirrel_shade_oneword": {
+      "choiceIntentId": "squirrel_shade_oneword", "text": "한마디씩요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "sets_boundary"],
+      "topicKeywords": ["한마디"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["오케이! 던지면 내가 받을게.", "한 줄씩이라도 가벼워져."],
+      "closingLine": "한 마디 잡으러 또 와!"
+    },
+    "squirrel_shade_lean": {
+      "choiceIntentId": "squirrel_shade_lean", "text": "기대고요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["support_need_named", "social_connection"],
+      "topicKeywords": ["동반"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(가만히) 응! 기대도 돼.", "푹신할걸?"],
+      "closingLine": "(꼬리로 자리 만들며) 또 와!"
+    },
+    "squirrel_shade_lighter": {
+      "choiceIntentId": "squirrel_shade_lighter", "text": "가벼워졌어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "calm_state_named"],
+      "topicKeywords": ["마음"],
+      "sentimentWords": [{"phrase": "가벼워졌어요", "tone": "POSITIVE"}],
+      "endingType": "CALM_DOWN",
+      "endingNpcLines": ["그치! 그늘 효과야.", "(꼬리 살짝) 가벼울 때 일어나면 돼."],
+      "closingLine": "(꼬리 살랑) 또 가벼워지면 와!"
+    },
+    "squirrel_shade_dunno": {
+      "choiceIntentId": "squirrel_shade_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(끄덕) 모르는 시간도 쉬는 시간이야.", "더 있어도 돼!"],
+      "closingLine": "시간 안 셀게."
+    },
+    "squirrel_shade_heavy": {
+      "choiceIntentId": "squirrel_shade_heavy", "text": "아직 무거워요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["emotion_named", "support_seeking"],
+      "topicKeywords": ["마음"],
+      "sentimentWords": [{"phrase": "무거워요", "tone": "NEGATIVE"}],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "(꼬리 멈추며) 혼자 들고 있지 마.",
+        "옆에 있는 어른한테 한 마디 던져봐 — 같이 들어주실 거야."
+      ],
+      "closingLine": "어른한테 던지고 또 와."
+    },
+    "squirrel_shade_treat": {
+      "choiceIntentId": "squirrel_shade_treat", "text": "치료 가야 해요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["procedure_fear"],
+      "protectiveFactors": ["medical_support_preference", "agency_coping"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": ["갔다 와!", "세현이 여기서 도토리 굴리고 있을게."],
+      "closingLine": "끝나면 또 와!"
+    },
+    "squirrel_shade_family": {
+      "choiceIntentId": "squirrel_shade_family", "text": "가족 보러요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "social_connection"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["(꼬리 휙) 다녀와!", "가족 옆이 제일 따뜻해."],
+      "closingLine": "가족 옆에서 푹 쉬고 와!"
+    },
+    "squirrel_shade_just_go": {
+      "choiceIntentId": "squirrel_shade_just_go", "text": "그냥 가고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["오케이, 이유 안 물어!", "어디로 가든 잘 갔다 와."],
+      "closingLine": "(꼬리 휙) 잘 갔다 와!"
+    },
+    "squirrel_shade_more_still": {
+      "choiceIntentId": "squirrel_shade_more_still", "text": "가만히 더요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": ["needs_rest"],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["응! 같이 가만히.", "(꼬리로 자리 만들며) 시간 안 셀게."],
+      "closingLine": "여기 그늘은 항상 같은 자리에 있어."
+    },
+    "squirrel_shade_more_story": {
+      "choiceIntentId": "squirrel_shade_more_story", "text": "세현이 얘기 듣고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "positive_activity"],
+      "topicKeywords": ["세현"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["오! 어제 도토리 굴리다 그루터기 박았어.", "나도 깜짝 놀랐어. (꼬리 휙)"],
+      "closingLine": "또 와서 들어줘!"
+    },
+    "squirrel_shade_more_go": {
+      "choiceIntentId": "squirrel_shade_more_go", "text": "둘이 어디 갈래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["동반"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["(꼬리로 가리키며) 다인? 정호?", "누구한테 가볼래!"],
+      "closingLine": "같이 갈게!"
+    },
+
+    "squirrel_word_dunno": {
+      "choiceIntentId": "squirrel_word_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": "squirrel_word_02a_dunno", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["uncertainty_named"],
+      "topicKeywords": [], "sentimentWords": []
+    },
+    "squirrel_word_hard": {
+      "choiceIntentId": "squirrel_word_hard", "text": "좀 힘들어요",
+      "nextNodeId": "squirrel_word_02b_hard", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["emotion_named", "verbal_expression"],
+      "topicKeywords": ["힘듦"],
+      "sentimentWords": [{"phrase": "힘들어요", "tone": "NEGATIVE"}]
+    },
+    "squirrel_word_okay": {
+      "choiceIntentId": "squirrel_word_okay", "text": "괜찮아요",
+      "nextNodeId": "squirrel_word_02c_okay", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "calm_state_named"],
+      "topicKeywords": ["컨디션"], "sentimentWords": []
+    },
+    "squirrel_word_tired": {
+      "choiceIntentId": "squirrel_word_tired", "text": "'피곤'",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "TIRED", "intensity": 1,
+      "concernFlags": ["fatigue_present"],
+      "protectiveFactors": ["emotion_named", "body_state_named"],
+      "topicKeywords": ["피로"],
+      "sentimentWords": [{"phrase": "피곤", "tone": "NEGATIVE"}],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["어! 오늘은 피곤의 날.", "푹 쉬어!"],
+      "closingLine": "푹 쉬다 와!"
+    },
+    "squirrel_word_heavy": {
+      "choiceIntentId": "squirrel_word_heavy", "text": "'무거움'",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["emotion_named"],
+      "topicKeywords": ["마음"],
+      "sentimentWords": [{"phrase": "무거움", "tone": "NEGATIVE"}],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "오케이! 그 단어, 그대로 한 번 다른 사람한테도 던져봐.",
+        "들으면 옆에 와줄 사람 있어."
+      ],
+      "closingLine": "한 마디 던지고 와!"
+    },
+    "squirrel_word_blank": {
+      "choiceIntentId": "squirrel_word_blank", "text": "떠오르지 않아요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["단어가 가끔 도망가기도 해.", "잡혀줄 때 또 와!"],
+      "closingLine": "(꼬리 살랑) 잡혀줄 때 와!"
+    },
+    "squirrel_word_mom": {
+      "choiceIntentId": "squirrel_word_mom", "text": "엄마한테",
+      "nextNodeId": "squirrel_word_03b_mom_what", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": []
+    },
+    "squirrel_word_teacher": {
+      "choiceIntentId": "squirrel_word_teacher", "text": "선생님께",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking", "verbal_expression"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": ["오케이! 선생님은 그 한마디 자주 들으셨을걸.", "도와줄 사람이야."],
+      "closingLine": "(꼬리 휙) 다녀와!"
+    },
+    "squirrel_word_here": {
+      "choiceIntentId": "squirrel_word_here", "text": "세현이한테만요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary", "support_need_named"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(꼬리 살랑) 그래!", "내가 다 외워뒀다 줄게."],
+      "closingLine": "도토리 굴리며 기다릴게!"
+    },
+    "squirrel_word_say_hard": {
+      "choiceIntentId": "squirrel_word_say_hard", "text": "「오늘 좀 힘들어」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["distress_present"],
+      "protectiveFactors": ["verbal_expression", "family_support_preference", "emotion_named"],
+      "topicKeywords": ["가족", "마음"],
+      "sentimentWords": [{"phrase": "힘들어", "tone": "NEGATIVE"}],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["그 짧은 한 줄.", "엄마도 네 마음을 알아차리기 쉬울 거야!"],
+      "closingLine": "엄마랑 어땠는지 와서 알려줘!"
+    },
+    "squirrel_word_say_hug": {
+      "choiceIntentId": "squirrel_word_say_hug", "text": "「안아줘」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["needs_comfort"],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["(꼬리 살랑) 안기는 시간 짱이지.", "그것도 마음 쉬는 방법이야."],
+      "closingLine": "푹 안기다 와!"
+    },
+    "squirrel_word_say_near": {
+      "choiceIntentId": "squirrel_word_say_near", "text": "「옆에만 있어줘」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "support_need_named", "family_support_preference"],
+      "topicKeywords": ["가족"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": ["응!", "옆자리만 채워줘도 마음이 조금 편해질 수 있어."],
+      "closingLine": "옆자리 채워지면 와!"
+    },
+    "squirrel_word_walk": {
+      "choiceIntentId": "squirrel_word_walk", "text": "가볍게 산책요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_activity", "agency_coping"],
+      "topicKeywords": ["산책"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": ["(꼬리 휙) 그늘 밖 햇볕 좋아!", "한 바퀴 가볍게."],
+      "closingLine": "한 바퀴 돌고 와!"
+    },
+    "squirrel_word_friend": {
+      "choiceIntentId": "squirrel_word_friend", "text": "친구 만나러요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["오! 다인 어디 있을까.", "같이 찾아주랴?"],
+      "closingLine": "다인 만나고 와!"
+    },
+    "squirrel_word_stay": {
+      "choiceIntentId": "squirrel_word_stay", "text": "그냥 여기 더 있을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["calm_state_named", "sets_boundary"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["오케이! 괜찮은 날 쉬는 거,", "진짜 잘 하는 거야."],
+      "closingLine": "도토리 굴리며 같이 있을게!"
+    },
+
+    "squirrel_apart_go": {
+      "choiceIntentId": "squirrel_apart_go", "text": "잠깐 갔다 올래요",
+      "nextNodeId": "squirrel_apart_02a_where", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "sets_boundary"],
+      "topicKeywords": ["마을"], "sentimentWords": []
+    },
+    "squirrel_apart_stay": {
+      "choiceIntentId": "squirrel_apart_stay", "text": "여기 있을래요",
+      "nextNodeId": "squirrel_apart_02b_stay", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["그늘"], "sentimentWords": []
+    },
+    "squirrel_apart_together": {
+      "choiceIntentId": "squirrel_apart_together", "text": "같이 어디 갈래요",
+      "nextNodeId": "squirrel_apart_02c_together", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["동반"], "sentimentWords": []
+    },
+    "squirrel_apart_walk_round": {
+      "choiceIntentId": "squirrel_apart_walk_round", "text": "마을 한 바퀴",
+      "nextNodeId": "squirrel_apart_03a_walk_with", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "positive_activity"],
+      "topicKeywords": ["마을"], "sentimentWords": []
+    },
+    "squirrel_apart_alone": {
+      "choiceIntentId": "squirrel_apart_alone", "text": "혼자 있고 싶어서요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["응! 이유 안 물어.", "잘 갔다 와."],
+      "closingLine": "그늘에서 기다릴게!"
+    },
+    "squirrel_apart_dunno": {
+      "choiceIntentId": "squirrel_apart_dunno", "text": "잘 모르겠어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["uncertainty"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["(꼬리 살랑) 천천히 둘러봐도 돼!", "가끔 그래야 마음이 잡혀."],
+      "closingLine": "(꼬리 흔들며) 기다릴게!"
+    },
+    "squirrel_apart_walk_alone": {
+      "choiceIntentId": "squirrel_apart_walk_alone", "text": "혼자요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "sets_boundary"],
+      "topicKeywords": ["마을"], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["응! 돌고 와도 안 와도 돼.", "정하지 않아도 돼."],
+      "closingLine": "마을 한 바퀴 잘 갔다 와!"
+    },
+    "squirrel_apart_walk_sehyeon": {
+      "choiceIntentId": "squirrel_apart_walk_sehyeon", "text": "세현이가 따라와줘",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "support_need_named"],
+      "topicKeywords": ["세현"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["(꼬리 휙) 좋아!", "앞에서 길 만들어줄게."],
+      "closingLine": "(꼬리로 길 만들며) 가자!"
+    },
+    "squirrel_apart_walk_dain": {
+      "choiceIntentId": "squirrel_apart_walk_dain", "text": "다인 만나러요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["(꼬리로 가리키며) 다인 잎사귀 옆에서 자주 봐.", "안내해줄까?"],
+      "closingLine": "다인 찾고 와!"
+    },
+    "squirrel_apart_stay_still": {
+      "choiceIntentId": "squirrel_apart_stay_still", "text": "가만히요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(가만히) 응! 같이.", "(의외로 입 꾹)"],
+      "closingLine": "(같이 가만히) 또 와!"
+    },
+    "squirrel_apart_stay_more_word": {
+      "choiceIntentId": "squirrel_apart_stay_more_word", "text": "한 줄 더 꺼내고 싶어요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "support_seeking"],
+      "topicKeywords": ["한마디"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": ["(꼬리로 옆 자리 톡톡) 던져봐!", "잡을게."],
+      "closingLine": "(꼬리로 자리 톡톡) 던지러 와!"
+    },
+    "squirrel_apart_stay_brief": {
+      "choiceIntentId": "squirrel_apart_stay_brief", "text": "잠깐만 더요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["그늘"], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": ["(끄덕) 잠깐도 좋아.", "떠나고 싶을 때 떠나!"],
+      "closingLine": "마음 가는 대로 가!"
+    },
+    "squirrel_apart_garden": {
+      "choiceIntentId": "squirrel_apart_garden", "text": "정호한테",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["오! 새싹 옆이 그림 그리기 짱이지!", "정호한테 같이 따라가줄게."],
+      "closingLine": "정호한테 잘 갔다 와!"
+    },
+    "squirrel_apart_friends": {
+      "choiceIntentId": "squirrel_apart_friends", "text": "다인한테",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["(꼬리 휙) 다인 좋아할걸.", "같이 가자!"],
+      "closingLine": "다인이랑 신나게 놀고 와!"
+    },
+    "squirrel_apart_nurse": {
+      "choiceIntentId": "squirrel_apart_nurse", "text": "조은이한테",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["medical_support_preference", "support_seeking"],
+      "topicKeywords": ["의료진"], "sentimentWords": [],
+      "endingType": "ASK_MEDICAL_FIRST",
+      "endingNpcLines": ["응!", "몸이나 마음이 무거우면 조은이한테 가리켜줘도 돼."],
+      "closingLine": "조은이한테 다녀와!"
+    },
+
+    "dain_miss_a_lot": {
+      "choiceIntentId": "dain_miss_a_lot", "text": "진짜 보고 싶은 사람 있어요",
+      "nextNodeId": "dain_miss_02a_what", "isEnding": false,
+      "valence": "NEGATIVE", "tone": "WORRIED", "intensity": 2,
+      "concernFlags": ["loneliness", "peer_separation"],
+      "protectiveFactors": ["emotion_named", "relationship_named"],
+      "topicKeywords": ["친구"],
+      "sentimentWords": [{"phrase": "보고 싶은", "tone": "NEGATIVE"}]
+    },
+    "dain_miss_sometimes": {
+      "choiceIntentId": "dain_miss_sometimes", "text": "가끔 떠올라요",
+      "nextNodeId": "dain_miss_02b_sometimes", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["emotion_named", "calm_state_named"],
+      "topicKeywords": ["친구"], "sentimentWords": []
+    },
+    "dain_miss_no": {
+      "choiceIntentId": "dain_miss_no", "text": "특별히는 없어요",
+      "nextNodeId": "dain_miss_02c_no", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_social_state", "calm_state_named"],
+      "topicKeywords": ["일상"], "sentimentWords": []
+    },
+    "dain_miss_hi": {
+      "choiceIntentId": "dain_miss_hi", "text": "인사 보낼래요",
+      "nextNodeId": "dain_miss_03a_how_send", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "agency_coping"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": []
+    },
+    "dain_miss_draw": {
+      "choiceIntentId": "dain_miss_draw", "text": "그림으로 보낼래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림", "친구"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": ["오, 말보다 그림이 더 잘 전해질 때 있어."],
+      "closingLine": "다음에 와서 보여줘."
+    },
+    "dain_miss_think": {
+      "choiceIntentId": "dain_miss_think", "text": "지금은 생각만요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["hesitation_to_share"],
+      "protectiveFactors": ["sets_boundary", "emotion_named"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["마음에서 한 번 인사하는 것도 인사야."],
+      "closingLine": "(끄덕) 또 와."
+    },
+    "dain_miss_say_miss": {
+      "choiceIntentId": "dain_miss_say_miss", "text": "「보고 싶다」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "relationship_named"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(눈 빛내며) 그 한 줄이면 친구도 마음 둥글어져."
+      ],
+      "closingLine": "다음에 와서 답장 왔는지 알려줘!"
+    },
+    "dain_miss_say_meet": {
+      "choiceIntentId": "dain_miss_say_meet", "text": "「언제 만날 수 있을까?」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "agency_coping"],
+      "topicKeywords": ["친구", "약속"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["약속 생기면 마음이 가벼워져."],
+      "closingLine": "(눈 빛내며) 답장 오면 알려줘!"
+    },
+    "dain_miss_letter": {
+      "choiceIntentId": "dain_miss_letter", "text": "길게 편지요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "creative_expression", "social_connection"],
+      "topicKeywords": ["편지", "친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "와, 편지!",
+        "친구가 두고두고 볼 수 있어."
+      ],
+      "closingLine": "편지 쓰면 와서 보여줘."
+    },
+    "dain_miss_think_alone": {
+      "choiceIntentId": "dain_miss_think_alone", "text": "혼자 생각해요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "emotion_named"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "PRIVATE_OKAY",
+      "endingNpcLines": ["(작게 끄덕) 혼자 생각하는 시간도 인사야."],
+      "closingLine": "마음 정리되면 와."
+    },
+    "dain_miss_family_chat": {
+      "choiceIntentId": "dain_miss_family_chat", "text": "가족이랑 얘기해요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "verbal_expression"],
+      "topicKeywords": ["가족", "친구"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "가족이 친구 얘기 들으면 같이 떠올려줘."
+      ],
+      "closingLine": "가족이랑 얘기하고 와."
+    },
+    "dain_miss_tell_later": {
+      "choiceIntentId": "dain_miss_tell_later", "text": "다음에 친구한테",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(눈 빛내며) 만나면 '가끔 생각났어' 라고."
+      ],
+      "closingLine": "(눈 빛내며) 만난 거 와서 알려줘!"
+    },
+    "dain_miss_other_chat": {
+      "choiceIntentId": "dain_miss_other_chat", "text": "다른 얘기요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "social_connection"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(펜 굴리며) 다인이 오늘 본 것 중에 재밌는 거 한 개 있어."
+      ],
+      "closingLine": "(펜 굴리며) 또 와서 얘기해줘!"
+    },
+    "dain_miss_game": {
+      "choiceIntentId": "dain_miss_game", "text": "게임 어때요?",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["playful_coping", "positive_activity", "social_connection"],
+      "topicKeywords": ["놀이"], "sentimentWords": [],
+      "endingType": "GO_LIGHT_ACTIVITY",
+      "endingNpcLines": [
+        "오! 가위바위보 한 판 어때?"
+      ],
+      "closingLine": "(펜 굴리며) 한 판 더 하러 와!"
+    },
+    "dain_miss_quiet": {
+      "choiceIntentId": "dain_miss_quiet", "text": "조용히 있을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응 응. 옆에서 가만히 있을게."
+      ],
+      "closingLine": "(가만히 옆에서) 또 와."
+    },
+
+    "dain_school_a_lot": {
+      "choiceIntentId": "dain_school_a_lot", "text": "진짜 궁금해요",
+      "nextNodeId": "dain_school_02a_who", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need", "peer_separation"],
+      "protectiveFactors": ["information_seeking"],
+      "topicKeywords": ["학교"], "sentimentWords": []
+    },
+    "dain_school_sometimes": {
+      "choiceIntentId": "dain_school_sometimes", "text": "가끔 궁금해요",
+      "nextNodeId": "dain_school_02b_sometimes", "isEnding": false,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["calm_state_named", "emotion_named"],
+      "topicKeywords": ["학교"], "sentimentWords": []
+    },
+    "dain_school_no": {
+      "choiceIntentId": "dain_school_no", "text": "별로요",
+      "nextNodeId": "dain_school_02c_no", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": ["일상"], "sentimentWords": []
+    },
+    "dain_school_mom": {
+      "choiceIntentId": "dain_school_mom", "text": "엄마한테",
+      "nextNodeId": "dain_school_03a_mom_what", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "information_seeking"],
+      "topicKeywords": ["가족"], "sentimentWords": []
+    },
+    "dain_school_friend": {
+      "choiceIntentId": "dain_school_friend", "text": "친구한테",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "information_seeking", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(눈 빛내며) 친구도 너 소식 궁금했을걸.",
+        "'학교 요즘 어때?' 한 줄이면 둘 다 신나서 얘기 시작할 거야."
+      ],
+      "closingLine": "다음에 와서 얘기해."
+    },
+    "dain_school_dain": {
+      "choiceIntentId": "dain_school_dain", "text": "다인이는 알아?",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "verbal_expression"],
+      "topicKeywords": ["다인"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "음… 나도 다 알진 못해서.",
+        "그래도 우리끼리 학교 얘기 해볼래?"
+      ],
+      "closingLine": "(펜 굴리며) 같이 얘기하러 와!"
+    },
+    "dain_school_mom_how": {
+      "choiceIntentId": "dain_school_mom_how", "text": "「학교 요즘 어때요?」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "information_seeking", "verbal_expression"],
+      "topicKeywords": ["가족", "학교"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "엄마랑 같이 알아볼 수 있어.",
+        "들은 거 다음에 알려줘!"
+      ],
+      "closingLine": "엄마한테 들은 거 와서 알려줘!"
+    },
+    "dain_school_mom_missed": {
+      "choiceIntentId": "dain_school_mom_missed", "text": "「놓친 소식 있어요?」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need"],
+      "protectiveFactors": ["social_connection", "information_seeking", "agency_coping"],
+      "topicKeywords": ["친구", "학교"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "엄마가 아는 만큼 알려주실 수 있어.",
+        "더 궁금하면 친구한테도 한 줄 물어보자."
+      ],
+      "closingLine": "(눈 빛내며) 답장 오면 와!"
+    },
+    "dain_school_mom_friends": {
+      "choiceIntentId": "dain_school_mom_friends", "text": "「친구들 잘 지내요?」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "relationship_named", "empathy"],
+      "topicKeywords": ["가족", "친구"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "(눈 빛내며) 친구 안부 들으면 마음 따뜻해지지.",
+        "엄마가 알면 풀어주실 거야. 모르면 같이 친구한테 물어봐도 돼."
+      ],
+      "closingLine": "안부 들으면 와서 알려줘!"
+    },
+    "dain_school_some_friends": {
+      "choiceIntentId": "dain_school_some_friends", "text": "친구들이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "relationship_named"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "친구한테 한 줄.",
+        "'잘 지내?' 짧게도 돼."
+      ],
+      "closingLine": "친구 답장 와서 보여줘."
+    },
+    "dain_school_some_class": {
+      "choiceIntentId": "dain_school_some_class", "text": "수업이요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["information_seeking", "family_support_preference"],
+      "topicKeywords": ["학교", "가족"], "sentimentWords": [],
+      "endingType": "ASK_HELP_FIRST",
+      "endingNpcLines": [
+        "(펜 굴리며) 수업 진도, 나도 가끔 궁금했어.",
+        "엄마가 알면 좀 더 풀어주실지도 몰라."
+      ],
+      "closingLine": "(펜 굴리며) 들은 거 같이 보자!"
+    },
+    "dain_school_some_all": {
+      "choiceIntentId": "dain_school_some_all", "text": "그냥 다요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["information_need"],
+      "protectiveFactors": ["sets_boundary"],
+      "topicKeywords": ["학교"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "한 번에 안 풀고 천천히.",
+        "마음 가는 거부터."
+      ],
+      "closingLine": "마음 가는 대로 와."
+    },
+    "dain_school_other_chat": {
+      "choiceIntentId": "dain_school_other_chat", "text": "다른 얘기요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["positive_mood", "social_connection"],
+      "topicKeywords": ["일상"], "sentimentWords": [],
+      "endingType": "NO_PRESSURE",
+      "endingNpcLines": [
+        "(눈 빛내며) 어제 다인이 새 펜 받았어. 보여줄까?"
+      ],
+      "closingLine": "(펜 굴리며) 보러 와!"
+    },
+    "dain_school_quiet": {
+      "choiceIntentId": "dain_school_quiet", "text": "조용히 있을래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "NEUTRAL", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["sets_boundary", "calm_state_named"],
+      "topicKeywords": [], "sentimentWords": [],
+      "endingType": "REST_ONLY",
+      "endingNpcLines": [
+        "응 응. 가만히 있을게."
+      ],
+      "closingLine": "(옆에서 가만히) 또 와."
+    },
+    "dain_school_other_friend": {
+      "choiceIntentId": "dain_school_other_friend", "text": "다른 친구한테 갈래요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "agency_coping"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "세현이 잎사귀 옆에 있을걸."
+      ],
+      "closingLine": "세현이 찾으러 가!"
+    },
+
+    "dain_greet_miss": {
+      "choiceIntentId": "dain_greet_miss", "text": "「보고 싶다」 라고 보낼래요",
+      "nextNodeId": "dain_greet_02a_how", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": ["peer_separation"],
+      "protectiveFactors": ["emotion_named", "relationship_named", "verbal_expression"],
+      "topicKeywords": ["친구"], "sentimentWords": []
+    },
+    "dain_greet_well": {
+      "choiceIntentId": "dain_greet_well", "text": "「잘 지내?」 라고 보낼래요",
+      "nextNodeId": "dain_greet_02b_well_how", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "empathy"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": []
+    },
+    "dain_greet_meet": {
+      "choiceIntentId": "dain_greet_meet", "text": "「다음에 만나자」 라고 보낼래요",
+      "nextNodeId": "dain_greet_02c_meet_when", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "relationship_named", "agency_coping"],
+      "topicKeywords": ["친구", "약속"], "sentimentWords": []
+    },
+    "dain_greet_speak": {
+      "choiceIntentId": "dain_greet_speak", "text": "말로",
+      "nextNodeId": "dain_greet_03a_when", "isEnding": false,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": []
+    },
+    "dain_greet_write": {
+      "choiceIntentId": "dain_greet_write", "text": "글로",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "alternative_expression", "social_connection"],
+      "topicKeywords": ["편지"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": ["글이면 친구가 두고두고 볼 수 있어."],
+      "closingLine": "글 다 쓰면 보여줘."
+    },
+    "dain_greet_draw": {
+      "choiceIntentId": "dain_greet_draw", "text": "그림으로",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "alternative_expression"],
+      "topicKeywords": ["그림"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "그림!",
+        "친구가 받으면 '와' 할걸."
+      ],
+      "closingLine": "또 와서 보여줘."
+    },
+    "dain_greet_when_now": {
+      "choiceIntentId": "dain_greet_when_now", "text": "지금 바로요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["agency_coping", "verbal_expression", "social_connection"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(눈 빛내며) 빨리 답장 올 수도!",
+        "친구도 반가워할 수 있어."
+      ],
+      "closingLine": "다음에 답장 왔는지 알려줘!"
+    },
+    "dain_greet_when_later": {
+      "choiceIntentId": "dain_greet_when_later", "text": "마음 정리하고요",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["self_regulation", "sets_boundary"],
+      "topicKeywords": ["친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "응. 천천히 보내도 돼.",
+        "한 줄에 마음 다 담기는 거 아니야."
+      ],
+      "closingLine": "마음 정리되면 와."
+    },
+    "dain_greet_when_mom": {
+      "choiceIntentId": "dain_greet_when_mom", "text": "엄마한테 같이 보내달라고",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking", "social_connection"],
+      "topicKeywords": ["가족", "친구"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마가 어떻게 전하면 좋을지 같이 정해주실 수 있어.",
+        "같이 부탁하자."
+      ],
+      "closingLine": "(눈 빛내며) 전해진 거 와서 알려줘!"
+    },
+    "dain_greet_well_short": {
+      "choiceIntentId": "dain_greet_well_short", "text": "짧게 한 줄",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["verbal_expression", "social_connection", "empathy"],
+      "topicKeywords": ["친구", "인사"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(끄덕) '잘 지내!' 그것만으로도 전해져."
+      ],
+      "closingLine": "(끄덕) 답장 오면 와!"
+    },
+    "dain_greet_well_drawing": {
+      "choiceIntentId": "dain_greet_well_drawing", "text": "그림 그려서",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["creative_expression", "alternative_expression", "empathy"],
+      "topicKeywords": ["그림", "친구"], "sentimentWords": [],
+      "endingType": "EXPRESS_WITH_DRAWING",
+      "endingNpcLines": [
+        "(끄덕끄덕) '잘 지내?'를 그림으로 보내면",
+        "친구가 두고두고 볼 수 있어."
+      ],
+      "closingLine": "또 와서 보여줘!"
+    },
+    "dain_greet_well_mom": {
+      "choiceIntentId": "dain_greet_well_mom", "text": "엄마한테 부탁해서",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "support_seeking", "social_connection"],
+      "topicKeywords": ["가족", "친구"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마랑 어떻게 전할지 같이 정해보자."
+      ],
+      "closingLine": "엄마한테 부탁하고 와."
+    },
+    "dain_greet_meet_soon": {
+      "choiceIntentId": "dain_greet_meet_soon", "text": "「곧 만나자」 라고",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "relationship_named", "agency_coping"],
+      "topicKeywords": ["친구", "약속"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "(눈 빛내며) 정확한 날짜 없어도 돼."
+      ],
+      "closingLine": "약속 생기면 마음이 가벼워져."
+    },
+    "dain_greet_meet_school": {
+      "choiceIntentId": "dain_greet_meet_school", "text": "「학교 가면」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 0,
+      "concernFlags": [],
+      "protectiveFactors": ["social_connection", "relationship_named"],
+      "topicKeywords": ["학교", "친구"], "sentimentWords": [],
+      "endingType": "SOCIAL_CONNECT",
+      "endingNpcLines": [
+        "학교에서 만날 날을 떠올리면 힘이 날 수 있어."
+      ],
+      "closingLine": "학교 가는 날 와서 알려줘!"
+    },
+    "dain_greet_meet_home": {
+      "choiceIntentId": "dain_greet_meet_home", "text": "「엄마랑 정해서 만나자」",
+      "nextNodeId": null, "isEnding": true,
+      "valence": "POSITIVE", "tone": "CALM", "intensity": 1,
+      "concernFlags": [],
+      "protectiveFactors": ["family_support_preference", "social_connection"],
+      "topicKeywords": ["가족", "친구"], "sentimentWords": [],
+      "endingType": "ASK_ADULT_FIRST",
+      "endingNpcLines": [
+        "엄마랑 같이 정하자.",
+        "친구도 반가워할 수 있어."
+      ],
+      "closingLine": "(눈 빛내며) 날짜 정해지면 알려줘!"
+    }
+  }
+}

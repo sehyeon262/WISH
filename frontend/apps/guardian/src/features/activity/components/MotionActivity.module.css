@@ -1,0 +1,636 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.mainColumn {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  min-height: 0;
+}
+
+.sideColumn {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  min-height: 0;
+}
+
+.fullStatus {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7891;
+  font-size: 14px;
+  padding: 40px 20px;
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+}
+
+.error {
+  color: #c43855;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0 0 10px;
+}
+
+/* ── 오늘 요약 ───────────────────────────────────────── */
+.todayCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 16px;
+  padding: 18px 20px;
+  border-radius: var(--dash-radius-card, 22px);
+  background: linear-gradient(135deg, #ffffff 0%, #f7fbff 48%, #f6f1ff 100%);
+  border: 1px solid rgba(124, 92, 255, 0.1);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+}
+
+.todayMain {
+  min-width: 0;
+}
+
+.todayEyebrow {
+  display: inline-flex;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--dash-color-primary, #7c5cff);
+}
+
+.todayHeadline {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  letter-spacing: 0;
+  word-break: keep-all;
+}
+
+.todaySubline {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--dash-color-text-muted, #6f6a86);
+  word-break: keep-all;
+}
+
+.todayAside {
+  min-width: 120px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(124, 92, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.todayAside strong {
+  font-size: 15px;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.todayAside span:last-child {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted, #7a7891);
+}
+
+.todayStars {
+  font-size: 14px;
+  font-weight: 800;
+  color: #7c5cff;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.todayHelp {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.todayHelp span {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--dash-color-success, #37bc96);
+}
+
+.todayHelp strong {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  word-break: keep-all;
+}
+
+.todayEvidence {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--dash-color-text-muted, #7a7891);
+  word-break: keep-all;
+}
+
+/* ── 품새 탭 ───────────────────────────────────────── */
+.poomsaeBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--dash-color-surface, #fff);
+  border-radius: 16px;
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  flex-shrink: 0;
+}
+
+.poomsaeChip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: #f4f1ff;
+  color: var(--dash-color-text-muted, #7a7891);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.poomsaeChip:hover {
+  background: #ebe5ff;
+  color: var(--dash-color-primary, #7c5cff);
+}
+
+.poomsaeChipActive {
+  background: var(--dash-color-primary, #7c5cff);
+  color: #fff;
+  border-color: var(--dash-color-primary, #7c5cff);
+}
+
+.poomsaeChipActive:hover {
+  background: var(--dash-color-primary, #7c5cff);
+  color: #fff;
+}
+
+/* ── 영상 카드 ───────────────────────────────────────── */
+.videoCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.videoFrame {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1830;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background: #1a1830;
+  border-radius: 14px;
+}
+
+.videoEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 28px;
+  text-align: center;
+}
+
+.videoEmptyIcon {
+  font-size: 36px;
+  opacity: 0.7;
+}
+
+.videoEmptyText {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.videoEmptySub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.videoCaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 4px;
+}
+
+.videoCaptionText {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.videoActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.videoAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--dash-color-border, #ece8f8);
+  background: #fff;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.videoAction:hover {
+  border-color: var(--dash-color-primary, #7c5cff);
+  color: var(--dash-color-primary, #7c5cff);
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.motionTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ── 동작 설명 ───────────────────────────────────────── */
+.descCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 16px 18px;
+}
+
+.descText {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--dash-color-text-muted, #4a4561);
+  line-height: 1.55;
+}
+
+/* ── 통계 카드 ───────────────────────────────────────── */
+.statsCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.statCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f9f7ff 0%, #f1edff 100%);
+}
+
+.statIcon {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.statBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted, #7a7891);
+}
+
+.statValue {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statDetail {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--dash-color-text-muted, #7a7891);
+  word-break: keep-all;
+}
+
+.statsNote {
+  margin: 0;
+  font-size: 12px;
+  color: var(--dash-color-text-muted, #7a7891);
+  text-align: right;
+}
+
+/* ── 또래 비교 ─────────────────────────────────────── */
+.peerCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.peerRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.peerSummary {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  word-break: keep-all;
+}
+
+.peerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.peerRowHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.peerRowLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7891;
+}
+
+.peerRowValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.peerBar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #efeaff;
+  overflow: hidden;
+}
+
+.peerBarFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.peerBarFillMine {
+  background: linear-gradient(90deg, #7c5cff 0%, #a384ff 100%);
+}
+
+.peerBarFillOther {
+  background: linear-gradient(90deg, #c9bff5 0%, #d8d0fa 100%);
+}
+
+.peerNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #7a7891;
+}
+
+.peerNoteIcon {
+  font-size: 14px;
+}
+
+/* ── 동작 리스트 ─────────────────────────────────────── */
+.motionListCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.motionListEmpty {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9a93b3;
+  font-size: 13px;
+  padding: 30px 12px;
+  text-align: center;
+}
+
+.motionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  min-height: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.motionList::-webkit-scrollbar {
+  display: none;
+}
+
+.motionItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  background: #f9f7ff;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    transform 0.12s ease;
+}
+
+.motionItem:hover {
+  background: #efeaff;
+}
+
+.motionItemActive,
+.motionItemActive:hover {
+  background: #efeaff;
+  border-color: var(--dash-color-primary, #7c5cff);
+}
+
+.motionOrder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.motionName {
+  flex: 1 1 auto;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .todayCard {
+    grid-template-columns: 1fr;
+  }
+  .todayAside {
+    align-items: flex-start;
+  }
+  .videoCaption,
+  .videoCaptionText,
+  .videoActions {
+    align-items: flex-start;
+  }
+  .videoCaption {
+    flex-direction: column;
+  }
+  .videoActions {
+    flex-wrap: wrap;
+  }
+  .mainColumn,
+  .sideColumn {
+    grid-template-rows: none;
+    min-width: 0;
+  }
+  .videoCard,
+  .videoFrame {
+    min-width: 0;
+  }
+  .videoFrame {
+    min-height: 220px;
+  }
+  .statRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .motionListCard {
+    overflow: visible;
+  }
+  .motionList {
+    overflow-y: visible;
+  }
+}

@@ -1,0 +1,15 @@
+# 테스트 프로파일.
+# Testcontainers Postgres 컨테이너로 부팅하며, datasource 설정은 @ServiceConnection 이
+# 런타임에 주입한다 (IntegrationTestSupport 참고).
+#
+# Flyway 로 V1.. 마이그레이션을 적용한 뒤 JPA ddl-auto=validate 가 엔티티-스키마 정합성을
+# 검증하므로, 마이그레이션 SQL 오류와 엔티티 매핑 어긋남이 테스트 단계에서 차단된다.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true

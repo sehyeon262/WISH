@@ -1,0 +1,16 @@
+.env
+.env.local
+.env.*.local
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+.claude/
+.staging/
+.ipynb_checkpoints/
+notebooks/**/data/
+notebooks/**/processed/
+ai/test.html

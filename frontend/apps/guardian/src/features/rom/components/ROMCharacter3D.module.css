@@ -1,0 +1,84 @@
+.viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  /* 카드 안에서 가장자리까지 채워야 하므로 자체 둥근 모서리는 제거,
+     카드의 둥근 모서리(우측 하단)에 맞도록 overflow는 부모(leftCard)에서 처리 */
+  border-radius: 0;
+  overflow: hidden;
+  /* 옅은 회보라 베이스 + 캐릭터 부근에서 퍼지는 보라 그라디언트 */
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 50% 62%,
+      rgba(168, 146, 255, 0.28) 0%,
+      rgba(168, 146, 255, 0.12) 38%,
+      rgba(168, 146, 255, 0) 70%
+    ),
+    #f3f4fa;
+}
+
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.canvasWrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  outline: none;
+}
+
+/* ROM 전용 큰 마커 — 강한 보라 글로우 + 다층 동심원 에코 */
+.romMarker {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.romMarker::before,
+.romMarker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+/* 바깥쪽 펄스 글로우(에코) — 진한 보라가 부드럽게 퍼짐 */
+.romMarker::before {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(124, 92, 255, 0.85) 0%,
+    rgba(124, 92, 255, 0.6) 22%,
+    rgba(124, 92, 255, 0.35) 42%,
+    rgba(124, 92, 255, 0.15) 60%,
+    rgba(124, 92, 255, 0) 80%
+  );
+  animation: romMarkerPulse 2.6s ease-out infinite;
+}
+
+/* 가운데 점 — 보라 원 + 흰 링 + 정적 다층 ring/글로우(동심원 효과) */
+.romMarker::after {
+  inset: 14px;
+  background: var(--dash-color-primary);
+  border: 3.5px solid #ffffff;
+  box-shadow:
+    0 0 0 4px rgba(124, 92, 255, 0.55),
+    0 0 0 10px rgba(124, 92, 255, 0.3),
+    0 0 18px rgba(124, 92, 255, 0.75),
+    0 0 36px rgba(124, 92, 255, 0.5),
+    0 0 56px rgba(124, 92, 255, 0.3);
+}
+
+@keyframes romMarkerPulse {
+  0% {
+    transform: scale(0.45);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3.4);
+    opacity: 0;
+  }
+}

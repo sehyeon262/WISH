@@ -1,0 +1,154 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+  tomcat:
+    # multipart 한 요청 전체의 본문 크기 한도. spring.servlet.multipart.max-request-size 와 같이 잡아야
+    # 톰캣 단계에서 미리 차단하지 않는다.
+    # 영상 업로드(LocalVideoStorage 한도 100MB) 를 수용하기 위해 110MB 로 상향 (S14P31E103-308).
+    # 이미지 자체 한도(10MB)는 LocalImageStorage 에서 코드로 다시 강제한다.
+    max-http-form-post-size: 115343360
+    max-swallow-size: 115343360
+
+spring:
+  application:
+    name: backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  servlet:
+    multipart:
+      # 영상 업로드(LocalVideoStorage 한도 100MB) 수용을 위해 100MB. 이미지 자체 한도(10MB)는
+      # LocalImageStorage 가 코드로 다시 강제하므로 글로벌 한도가 더 커도 문제 없음.
+      # 한도 초과 시 MaxUploadSizeExceededException → S-003 PAYLOAD_TOO_LARGE 매핑.
+      # max-request-size 는 multipart 본문 전체라 file-size 보다 약간 크게 (텍스트 part 등 수용).
+      max-file-size: 100MB
+      max-request-size: 110MB
+
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  server:
+    base-path: /
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      slo:
+        http.server.requests: 100ms, 300ms, 500ms, 1s, 3s
+
+security:
+  jwt:
+    # 운영 환경에서는 반드시 환경변수로 주입할 것 (256비트 이상 랜덤)
+    secret: ${JWT_SECRET:local-dev-only-change-me-please-use-at-least-32-chars}
+    access-token-ttl-seconds: ${JWT_ACCESS_TTL_SECONDS:3600}
+    # Refresh token TTL — 클라가 백그라운드에서 자동 회전. 30일 기본 (S14P31E103-780).
+    refresh-token-ttl-seconds: ${JWT_REFRESH_TTL_SECONDS:2592000}
+    issuer: ${JWT_ISSUER:comong}
+
+livekit:
+  url: ${LIVEKIT_URL:}
+  api-key: ${LIVEKIT_API_KEY:}
+  api-secret: ${LIVEKIT_API_SECRET:}
+
+# 마을 광장 실시간 동기화 (S14P31E103-714 ~). 단일 인스턴스 + 인메모리 SimpleBroker 전제.
+# enabled 가 false 면 핸드셰이크 자체를 거부 — 시연/사고 대응용 폴백 스위치 (계획서 11절 백오프 플랜).
+# 동적 변경 필요성이 낮아 환경변수로 빼지 않고 yaml 에 박는다. 운영 활성화 시 application-prod.yaml 에서 override.
+app:
+  realtime:
+    village:
+      enabled: false
+      tick-rate-hz: 5
+      room-capacity: 30
+      idle-disconnect-seconds: 60
+    # 그림 퀴즈 멀티플레이 (S14P31E103-820). 운영 안전 기본은 비활성, dev/local 에서 활성화.
+    quiz:
+      enabled: false
+      min-players: 2
+      max-players: 6
+      round-duration-seconds: 60
+      empty-room-grace-seconds: 60
+
+firebase:
+  push:
+    enabled: ${FIREBASE_PUSH_ENABLED:false}
+  admin:
+    project-id: ${FIREBASE_PROJECT_ID:}
+    credentials-base64: ${FIREBASE_CREDENTIALS_BASE64:}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+    display-request-duration: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+storage:
+  # 활성 백엔드. local | s3. 모든 환경에서 명시 (디폴트 local) — 누락 시에도 LocalImageStorage/LocalVideoStorage 가
+  # matchIfMissing=true 로 활성화된다. S3ImageStorage/S3VideoStorage 는 별도 이슈에서 추가 (S14P31E103-491/492).
+  type: ${STORAGE_TYPE:local}
+  local:
+    # OS 파일시스템상 업로드 디렉토리. 상대경로면 JVM cwd 기준. 운영은 환경변수로 절대경로 주입.
+    upload-dir: ${STORAGE_UPLOAD_DIR:./uploads}
+    # 외부 노출 servlet 상대 prefix. StorageConfig 정적 핸들러와 SecurityConfig permit 이 모두 이 값을
+    # 공유하므로 환경변수로 변경해도 한 곳에서 자동 동기화된다.
+    public-url-prefix: ${STORAGE_PUBLIC_URL_PREFIX:/uploads}
+  # S3 백엔드 설정. type=s3 일 때만 사용. 자격증명은 SDK default credential chain (env / EC2/ECS IAM Role) 에 위임.
+  s3:
+    bucket: ${AWS_S3_PRIVATE_BUCKET:}
+    region: ${AWS_REGION:ap-northeast-2}
+    prefix: ${AWS_S3_PRIVATE_PREFIX:local}
+    presigned-ttl-seconds: ${AWS_S3_PRESIGNED_TTL_SECONDS:900}
+
+# YouTube Data API v3 프록시 설정 (S14P31E103-781).
+# 프론트엔드에 API 키를 노출하지 않기 위해 BE 를 경유한다. api-key 가 비어있으면 검색 비활성화 (FE 가 빈 결과 처리).
+youtube:
+  api-key: ${YOUTUBE_API_KEY:}
+  base-url: ${YOUTUBE_BASE_URL:https://www.googleapis.com/youtube/v3}
+  timeout-seconds: ${YOUTUBE_TIMEOUT_SECONDS:5}
+
+# GMS Anthropic Claude 설정 (등대지기 LLM 후속 질문 생성용, S14P31E103-558).
+# api-key 가 비어있으면 Claude 호출을 시도하지 않고 항상 FallbackSceneProvider 로 동작 — 로컬/테스트 환경에서 키 없이도
+# 컨텍스트 로드가 깨지지 않도록 한다. 운영/dev 에선 GMS_KEY 를 반드시 환경변수로 주입.
+# 키 외 파라미터(엔드포인트/모델/버전)는 GMS 운영 도메인 기본값을 yaml 에 박되 환경변수 override 가능.
+gms:
+  anthropic:
+    api-key: ${GMS_KEY:}
+    base-url: ${GMS_ANTHROPIC_BASE_URL:https://gms.ssafy.io/gmsapi/api.anthropic.com/v1}
+    model: ${GMS_ANTHROPIC_MODEL:claude-sonnet-4-5-20250929}
+    version: ${GMS_ANTHROPIC_VERSION:2023-06-01}
+    # Claude 응답 timeout. 5s 권장 — 사용자(아이) 화면이 로딩 상태로 너무 오래 멈추지 않도록.
+    timeout-seconds: ${GMS_ANTHROPIC_TIMEOUT_SECONDS:5}
+
+# AI 서버 RAG 어댑터 설정 (세션 종료 시 임베딩 트리거, S14P31E103-788).
+# base-url 이 비어있으면 임베딩 호출 자체를 스킵 — 로컬/테스트 환경에서 AI 서버 없이도 컨텍스트 부팅이 깨지지 않도록 한다.
+# dev/prod 에서는 컨테이너 네트워크 hostname (예: http://ai-dev:8001/api/v1) 을 환경변수로 주입.
+ai:
+  dialogue:
+    base-url: ${AI_DIALOGUE_BASE_URL:}
+    # 임베딩 호출 timeout. fire-and-forget 이라 사용자 응답에는 영향 없지만, ThreadPool 점유를 풀어주기 위해 10초 캡.
+    timeout-seconds: ${AI_DIALOGUE_TIMEOUT_SECONDS:30}
+  # 보호자 주간 리포트 AI 요약 (S14P31E103-745). dialogue 와 동일한 AI 서버지만 timeout 이 다르고 동기 호출이라
+  # 별도 RestClient 빈으로 운영한다. base-url 미설정 시 AI_DIALOGUE_BASE_URL 로 fallback — 보통 같은 서버라 한 번에 주입.
+  report:
+    base-url: ${AI_REPORT_BASE_URL:${AI_DIALOGUE_BASE_URL:}}
+    # Opus 응답 + JSON 파싱이라 dialogue 대비 길게. 보호자 GET 동기 대기라 너무 길면 UX 저하.
+    timeout-seconds: ${AI_REPORT_TIMEOUT_SECONDS:35}

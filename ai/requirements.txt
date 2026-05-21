@@ -1,0 +1,18 @@
+# ci: trigger AI pipeline
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.3
+pydantic-settings==2.9.1
+pytest==8.3.5
+httpx==0.28.1
+torch==2.5.1
+numpy==1.26.4
+scipy==1.14.1
+fastdtw==0.3.4
+
+# RAG (784)
+sentence-transformers==3.4.1
+faiss-cpu==1.10.0
+
+# STT (Whisper 프록시: FastAPI UploadFile 처리)
+python-multipart==0.0.20

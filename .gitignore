@@ -1,0 +1,46 @@
+# ===== Secrets =====
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+!.env.*.example
+!.env.template
+*.pem
+*.key
+secrets/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== IDE (루트 방어용, 각 모듈 .gitignore에도 있음) =====
+.idea/
+.vscode/
+.claude/
+*.swp
+
+# ===== Docker local volumes (바인드 마운트 방어) =====
+postgres-data/
+postgres_data/
+redis-data/
+redis_data/
+
+# ===== Node =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== Python =====
+venv/
+.venv/
+__pycache__/
+.pytest_cache/
+pytest-cache-files-*/

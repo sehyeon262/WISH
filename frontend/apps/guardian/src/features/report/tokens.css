@@ -1,0 +1,21 @@
+/* Report feature tokens — extends dashboard tokens. Keep additions scoped to report. */
+:root {
+  --report-gradient-hero: linear-gradient(135deg, #f5efff 0%, #ecfbf5 100%);
+  --report-gradient-compare: linear-gradient(135deg, #fff7fa 0%, #f3f9fc 100%);
+  --report-gradient-chip: linear-gradient(135deg, #a892ff 0%, #7c5cff 100%);
+
+  --report-color-grass-0: #eef0f8;
+  --report-color-grass-1: #d4f3e5;
+  --report-color-grass-2: #a3e6cb;
+  --report-color-grass-3: #6ddec0;
+  --report-color-grass-4: #34c99c;
+
+  --report-color-bar-bg: #f1f3f9;
+  --report-color-bar-self: #7c5cff;
+  --report-color-bar-other: #b6b4c8;
+
+  --report-color-bucket-morning: #ffd55c;
+  --report-color-bucket-day: #6ec9e0;
+  --report-color-bucket-evening: #a892ff;
+  --report-color-bucket-night: #5e5b8a;
+}

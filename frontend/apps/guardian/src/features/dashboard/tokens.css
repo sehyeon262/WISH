@@ -1,0 +1,65 @@
+:root {
+  --dash-color-bg: #fafbff;
+  --dash-color-bg-page: linear-gradient(180deg, #fafbff 0%, #eef0f8 100%);
+  --dash-color-surface: #ffffff;
+  --dash-color-surface-muted: #f6f7fb;
+  --dash-color-surface-tint: #f1f3f9;
+  --dash-color-rom-cell: #f3f5fa;
+
+  --dash-color-text: #1f1b3a;
+  --dash-color-text-strong: #15122a;
+  --dash-color-text-muted: #8b89a6;
+  --dash-color-text-subtle: #b6b4c8;
+
+  --dash-color-border: #ece9f5;
+  --dash-color-border-strong: #ddd7ee;
+
+  --dash-color-primary: #7c5cff;
+  --dash-color-primary-soft: #a892ff;
+  --dash-color-primary-50: #f1edff;
+  --dash-color-primary-100: #e3dcff;
+  --dash-color-lavender-soft: #faf8ff;
+
+  --dash-color-success: #34c99c;
+  --dash-color-success-soft: #d4f3e5;
+  --dash-color-mint: #6ddec0;
+  --dash-color-mint-soft: #f3fbf7;
+  --dash-color-pink: #ffa8c5;
+  --dash-color-pink-soft: #fff7fa;
+  --dash-color-cyan: #6ec9e0;
+  --dash-color-cyan-soft: #f3f9fc;
+  --dash-color-yellow: #ffd55c;
+  --dash-color-warning: #ffb547;
+
+  --dash-gradient-primary: linear-gradient(135deg, #a892ff 0%, #7c5cff 100%);
+  --dash-gradient-card: linear-gradient(180deg, #ffffff 0%, #faf7ff 100%);
+  --dash-gradient-card-tint: linear-gradient(160deg, #f8f7fc 0%, #ebecf4 60%, #f8f7fc 100%);
+  --dash-gradient-success: linear-gradient(135deg, #6ddec0 0%, #34c99c 100%);
+
+  --dash-shadow-card: 0 10px 32px rgba(76, 56, 128, 0.07);
+  --dash-shadow-card-hover: 0 16px 44px rgba(76, 56, 128, 0.13);
+  --dash-shadow-soft: 0 2px 10px rgba(76, 56, 128, 0.05);
+  --dash-shadow-pill: 0 4px 14px rgba(124, 92, 255, 0.25);
+
+  --dash-radius-card: 24px;
+  --dash-radius-md: 16px;
+  --dash-radius-sm: 12px;
+  --dash-radius-pill: 999px;
+
+  --dash-space-1: 4px;
+  --dash-space-2: 8px;
+  --dash-space-3: 12px;
+  --dash-space-4: 16px;
+  --dash-space-5: 20px;
+  --dash-space-6: 24px;
+  --dash-space-7: 28px;
+  --dash-space-8: 32px;
+
+  --dash-sidebar-width: 88px;
+  --dash-header-height: 80px;
+
+  --dash-bottom-tab-height: 64px;
+  --dash-bp-tablet: 1024px;
+  --dash-bp-mobile: 768px;
+  --dash-bp-mobile-sm: 480px;
+}

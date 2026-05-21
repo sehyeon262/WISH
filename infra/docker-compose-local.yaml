@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db-local:
+    image: postgres:15-alpine
+    container_name: e103-postgres-local
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: e103_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - e103-local-network
+
+  redis-local:
+    image: redis:7-alpine
+    container_name: e103-redis-local
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - e103-local-network
+
+networks:
+  e103-local-network:
+    driver: bridge

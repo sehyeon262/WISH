@@ -1,0 +1,134 @@
+version: "3.8"
+
+services:
+  backend-dev:
+    image: ${BACKEND_DEV_IMAGE:-imgunbread/e103-wish:backend-develop-latest}
+    container_name: e103-backend-dev
+    restart: unless-stopped
+    env_file:
+      - .env.dev
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      postgres-dev:
+        condition: service_healthy
+      redis-dev:
+        condition: service_healthy
+    networks:
+      - e103-platform-network
+      - e103-dev-network
+
+  ai-dev:
+    image: ${AI_DEV_IMAGE:-imgunbread/e103-wish:ai-develop-latest}
+    container_name: e103-ai-dev
+    restart: unless-stopped
+    env_file:
+      - .env.dev
+    environment:
+      APP_ENV: dev
+    networks:
+      - e103-platform-network
+
+  frontend-game-dev:
+    image: ${FRONTEND_GAME_DEV_IMAGE:-imgunbread/e103-wish:frontend-game-develop-latest}
+    container_name: e103-frontend-game-dev
+    restart: unless-stopped
+    networks:
+      - e103-platform-network
+
+  frontend-admin-dev:
+    image: ${FRONTEND_ADMIN_DEV_IMAGE:-imgunbread/e103-wish:frontend-admin-develop-latest}
+    container_name: e103-frontend-admin-dev
+    restart: unless-stopped
+    networks:
+      - e103-platform-network
+
+  frontend-guardian-dev:
+    image: ${FRONTEND_GUARDIAN_DEV_IMAGE:-imgunbread/e103-wish:frontend-guardian-develop-latest}
+    container_name: e103-frontend-guardian-dev
+    restart: unless-stopped
+    networks:
+      - e103-platform-network
+
+  postgres-dev:
+    image: postgres:15-alpine
+    container_name: e103-postgres-dev
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DEV_DB:-e103_dev_db}
+      POSTGRES_USER: ${POSTGRES_DEV_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_DEV_PASSWORD}
+      TZ: ${TZ:-Asia/Seoul}
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_DEV_USER:-postgres} -d ${POSTGRES_DEV_DB:-e103_dev_db}
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - e103-dev-network
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.17.1
+    container_name: e103-postgres-exporter
+    restart: unless-stopped
+    environment:
+      DATA_SOURCE_URI: postgres-dev:5432/${POSTGRES_DEV_DB:-e103_dev_db}?sslmode=disable
+      DATA_SOURCE_USER: ${POSTGRES_DEV_USER:-postgres}
+      DATA_SOURCE_PASS: ${POSTGRES_DEV_PASSWORD}
+    depends_on:
+      postgres-dev:
+        condition: service_healthy
+    networks:
+      - e103-platform-network
+      - e103-dev-network
+
+  redis-dev:
+    image: redis:7-alpine
+    container_name: e103-redis-dev
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    networks:
+      - e103-dev-network
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.74.0
+    container_name: e103-redis-exporter
+    restart: unless-stopped
+    environment:
+      REDIS_ADDR: redis://redis-dev:6379
+    depends_on:
+      redis-dev:
+        condition: service_healthy
+    networks:
+      - e103-platform-network
+      - e103-dev-network
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
+
+networks:
+  e103-platform-network:
+    external: true
+    name: e103-platform-network
+  e103-dev-network:
+    name: e103-dev-network
+    driver: bridge

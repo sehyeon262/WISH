@@ -1,0 +1,148 @@
+.viewer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* stage 가 viewport 의 대부분을 차지하도록 width 를 viewport 세로 공간 기반으로 잡는다.
+   reserved 영역: 헤더(66) + body padding 위/아래(28) ≈ 96px. 너무 줄이면 다른 페이지
+   대비 빡빡해 보이므로 100 정도. */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: calc((100vh - 100px) * 16 / 9);
+  aspect-ratio: 16 / 9;
+  background: #0b0b1a;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--dash-shadow-card);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  /* stage 의 aspect-ratio 를 source 와 동기화하므로 contain/cover 차이가 사라진다.
+     contain 으로 두면 메타데이터 도착 직전 frame 에서 잠시 letterbox 가 보일 뿐 안전. */
+  object-fit: contain;
+  background: #0b0b1a;
+  display: block;
+}
+
+.audio {
+  display: none;
+}
+
+.waitingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(180deg, rgba(11, 11, 26, 0.5) 0%, rgba(11, 11, 26, 0.82) 100%);
+  pointer-events: none;
+}
+
+/* 영상 위 overlay 들 — z-index 로 video 위에 띄움. */
+.topRightBar,
+.bottomCenterBar {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topRightBar {
+  top: 16px;
+  right: 16px;
+}
+
+.bottomCenterBar {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: rgba(11, 11, 26, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.statusBadgeLive {
+  /* 다른 overlay 들과 톤 통일 — 보라 대신 검정 반투명. 빨간 dot 으로 LIVE 임을 표현. */
+  background: rgba(11, 11, 26, 0.6);
+}
+
+.statusBadgeLive::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff4757;
+  box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6);
+  animation: pulse 1.2s ease-out infinite;
+}
+
+.audioToggle {
+  appearance: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--dash-color-text-strong);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(11, 11, 26, 0.16);
+}
+
+.audioToggle:hover {
+  background: #ffffff;
+}
+
+.audioToggleOn {
+  background: var(--dash-color-primary-50);
+  color: var(--dash-color-primary);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 71, 87, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .stage {
+    max-width: 100%;
+    border-radius: 18px;
+  }
+  .topRightBar {
+    top: 10px;
+    right: 10px;
+  }
+  .bottomCenterBar {
+    bottom: 16px;
+  }
+}

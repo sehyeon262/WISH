@@ -1,0 +1,201 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemWrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.item {
+  appearance: none;
+  border: 1.5px solid transparent;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px 14px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.item:hover:not(.itemActive) {
+  background: var(--dash-color-surface-tint);
+}
+
+.itemActive {
+  background: var(--dash-color-surface);
+  border-color: var(--dash-color-primary);
+  box-shadow: 0 4px 14px rgba(124, 92, 255, 0.16);
+}
+
+.itemNum {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--dash-color-surface);
+  border: 1.5px solid var(--dash-color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dash-color-text-muted);
+  flex-shrink: 0;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.itemActive .itemNum {
+  background: var(--dash-gradient-primary);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--dash-shadow-pill);
+}
+
+.itemBody {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.itemLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dash-color-text-strong);
+}
+
+.itemActive .itemLabel {
+  color: var(--dash-color-primary);
+}
+
+.itemMeta {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--dash-color-primary);
+  margin-top: 6px;
+}
+
+.connector {
+  display: block;
+  width: 0;
+  height: 44px;
+  margin: 4px 0 4px 21px;
+  border-left: 1.5px dashed var(--dash-color-border-strong);
+  opacity: 0.55;
+}
+
+/* 마지막 발목 → 화살표 사이를 잇는 점선 (스크롤 힌트의 윗 영역) */
+.tailConnector {
+  display: block;
+  width: 0;
+  height: 36px;
+  margin: 4px 0 6px 21px;
+  border-left: 1.5px dashed var(--dash-color-border-strong);
+  opacity: 0.55;
+}
+
+.scrollHint {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-left: 4px;
+  color: var(--dash-color-text-muted);
+}
+
+.scrollArrow {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--dash-color-primary);
+  width: 36px;
+  text-align: center;
+  margin-left: 4px;
+  line-height: 1;
+  animation: bounce 1.6s ease-in-out infinite;
+}
+
+.scrollText {
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: var(--dash-color-text-muted);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: row;
+    min-width: 0;
+  }
+  .list {
+    flex-direction: row;
+    gap: 6px;
+    min-width: 0;
+  }
+  .itemWrap {
+    flex-direction: row;
+  }
+  .item {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    flex: 0 0 auto;
+  }
+  .itemNum {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+  .itemBody {
+    align-items: center;
+    text-align: center;
+  }
+  .itemLabel {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .itemMeta {
+    display: none;
+  }
+  .connector,
+  .tailConnector {
+    display: none;
+  }
+  .scrollHint {
+    display: none;
+  }
+}

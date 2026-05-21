@@ -1,0 +1,368 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--dash-space-4);
+  height: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.brand:hover {
+  opacity: 0.85;
+}
+
+.brandLogo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.tabs {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: var(--dash-radius-pill);
+  background: var(--dash-color-surface);
+  box-shadow: var(--dash-shadow-soft);
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .tabs {
+    gap: 2px;
+    padding: 4px;
+  }
+  .tab {
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    height: var(--dash-bottom-tab-height);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 0;
+    border-radius: 0;
+    border-top: 1px solid var(--dash-color-border);
+    background: var(--dash-color-surface);
+    box-shadow: 0 -2px 12px rgba(76, 56, 128, 0.06);
+    justify-content: space-around;
+    z-index: 50;
+  }
+  .tab {
+    flex: 1;
+    flex-direction: column;
+    gap: 3px;
+    padding: 4px 2px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    min-width: 0;
+  }
+  .tabActive {
+    background: transparent;
+    box-shadow: none;
+  }
+  .tabIcon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tab {
+  appearance: none;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--dash-radius-pill);
+  color: var(--dash-color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.tab:hover {
+  color: var(--dash-color-text-strong);
+}
+
+.tabActive {
+  background: var(--dash-color-primary-50);
+  color: var(--dash-color-primary);
+  box-shadow: 0 1px 3px rgba(124, 92, 255, 0.18);
+}
+
+.tabActive:hover {
+  color: var(--dash-color-primary);
+}
+
+.tabIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.iconBtn {
+  position: relative;
+  appearance: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--dash-color-surface);
+  border: 1px solid var(--dash-color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dash-color-text-muted);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    box-shadow 0.15s;
+}
+
+.iconBtn:hover {
+  color: var(--dash-color-text);
+  box-shadow: var(--dash-shadow-soft);
+}
+
+.bellDot {
+  position: absolute;
+  top: 9px;
+  right: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dash-color-primary);
+  border: 2px solid var(--dash-color-surface);
+}
+
+.bellCount {
+  box-sizing: border-box;
+  position: absolute;
+  /* 종 원 우상단 모서리 바깥에 살짝 걸치게 — 가시성 ↑. */
+  top: -4px;
+  right: -4px;
+  /* 단자릿수일 땐 width/height 동일하게 잡아 정원. 두자릿수+ 는 bellCountWide 가 늘려준다. */
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--dash-color-primary);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 종(흰색 surface) 과 분리되도록 ring 색을 페이지 bg 로 (--dash-color-surface 는 흰색이라
+     ring 이 안 보였음). */
+  border: 2px solid var(--dash-color-bg);
+  box-shadow: 0 2px 6px rgba(124, 92, 255, 0.32);
+}
+
+.bellCountWide {
+  width: auto;
+  min-width: 20px;
+  padding: 0 6px;
+}
+
+.notificationWrap {
+  position: relative;
+}
+
+.profileWrap {
+  position: relative;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  border-radius: var(--dash-radius-pill);
+  background: var(--dash-color-surface);
+  border: 1px solid var(--dash-color-border);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.profile:hover {
+  box-shadow: var(--dash-shadow-soft);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  padding: 6px;
+  border-radius: var(--dash-radius-pill);
+  background: var(--dash-color-surface);
+  border: 1px solid var(--dash-color-border);
+  box-shadow: 0 12px 32px rgba(60, 50, 120, 0.14);
+  z-index: 20;
+  animation: menuIn 0.12s ease-out;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menuItem {
+  appearance: none;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--dash-radius-pill);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--dash-color-text);
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+
+.menuItem:hover {
+  background: var(--dash-color-primary-50);
+  color: var(--dash-color-primary);
+}
+
+.menuItemIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd9b8 0%, #ffb185 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.profileName {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--dash-color-text-strong);
+}
+
+.profileMeta {
+  font-size: 11.5px;
+  color: var(--dash-color-text-muted);
+}
+
+.chev {
+  color: var(--dash-color-text-muted);
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  transition: transform 0.15s ease;
+}
+
+.chevOpen {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .brandLogo {
+    height: 30px;
+  }
+  .iconBtn {
+    width: 38px;
+    height: 38px;
+  }
+  .right {
+    gap: 8px;
+  }
+  .iconGroup {
+    gap: 4px;
+  }
+  .profile {
+    padding: 4px 10px 4px 4px;
+    gap: 8px;
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .profileText {
+    display: none;
+  }
+  .chev {
+    width: 14px;
+    height: 14px;
+  }
+}

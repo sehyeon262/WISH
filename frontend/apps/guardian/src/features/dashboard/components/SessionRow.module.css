@@ -1,0 +1,278 @@
+.row {
+  display: block;
+}
+
+/* ===== Recent Sessions ===== */
+
+.recent {
+  display: flex;
+  align-items: center;
+  gap: var(--dash-space-4);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-soft);
+  padding: 12px var(--dash-space-5);
+}
+
+.recentTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+  letter-spacing: -0.005em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.recentArrow {
+  appearance: none;
+  border: 1px solid var(--dash-color-border);
+  background: var(--dash-color-surface);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dash-color-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.recentArrow:hover {
+  color: var(--dash-color-text);
+  background: var(--dash-color-surface-tint);
+}
+
+.recentArrow:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.recentArrow:disabled:hover {
+  color: var(--dash-color-text-muted);
+  background: var(--dash-color-surface);
+}
+
+.recentArrowIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.recentList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.session {
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: var(--dash-radius-md);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
+}
+
+.session:hover {
+  border-color: var(--dash-color-border-strong);
+}
+
+.sessionToday {
+  background: var(--dash-color-primary-50);
+  border-color: var(--dash-color-primary-100);
+}
+
+.sessionLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+  min-width: 0;
+}
+
+.sessionDate {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.sessionTodayLabel {
+  color: var(--dash-color-primary);
+}
+
+.sessionWeekday {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dash-color-text-muted);
+  margin-top: 3px;
+}
+
+.sessionMetric {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  text-align: right;
+}
+
+.sessionMetric strong {
+  color: var(--dash-color-text-strong);
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.sessionMetric span {
+  max-width: 96px;
+  color: var(--dash-color-text-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recentEmpty {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--dash-color-border-strong);
+  border-radius: var(--dash-radius-md);
+  color: var(--dash-color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ===== Next Session ===== */
+
+.next {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  padding: 16px var(--dash-space-5);
+}
+
+.nextIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--dash-color-primary-50);
+  color: var(--dash-color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nextBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  line-height: 1.2;
+}
+
+.nextLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted);
+  letter-spacing: 0.01em;
+}
+
+.nextDate {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+  letter-spacing: -0.005em;
+}
+
+.nextDateDot {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--dash-color-text-subtle);
+  margin: 0 8px 2px;
+  vertical-align: middle;
+}
+
+.nextType {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--dash-color-text-muted);
+}
+
+.nextCta {
+  appearance: none;
+  border: none;
+  background: var(--dash-gradient-primary);
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--dash-shadow-pill);
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.nextCta:hover {
+  transform: translateX(2px);
+}
+
+.nextCtaIcon {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 768px) {
+  .recent {
+    padding: 10px 14px;
+    gap: var(--dash-space-3);
+  }
+  .recentTitle {
+    font-size: 13px;
+  }
+  .recentList {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .recentList::-webkit-scrollbar {
+    display: none;
+  }
+  .session {
+    flex: 0 0 auto;
+    min-width: 80px;
+  }
+}

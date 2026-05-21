@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>태극 1장 ST-GCN 카메라 테스트</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --panel: #ffffff;
+      --line: #d7deea;
+      --text: #071630;
+      --muted: #52627a;
+      --blue: #255fdb;
+      --blue-dark: #1749ad;
+      --green-bg: #e7f7ee;
+      --green: #16643a;
+      --red-bg: #fdecec;
+      --red: #9b2720;
+      --amber: #a96600;
+      --code: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 28px auto 40px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.9fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      padding: 16px;
+    }
+
+    .panel + .panel {
+      margin-top: 16px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #020617;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    video,
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    video {
+      transform: scaleX(-1);
+    }
+
+    canvas {
+      pointer-events: none;
+    }
+
+    .status-pill {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(2, 6, 23, 0.74);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .progress {
+      width: 100%;
+      height: 8px;
+      margin-top: 12px;
+      background: #e1e7f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      width: 0%;
+      height: 100%;
+      background: var(--blue);
+      transition: width 120ms linear;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    button {
+      min-height: 40px;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 14px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: var(--blue);
+    }
+
+    button:hover {
+      background: var(--blue-dark);
+    }
+
+    button.secondary {
+      color: var(--text);
+      background: #eef2f7;
+    }
+
+    button.secondary:hover {
+      background: #e1e7ef;
+    }
+
+    button.danger {
+      background: #d56868;
+    }
+
+    button.danger:hover {
+      background: #bd4d4d;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 7px 10px;
+      color: var(--text);
+      background: white;
+      font: inherit;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-grid .full {
+      grid-column: 1 / -1;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      min-height: 76px;
+      border-radius: 8px;
+      background: #f2f5fa;
+      padding: 12px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .metric .value {
+      margin-top: 6px;
+      font-size: 24px;
+      font-weight: 800;
+      word-break: keep-all;
+    }
+
+    .passed {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .failed {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .memo {
+      margin-top: 12px;
+      border-left: 4px solid var(--blue);
+      border-radius: 6px;
+      background: #f0f5ff;
+      padding: 12px;
+      color: #274060;
+      font-size: 13px;
+    }
+
+    pre {
+      max-height: 360px;
+      overflow: auto;
+      margin: 0;
+      border-radius: 8px;
+      background: var(--code);
+      color: #e2e8f0;
+      padding: 14px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 12px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .warning {
+      display: none;
+      margin-bottom: 16px;
+      border: 1px solid #f3c56d;
+      border-radius: 8px;
+      background: #fff7e6;
+      color: #6f4400;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        width: min(100% - 20px, 720px);
+      }
+
+      .grid,
+      .form-grid,
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>태극 1장 ST-GCN 카메라 테스트</h1>
+    <p class="subtitle">MediaPipe Pose 33개 관절을 AIHub 29개 관절 순서로 변환해 태극 1장 목표 동작 기준 채점 API로 전송합니다.</p>
+
+    <div id="secureWarning" class="warning">
+      카메라 권한은 보통 localhost 또는 HTTPS에서만 허용됩니다. IP 주소로 접속해서 카메라가 안 열리면 VS Code Live Server의 localhost 주소로 실행하세요.
+    </div>
+
+    <div class="grid">
+      <section>
+        <div class="panel">
+          <h2>카메라</h2>
+          <div class="video-wrap">
+            <video id="video" playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div id="cameraStatus" class="status-pill">초기화 전</div>
+          </div>
+          <div class="progress"><div id="progressBar"></div></div>
+          <div class="buttons">
+            <button id="startBtn" type="button">카메라 시작</button>
+            <button id="recordBtn" type="button" class="secondary" disabled>녹화</button>
+            <button id="analyzeBtn" type="button" class="secondary" disabled>분석</button>
+            <button id="recordAnalyzeBtn" type="button" disabled>녹화 후 분석</button>
+            <button id="downloadBtn" type="button" class="secondary" disabled>샘플 JSON 저장</button>
+            <button id="stopBtn" type="button" class="danger" disabled>중지</button>
+          </div>
+          <p id="frameInfo" class="small">수집 프레임: 0</p>
+        </div>
+
+        <div class="panel">
+          <h2>테스트 메모</h2>
+          <div class="memo">
+            <div>1. 목표 동작을 먼저 선택합니다.</div>
+            <div>2. 아이가 해당 동작을 따라 한 뒤 녹화 후 분석을 누릅니다.</div>
+            <div>3. 642번 검증에서는 <strong>score</strong>, <strong>pass_threshold</strong>, <strong>passed</strong>가 정상 반환되는지 확인하면 됩니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <div class="panel">
+          <h2>분석 설정</h2>
+          <div class="form-grid">
+            <div class="full">
+              <label for="apiUrl">AI API URL</label>
+              <input id="apiUrl" type="text" />
+            </div>
+            <div class="full">
+              <label for="movementName">목표 동작</label>
+              <select id="movementName"></select>
+            </div>
+            <div>
+              <label for="recordSeconds">녹화 시간</label>
+              <input id="recordSeconds" type="number" min="1" max="10" step="0.5" value="3" />
+            </div>
+            <div>
+              <label for="passThreshold">성공 기준 점수</label>
+              <input id="passThreshold" type="number" min="0" max="100" step="1" value="80" />
+            </div>
+            <div>
+              <label for="participantId">촬영자 ID</label>
+              <input id="participantId" type="text" value="p07" placeholder="p04, p05, p07" />
+            </div>
+            <div>
+              <label for="cameraType">카메라 종류</label>
+              <select id="cameraType">
+                <option value="laptop">노트북 카메라</option>
+                <option value="tablet">태블릿 카메라</option>
+                <option value="webcam">외장 웹캠</option>
+                <option value="phone">휴대폰 카메라</option>
+                <option value="other">기타</option>
+              </select>
+            </div>
+            <div>
+              <label for="captureDirection">촬영 방향</label>
+              <select id="captureDirection">
+                <option value="front">front</option>
+                <option value="left">left</option>
+                <option value="right">right</option>
+                <option value="back">back</option>
+              </select>
+            </div>
+            <div>
+              <label for="actionSide">사용 팔</label>
+              <select id="actionSide">
+                <option value="left">left</option>
+                <option value="right">right</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </div>
+            <div>
+              <label for="takeNo">회차</label>
+              <input id="takeNo" type="number" min="1" step="1" value="1" />
+            </div>
+            <div class="full">
+              <label for="sessionId">세션 ID</label>
+              <input id="sessionId" type="text" value="camera-test-001" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>분석 결과</h2>
+          <div class="metrics">
+            <div class="metric">
+              <div class="label">목표 동작</div>
+              <div id="targetMovement" class="value">-</div>
+            </div>
+            <div class="metric">
+              <div class="label">점수</div>
+              <div id="scoreValue" class="value">-</div>
+            </div>
+            <div id="passedMetric" class="metric">
+              <div class="label">성공 여부</div>
+              <div id="passedValue" class="value">-</div>
+            </div>
+            <div class="metric" hidden>
+              <div class="label">취약 부위</div>
+              <div id="weakestPart" class="value">-</div>
+            </div>
+            <div class="metric" hidden>
+              <div class="label">가장 차이 큰 관절</div>
+              <div id="worstJoint" class="value">-</div>
+            </div>
+          </div>
+          <p id="feedback" class="small" hidden>아직 분석 결과가 없습니다.</p>
+        </div>
+
+        <div class="panel">
+          <h2>응답 JSON</h2>
+          <pre id="jsonOutput">아직 분석 결과가 없습니다.</pre>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const movementNames = [
+      "기본준비",
+      "앞굽이하고 아래막고 지르기",
+      "앞굽이하고 아래막기",
+      "앞굽이하고 지르기",
+      "앞서고 아래막기",
+      "앞서고 안막기",
+      "앞서고 얼굴막기",
+      "앞서고 지르기",
+      "앞차고 앞서고 지르기",
+    ];
+
+    const aihubKeypoints = [
+      { name: "왼쪽 뒷꿈치", index: 29 },
+      { name: "왼쪽 발목", index: 27 },
+      { name: "왼쪽 팔꿈치", index: 13 },
+      { name: "왼쪽 귀", index: 7 },
+      { name: "오른쪽 뒷꿈치", index: 30 },
+      { name: "오른쪽 엄지 발가락", index: 32 },
+      { name: "코", index: 0 },
+      { name: "오른쪽 팔꿈치", index: 14 },
+      { name: "왼쪽 무릎", index: 25 },
+      { name: "오른쪽 어깨", index: 12 },
+      { name: "왼쪽 눈", index: 2 },
+      { name: "왼쪽 손목", index: 15 },
+      { name: "오른쪽 무릎", index: 26 },
+      { name: "오른쪽 손목", index: 16 },
+      { name: "오른쪽 눈", index: 5 },
+      { name: "목", mid: [11, 12] },
+      { name: "오른쪽 새끼 발가락", index: 32 },
+      { name: "왼쪽 어깨", index: 11 },
+      { name: "오른쪽 중지 손가락", index: 20 },
+      { name: "오른쪽 엄지 손가락", index: 22 },
+      { name: "오른쪽 발목", index: 28 },
+      { name: "왼쪽 엄지 발가락", index: 31 },
+      { name: "왼쪽 엉덩이", index: 23 },
+      { name: "가운데 엉덩이", mid: [23, 24] },
+      { name: "오른쪽 귀", index: 8 },
+      { name: "왼쪽 새끼 발가락", index: 31 },
+      { name: "오른쪽 엉덩이", index: 24 },
+      { name: "왼쪽 엄지 손가락", index: 21 },
+      { name: "왼쪽 중지 손가락", index: 19 },
+    ];
+
+    const stgcnKeypoints = [
+      { name: "코", index: 0 },
+      { name: "목", mid: [11, 12] },
+      { name: "왼쪽 눈", index: 2 },
+      { name: "오른쪽 눈", index: 5 },
+      { name: "왼쪽 귀", index: 7 },
+      { name: "오른쪽 귀", index: 8 },
+      { name: "왼쪽 어깨", index: 11 },
+      { name: "오른쪽 어깨", index: 12 },
+      { name: "왼쪽 팔꿈치", index: 13 },
+      { name: "오른쪽 팔꿈치", index: 14 },
+      { name: "왼쪽 손목", index: 15 },
+      { name: "오른쪽 손목", index: 16 },
+      { name: "왼쪽 엄지 손가락", index: 21 },
+      { name: "오른쪽 엄지 손가락", index: 22 },
+      { name: "왼쪽 중지 손가락", index: 19 },
+      { name: "오른쪽 중지 손가락", index: 20 },
+      { name: "왼쪽 엉덩이", index: 23 },
+      { name: "오른쪽 엉덩이", index: 24 },
+      { name: "가운데 엉덩이", mid: [23, 24] },
+      { name: "왼쪽 무릎", index: 25 },
+      { name: "오른쪽 무릎", index: 26 },
+      { name: "왼쪽 발목", index: 27 },
+      { name: "오른쪽 발목", index: 28 },
+      { name: "왼쪽 뒷꿈치", index: 29 },
+      { name: "오른쪽 뒷꿈치", index: 30 },
+      { name: "왼쪽 엄지 발가락", index: 31 },
+      { name: "오른쪽 엄지 발가락", index: 32 },
+      { name: "왼쪽 새끼 발가락", index: 31 },
+      { name: "오른쪽 새끼 발가락", index: 32 },
+    ];
+
+    const videoEl = document.getElementById("video");
+    const canvasEl = document.getElementById("overlay");
+    const ctx = canvasEl.getContext("2d");
+    const statusEl = document.getElementById("cameraStatus");
+    const frameInfoEl = document.getElementById("frameInfo");
+    const progressBar = document.getElementById("progressBar");
+
+    const startBtn = document.getElementById("startBtn");
+    const recordBtn = document.getElementById("recordBtn");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const recordAnalyzeBtn = document.getElementById("recordAnalyzeBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const stopBtn = document.getElementById("stopBtn");
+
+    let pose = null;
+    let camera = null;
+    let capturedFrames = [];
+    let lastPayload = null;
+    let isRecording = false;
+    let isPreparingRecording = false;
+    let recordTimer = null;
+    let progressTimer = null;
+    let recordAnalyzeDelayTimer = null;
+    let recordAnalyzeDelayInterval = null;
+    const API_TIMEOUT_MS = 20000;
+    const RECORD_ANALYZE_DELAY_SECONDS = 3;
+
+    function getDefaultApiUrl() {
+      const endpoint = "/api/v1/taekwondo/taegeuk1/analyze";
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || !location.hostname) {
+        return `http://127.0.0.1:8001${endpoint}`;
+      }
+      return `${location.protocol}//${location.hostname}:8001${endpoint}`;
+    }
+
+    function initApiUrl() {
+      document.getElementById("apiUrl").value = getDefaultApiUrl();
+    }
+
+    function initMovementSelect() {
+      const select = document.getElementById("movementName");
+      select.innerHTML = "";
+      for (const name of movementNames) {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+      }
+      select.value = "앞서고 아래막기";
+    }
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+    }
+
+    function showJsonMessage(message, detail = "") {
+      document.getElementById("jsonOutput").textContent = detail ? `${message}\n\n${detail}` : message;
+      document.getElementById("feedback").textContent = message;
+    }
+
+    function showResultMessage(message, detail = "") {
+      document.getElementById("targetMovement").textContent = document.getElementById("movementName").value || "-";
+      document.getElementById("scoreValue").textContent = "-";
+      document.getElementById("passedValue").textContent = "-";
+      document.getElementById("weakestPart").textContent = "-";
+      document.getElementById("worstJoint").textContent = "-";
+      const passedMetric = document.getElementById("passedMetric");
+      passedMetric.classList.remove("passed", "failed");
+      showJsonMessage(message, detail);
+    }
+
+    function updateFrameInfo() {
+      frameInfoEl.textContent = `수집 프레임: ${capturedFrames.length}`;
+    }
+
+    function isCameraSecureContext() {
+      return window.isSecureContext || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+    }
+
+    function pointFromLandmark(landmark) {
+      if (!landmark) {
+        return [0, 0, 0];
+      }
+      return [
+        Number.isFinite(landmark.x) ? landmark.x : 0,
+        Number.isFinite(landmark.y) ? landmark.y : 0,
+        Number.isFinite(landmark.visibility) ? landmark.visibility : 0,
+      ];
+    }
+
+    function midpoint(landmarks, leftIndex, rightIndex) {
+      const left = landmarks[leftIndex];
+      const right = landmarks[rightIndex];
+      if (!left || !right) {
+        return [0, 0, 0];
+      }
+      const leftVisibility = Number.isFinite(left.visibility) ? left.visibility : 0;
+      const rightVisibility = Number.isFinite(right.visibility) ? right.visibility : 0;
+      return [
+        (left.x + right.x) / 2,
+        (left.y + right.y) / 2,
+        Math.min(leftVisibility, rightVisibility),
+      ];
+    }
+
+    function extractAihub29(landmarks) {
+      return stgcnKeypoints.map((item) => {
+        if (item.mid) {
+          return midpoint(landmarks, item.mid[0], item.mid[1]);
+        }
+        return pointFromLandmark(landmarks[item.index]);
+      });
+    }
+
+    function drawResults(results) {
+      const width = videoEl.videoWidth || 640;
+      const height = videoEl.videoHeight || 480;
+      if (canvasEl.width !== width || canvasEl.height !== height) {
+        canvasEl.width = width;
+        canvasEl.height = height;
+      }
+      ctx.save();
+      ctx.clearRect(0, 0, width, height);
+      ctx.scale(-1, 1);
+      ctx.translate(-width, 0);
+      ctx.drawImage(results.image, 0, 0, width, height);
+      if (results.poseLandmarks) {
+        drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS, { color: "#16a34a", lineWidth: 3 });
+        drawLandmarks(ctx, results.poseLandmarks, { color: "#2563eb", lineWidth: 1, radius: 2 });
+      }
+      ctx.restore();
+    }
+
+    async function initCamera() {
+      if (!isCameraSecureContext()) {
+        document.getElementById("secureWarning").style.display = "block";
+      }
+      if (!window.Pose || !window.Camera) {
+        setStatus("MediaPipe 로드 실패");
+        return;
+      }
+
+      pose = new Pose({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+      });
+      pose.setOptions({
+        modelComplexity: 1,
+        smoothLandmarks: true,
+        enableSegmentation: false,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5,
+      });
+      pose.onResults((results) => {
+        drawResults(results);
+        if (results.poseLandmarks && isRecording) {
+          capturedFrames.push(extractAihub29(results.poseLandmarks));
+          updateFrameInfo();
+        }
+      });
+
+      setStatus("카메라 요청 중");
+      camera = new Camera(videoEl, {
+        onFrame: async () => {
+          await pose.send({ image: videoEl });
+        },
+        width: 640,
+        height: 480,
+      });
+      await camera.start();
+      setStatus("준비 완료");
+      startBtn.disabled = true;
+      recordBtn.disabled = false;
+      recordAnalyzeBtn.disabled = false;
+      stopBtn.disabled = false;
+    }
+
+    function buildPayload() {
+      const movementName = document.getElementById("movementName").value;
+      const passThreshold = Number(document.getElementById("passThreshold").value);
+      const takeNo = Number(document.getElementById("takeNo").value);
+      const recordSeconds = Math.max(1, Number(document.getElementById("recordSeconds").value) || 3);
+      return {
+        schema_version: "taegeuk1_camera_sample.v2",
+        captured_at: new Date().toISOString(),
+        session_id: document.getElementById("sessionId").value || null,
+        participant_id: document.getElementById("participantId").value.trim() || null,
+        camera_type: document.getElementById("cameraType").value,
+        direction: document.getElementById("captureDirection").value,
+        action_side: document.getElementById("actionSide").value,
+        take_no: Number.isFinite(takeNo) ? takeNo : null,
+        movement_name: movementName,
+        pass_threshold: Number.isFinite(passThreshold) ? passThreshold : 80,
+        sequence: capturedFrames,
+        input_normalized: false,
+        frame_count: capturedFrames.length,
+        duration_ms: Math.round(recordSeconds * 1000),
+        source: "webcam_mediapipe_pose",
+        mapping: "mediapipe_33_to_aihub_29_approx",
+        keypoint_names: stgcnKeypoints.map((item) => item.name),
+      };
+    }
+
+    function startRecording() {
+      if (isRecording || isPreparingRecording) {
+        return Promise.resolve();
+      }
+      capturedFrames = [];
+      lastPayload = null;
+      updateFrameInfo();
+      analyzeBtn.disabled = true;
+      downloadBtn.disabled = true;
+      progressBar.style.width = "0%";
+
+      const seconds = Math.max(1, Number(document.getElementById("recordSeconds").value) || 3);
+      const durationMs = seconds * 1000;
+      isPreparingRecording = true;
+      recordBtn.disabled = true;
+      recordAnalyzeBtn.disabled = true;
+      setStatus("녹화 중");
+
+      return new Promise((resolve) => {
+        isPreparingRecording = false;
+        isRecording = true;
+        const startedAt = Date.now();
+
+        progressTimer = window.setInterval(() => {
+          const elapsed = Date.now() - startedAt;
+          const progress = Math.min(100, (elapsed / durationMs) * 100);
+          progressBar.style.width = `${progress}%`;
+        }, 100);
+
+        recordTimer = window.setTimeout(() => {
+          isRecording = false;
+          window.clearInterval(progressTimer);
+          progressTimer = null;
+          recordTimer = null;
+          progressBar.style.width = "100%";
+          setStatus(`녹화 완료 (${capturedFrames.length}프레임)`);
+          recordBtn.disabled = false;
+          recordAnalyzeBtn.disabled = false;
+          analyzeBtn.disabled = capturedFrames.length === 0;
+          downloadBtn.disabled = capturedFrames.length === 0;
+          resolve();
+        }, durationMs);
+      });
+    }
+
+    function clearRecordAnalyzeDelay() {
+      if (recordAnalyzeDelayTimer) {
+        window.clearTimeout(recordAnalyzeDelayTimer);
+      }
+      if (recordAnalyzeDelayInterval) {
+        window.clearInterval(recordAnalyzeDelayInterval);
+      }
+      recordAnalyzeDelayTimer = null;
+      recordAnalyzeDelayInterval = null;
+    }
+
+    function waitBeforeRecordAnalyze(seconds = RECORD_ANALYZE_DELAY_SECONDS) {
+      const waitSeconds = Math.max(0, Math.floor(Number(seconds) || 0));
+      if (waitSeconds === 0) {
+        return Promise.resolve();
+      }
+
+      clearRecordAnalyzeDelay();
+      recordBtn.disabled = true;
+      analyzeBtn.disabled = true;
+      recordAnalyzeBtn.disabled = true;
+      downloadBtn.disabled = true;
+      progressBar.style.width = "0%";
+
+      let remainingSeconds = waitSeconds;
+      const updateCountdownStatus = () => {
+        setStatus(`${remainingSeconds}초 후 녹화 시작`);
+      };
+      updateCountdownStatus();
+      showResultMessage("녹화 준비 중", `${waitSeconds}초 후 녹화가 시작됩니다. 준비 자세를 잡아주세요.`);
+
+      return new Promise((resolve) => {
+        recordAnalyzeDelayInterval = window.setInterval(() => {
+          remainingSeconds -= 1;
+          if (remainingSeconds > 0) {
+            updateCountdownStatus();
+          }
+        }, 1000);
+
+        recordAnalyzeDelayTimer = window.setTimeout(() => {
+          clearRecordAnalyzeDelay();
+          resolve();
+        }, waitSeconds * 1000);
+      });
+    }
+
+    function stopCamera() {
+      isRecording = false;
+      isPreparingRecording = false;
+      clearRecordAnalyzeDelay();
+      if (recordTimer) {
+        window.clearTimeout(recordTimer);
+      }
+      if (progressTimer) {
+        window.clearInterval(progressTimer);
+      }
+      recordTimer = null;
+      progressTimer = null;
+      if (camera && typeof camera.stop === "function") {
+        camera.stop();
+      }
+      setStatus("중지됨");
+      startBtn.disabled = false;
+      recordBtn.disabled = true;
+      recordAnalyzeBtn.disabled = true;
+      stopBtn.disabled = true;
+    }
+
+    function scoringMethodLabel(method) {
+      const labels = {
+        prototype_distance: "전체 시퀀스 prototype 거리 기반",
+        camera_similarity: "카메라 시퀀스 유사도 보정",
+        target_rule: "목표 동작 핵심 자세 규칙 기반",
+      };
+      return labels[method] || "";
+    }
+
+    function displayAnalyzeResponse(data) {
+      const {
+        predicted_movement_index,
+        predicted_movement_name,
+        confidence,
+        top3_predictions,
+        scored_movement_index,
+        scored_movement_name,
+        classification_match,
+        prototype_score,
+        target_rule_score,
+        distance,
+        joint_errors_top5,
+        body_part_scores,
+        body_part_errors,
+        ...displayData
+      } = data;
+      return displayData;
+    }
+
+    function renderResult(data) {
+      const score = Number(data.score ?? data.final_score ?? 0);
+      const passThreshold = Number(data.pass_threshold ?? document.getElementById("passThreshold").value ?? 80);
+      const passed = typeof data.passed === "boolean" ? data.passed : score >= passThreshold;
+      const feedback = data.feedback_summary || "피드백 문구가 없습니다.";
+      const methodLabel = scoringMethodLabel(data.scoring_method);
+
+      document.getElementById("targetMovement").textContent = data.target_movement_name || data.scored_movement_name || document.getElementById("movementName").value || "-";
+      document.getElementById("scoreValue").textContent = Number.isFinite(score) ? score.toFixed(2) : "-";
+      document.getElementById("passedValue").textContent = passed ? "성공" : "실패";
+      document.getElementById("weakestPart").textContent = data.weakest_body_part || "-";
+      document.getElementById("worstJoint").textContent = data.worst_joint || "-";
+      document.getElementById("feedback").textContent = methodLabel ? `${feedback} 채점 방식: ${methodLabel}` : feedback;
+
+      const passedMetric = document.getElementById("passedMetric");
+      passedMetric.classList.toggle("passed", passed);
+      passedMetric.classList.toggle("failed", !passed);
+      document.getElementById("jsonOutput").textContent = JSON.stringify(displayAnalyzeResponse(data), null, 2);
+    }
+
+    async function postAnalyze(url, payload) {
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+      try {
+        return await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
+    }
+
+    async function analyze() {
+      if (capturedFrames.length === 0) {
+        const message = "분석할 프레임이 없습니다.";
+        setStatus(message);
+        showResultMessage(
+          message,
+          "카메라 화면에 사람이 잡힌 상태에서 녹화 후 분석을 다시 눌러주세요. 녹화가 끝난 뒤 '수집 프레임' 값이 1 이상이어야 분석 요청을 보냅니다."
+        );
+        return;
+      }
+
+      const apiUrl = document.getElementById("apiUrl").value.trim();
+      const payload = buildPayload();
+      lastPayload = payload;
+      setStatus("분석 요청 중");
+      showResultMessage("분석 요청 중", "AI 서버 응답을 기다리는 중입니다.");
+      document.getElementById("jsonOutput").textContent = JSON.stringify(payload, null, 2);
+
+      try {
+        let response = await postAnalyze(apiUrl, payload);
+        let finalApiUrl = apiUrl;
+        if (response.status === 404 && apiUrl.includes("/api/v1/taekwondo/taegeuk1/analyze")) {
+          finalApiUrl = apiUrl.replace("/api/v1/taekwondo/taegeuk1/analyze", "/api/taegeuk1/analyze");
+          response = await postAnalyze(finalApiUrl, payload);
+          document.getElementById("apiUrl").value = finalApiUrl;
+        }
+        const text = await response.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (_error) {
+          data = { raw_response: text };
+        }
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status} ${response.statusText}\nURL: ${finalApiUrl}\n${JSON.stringify(data, null, 2)}`);
+        }
+        renderResult(data);
+        setStatus("분석 완료");
+      } catch (error) {
+        setStatus("요청 실패");
+        const reason = error.name === "AbortError" ? "AI 서버 응답 시간이 초과되었습니다." : error.message;
+        showResultMessage(
+          "요청 실패",
+          `${reason}\n\n확인할 것:\n1. AI 서버가 8001번에서 실행 중인지 확인\n2. API URL이 서버 라우터와 맞는지 확인\n3. CORS 오류가 보이면 FastAPI CORS 설정 확인\n4. 서버를 재시작해서 CORS 변경사항이 반영됐는지 확인`
+        );
+      }
+    }
+
+    function safeFilenamePart(value, fallback = "unknown") {
+      return String(value || fallback)
+        .trim()
+        .replace(/\s+/g, "_")
+        .replace(/[\\/:*?"<>|]+/g, "_");
+    }
+
+    function incrementTakeNo() {
+      const takeNoInput = document.getElementById("takeNo");
+      const currentTakeNo = Number(takeNoInput.value);
+      takeNoInput.value = String(Number.isFinite(currentTakeNo) ? Math.floor(currentTakeNo) + 1 : 1);
+    }
+
+    function downloadSampleJson() {
+      if (!lastPayload) {
+        lastPayload = buildPayload();
+      }
+      const movement = safeFilenamePart(lastPayload.movement_name);
+      const participant = safeFilenamePart(lastPayload.participant_id);
+      const cameraType = safeFilenamePart(lastPayload.camera_type);
+      const direction = safeFilenamePart(lastPayload.direction);
+      const actionSide = safeFilenamePart(lastPayload.action_side);
+      const takeNo = String(lastPayload.take_no || "00").padStart(2, "0");
+      const stamp = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+      const blob = new Blob([JSON.stringify(lastPayload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `taegeuk1_${movement}_${direction}_${actionSide}_${participant}_${cameraType}_take${takeNo}_${stamp}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      incrementTakeNo();
+      lastPayload = null;
+    }
+
+    startBtn.addEventListener("click", () => {
+      initCamera().catch((error) => {
+        setStatus("카메라 실패");
+        document.getElementById("jsonOutput").textContent = String(error);
+      });
+    });
+
+    recordBtn.addEventListener("click", () => {
+      startRecording();
+    });
+
+    analyzeBtn.addEventListener("click", () => {
+      analyze();
+    });
+
+    recordAnalyzeBtn.addEventListener("click", async () => {
+      try {
+        showResultMessage("녹화 중", "바로 녹화를 시작하고, 녹화가 끝나면 자동으로 분석합니다.");
+        await waitBeforeRecordAnalyze();
+        await startRecording();
+        await analyze();
+      } catch (error) {
+        setStatus("분석 흐름 실패");
+        showResultMessage("분석 흐름 실패", error.stack || String(error));
+      }
+    });
+
+    downloadBtn.addEventListener("click", downloadSampleJson);
+    stopBtn.addEventListener("click", stopCamera);
+
+    initApiUrl();
+    initMovementSelect();
+    updateFrameInfo();
+    if (!isCameraSecureContext()) {
+      document.getElementById("secureWarning").style.display = "block";
+    }
+  </script>
+</body>
+</html>

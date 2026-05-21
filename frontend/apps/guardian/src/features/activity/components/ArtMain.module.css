@@ -1,0 +1,573 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 16px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.mainColumn,
+.sideColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.heroCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0 4px 10px;
+}
+
+.carousel {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.imageFrame {
+  position: relative;
+  flex: 1 1 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f6f4ff;
+  box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.08);
+  min-height: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.captionBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 4px 2px;
+  flex-shrink: 0;
+}
+
+.captionMascot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #efe7ff 0%, #e0d3ff 100%);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dash-color-primary, #7c5cff);
+}
+
+.captionText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.captionLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a7fb3;
+}
+
+.captionTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(124, 92, 255, 0.22);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.navPrev {
+  left: 10px;
+}
+
+.navNext {
+  right: 10px;
+}
+
+.navBtn:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 4px 12px rgba(124, 92, 255, 0.28);
+}
+
+.navBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.indexPill {
+  align-self: center;
+  margin-top: 10px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fullStatus {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7891;
+  font-size: 14px;
+  padding: 40px 20px;
+}
+
+.error {
+  color: #c43855;
+}
+
+.emptyArt {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7891;
+  font-size: 14px;
+  padding: 40px 20px;
+}
+
+/* ── 오늘의 미술 활동 요약 ───────────────────────────────── */
+
+.summaryCard {
+  position: relative;
+  background: linear-gradient(135deg, #efeaff 0%, #f5f0ff 50%, #efe7fc 100%);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.summaryBody {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.summaryTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+}
+
+.summaryStar {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(245, 165, 36, 0.35));
+}
+
+.summaryText {
+  margin: 0;
+  font-size: 14px;
+  color: #4a4561;
+  line-height: 1.5;
+}
+
+.summaryTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summaryTag {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dash-color-primary, #7c5cff);
+  box-shadow: 0 1px 4px rgba(124, 92, 255, 0.1);
+}
+
+.summaryMascot {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  margin: -12px -6px -12px 0;
+}
+
+.summarySparkleA,
+.summarySparkleB,
+.summarySparkleC {
+  position: absolute;
+  color: #c9bff5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.summarySparkleA {
+  top: 18px;
+  right: 150px;
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+.summarySparkleB {
+  top: 14px;
+  right: 30px;
+  font-size: 16px;
+  opacity: 0.75;
+}
+
+.summarySparkleC {
+  bottom: 18px;
+  right: 120px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* ── 그림 정보 카드 ─────────────────────────────────────── */
+
+.infoCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.infoCardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+}
+
+.infoStatsRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.infoStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 18px 10px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f9f7ff 0%, #f1edff 100%);
+  text-align: center;
+}
+
+.infoStatValue {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  line-height: 1.2;
+}
+
+.infoStatLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7891;
+}
+
+/* ── 아이와 평균 비교 ─────────────────────────────────────── */
+
+.peerCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.peerCardTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+}
+
+.peerRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.peerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.peerRowHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.peerRowLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7891;
+}
+
+.peerRowValue {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.peerBar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #efeaff;
+  overflow: hidden;
+}
+
+.peerBarFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.peerBarFillMine {
+  background: linear-gradient(90deg, #7c5cff 0%, #a384ff 100%);
+}
+
+.peerBarFillOther {
+  background: linear-gradient(90deg, #c9bff5 0%, #d8d0fa 100%);
+}
+
+.peerNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #7a7891;
+  padding-top: 4px;
+}
+
+.peerNoteIcon {
+  font-size: 14px;
+}
+
+/* ── 지난 그림 보기 ─────────────────────────────────────── */
+
+.pastCard {
+  background: var(--dash-color-surface, #fff);
+  border-radius: var(--dash-radius-card, 22px);
+  box-shadow: var(--dash-shadow-card, 0 2px 12px rgba(60, 50, 120, 0.06));
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.pastTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.pastEmpty {
+  color: #9a93b3;
+  font-size: 13px;
+  text-align: center;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pastRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+}
+
+.pastThumbs {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.pastThumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+  max-width: 280px;
+}
+
+.pastThumbFrame {
+  width: 100%;
+  aspect-ratio: 1.4 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f6f4ff;
+  box-shadow: inset 0 0 0 1px rgba(124, 92, 255, 0.08);
+}
+
+.pastThumbImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pastThumbDate {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7891;
+}
+
+.pastNavBtn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(124, 92, 255, 0.16);
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.pastNavBtn:hover:not(:disabled) {
+  transform: scale(1.08);
+}
+
+.pastNavBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .mainColumn,
+  .sideColumn,
+  .heroCard,
+  .imageFrame,
+  .peerCard,
+  .pastCard {
+    min-width: 0;
+  }
+  .summaryCard {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .summaryMascot {
+    width: 110px;
+    height: 110px;
+    margin: 0;
+    align-self: center;
+  }
+  .summarySparkleA,
+  .summarySparkleB,
+  .summarySparkleC {
+    display: none;
+  }
+  .infoStatsRow {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .infoStatValue {
+    font-size: 16px;
+  }
+  .infoStat {
+    padding: 12px 6px;
+  }
+  .imageFrame {
+    min-height: 200px;
+  }
+}

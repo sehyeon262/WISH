@@ -1,0 +1,146 @@
+.card {
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  padding: 14px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+}
+
+.titleInfo {
+  color: var(--dash-color-text-subtle);
+  display: inline-flex;
+}
+
+.viewAll {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted);
+  background: var(--dash-color-surface-muted);
+  border: none;
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.viewAll:hover {
+  color: var(--dash-color-text-strong);
+  background: var(--dash-color-border);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex: 1;
+  min-height: 0;
+  /* 항목이 카드 높이를 넘기면 내부 스크롤로 확인 — 시각적으로는 스크롤바 숨김. */
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge legacy */
+}
+
+.list::-webkit-scrollbar {
+  display: none; /* Chromium/Safari */
+}
+
+.empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--dash-color-text-muted);
+  padding: 24px 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.rowDate {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted);
+  width: 38px;
+}
+
+.rowStar {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rowLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dash-color-text-strong);
+  white-space: nowrap;
+}
+
+.rowMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rowBar {
+  width: 96px;
+  height: 8px;
+  background: var(--dash-color-surface-muted);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rowBarFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+}
+
+.rowAmount {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+  min-width: 36px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+  .list {
+    flex: 0 0 auto;
+  }
+  .rowBar {
+    width: 64px;
+  }
+}

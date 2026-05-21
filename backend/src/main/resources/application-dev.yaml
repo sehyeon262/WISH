@@ -1,0 +1,57 @@
+server:
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: false
+
+cors:
+  allowed-origins:
+    - https://k14e103.p.ssafy.io
+    - https://game-dev.wish-e103.xyz
+    - https://admin-dev.wish-e103.xyz
+    - https://guardian-dev.wish-e103.xyz
+    - http://localhost:3001
+    - http://localhost:3002
+    - http://localhost:3003
+    - http://127.0.0.1:3001
+    - http://127.0.0.1:3002
+
+# dev 환경은 S3 백엔드 활성. 컨테이너 ephemeral 디스크에 업로드 파일이 유실되는 문제를 해소한다 (S14P31E103-493).
+# S3 자격증명은 .env.dev 의 AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY 로 주입 — SDK default credential chain
+# 이 환경변수를 자동 사용한다. 버킷 / 리전 / prefix 는 application.yaml 의 ${...} 가 환경변수에서 읽음.
+# 운영 가이드: infra/aws-s3-bucket-setup-guide.md
+storage:
+  type: s3
+  s3:
+    prefix: dev
+
+# 마을 광장 멀티플레이 활성화 (S14P31E103-755). 기본 yaml 의 enabled=false 는 운영용 안전핀.
+# room-capacity 는 dev 시연·테스트 환경에서 단일 인스턴스 + SimpleBroker 기준으로 100명 까지 상향
+# (S14P31E103-771). 기본 30 은 운영 안전 기본값으로 base yaml 에 그대로 유지.
+app:
+  realtime:
+    village:
+      enabled: true
+      room-capacity: 100
+    # 그림 멀티플레이 (S14P31E103-820) 도 dev 에서 활성. 기본 yaml 의 enabled=false 는 운영 안전핀.
+    # 비활성 상태에선 WS CONNECT 가 "quiz realtime disabled" 로 거절되어 host 가 member_joined 를
+    # 받지 못해 시작 버튼이 영원히 잠긴다 (멤버 카운트는 WS 로만 갱신됨).
+    quiz:
+      enabled: true
+
+# AI 서버 임베딩 트리거 활성화 (S14P31E103-788). docker-compose dev 네트워크 내부 hostname.
+# 운영 배포 시 AI_DIALOGUE_BASE_URL 환경변수로 override.
+ai:
+  dialogue:
+    base-url: ${AI_DIALOGUE_BASE_URL:http://ai-dev:8001/api/v1}
+  # 보호자 주간 리포트 AI 요약 (S14P31E103-745). 같은 ai-dev 컨테이너의 /report/* 엔드포인트로 라우팅.
+  report:
+    base-url: ${AI_REPORT_BASE_URL:http://ai-dev:8001/api/v1}

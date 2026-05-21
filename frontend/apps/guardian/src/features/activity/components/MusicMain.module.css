@@ -1,0 +1,605 @@
+/* 한 화면에 다 들어오게 — 패딩/폰트/간격 모두 콤팩트 톤 */
+
+/* ── Hero (헤더 + 미디어 + 메타) ───────────────────────────── */
+.heroCard {
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  padding: 12px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  gap: 10px;
+}
+
+.heroHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.heroHeading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+}
+
+.heroCount {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+}
+
+.heroBody {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* 가로 슬라이더 — scroll-snap 기반. 화살표 없이 trackpad/마우스 드래그/터치로 이동. */
+.mediaSlider {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-height: 200px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: 14px;
+  background: #1a1830;
+}
+
+.mediaSlider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1830;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background: #1a1830;
+  border-radius: 14px;
+}
+
+.videoFallback {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* dots — 슬라이드 위치 표시 + 클릭 점프 */
+.dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(124, 92, 255, 0.25);
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.dot:hover {
+  background: rgba(124, 92, 255, 0.45);
+}
+
+.dotActive {
+  background: var(--dash-color-primary, #7c5cff);
+  transform: scale(1.25);
+}
+
+.heroMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  min-width: 0;
+  padding: 8px 10px;
+}
+
+.tag {
+  display: inline-block;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.songTitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--dash-color-text-strong);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.playedAt {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted);
+}
+
+.description {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--dash-color-text-muted);
+  line-height: 1.5;
+}
+
+.indexPill {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--dash-color-primary-50, #f1edff);
+  color: var(--dash-color-primary, #7c5cff);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.emptyDay {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7891;
+  font-size: 14px;
+  padding: 60px 20px;
+  background: #f8f7fc;
+  border-radius: 14px;
+}
+
+.fullStatus {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7891;
+  font-size: 14px;
+  padding: 40px 20px;
+}
+
+.error {
+  color: #c43855;
+}
+
+/* ── Stat row (4 icon-cards) ── */
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.statCard {
+  background: var(--dash-color-surface);
+  border-radius: 18px;
+  box-shadow: var(--dash-shadow-soft);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--dash-color-primary-50, #f1edff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.statBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--dash-color-text-muted);
+}
+
+.statValue {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--dash-color-text-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Accuracy (text-block + colored chips) ── */
+.accuracyCard {
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  padding: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.accuracyMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.accuracyTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dash-color-text-muted);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.accuracySub {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dash-color-primary, #7c5cff);
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+
+.accuracyMessage {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.accuracyMessageText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.accuracyMessageText strong {
+  color: var(--dash-color-text-strong);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.accuracyMessageText > span {
+  font-size: 12px;
+  color: var(--dash-color-text-muted);
+}
+
+.accuracyIcon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--dash-color-primary-50, #f1edff);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.chipRow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.chip {
+  border-radius: 16px;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border: 1.5px solid transparent;
+}
+
+.chipLabel {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chipValue {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.chipPerfect {
+  background: linear-gradient(180deg, #f7f1ff 0%, #ece1ff 100%);
+  border-color: #d8c8ff;
+}
+.chipPerfect .chipLabel,
+.chipPerfect .chipValue {
+  color: #6a4ee0;
+}
+
+.chipGreat {
+  background: linear-gradient(180deg, #eef5ff 0%, #d9e8ff 100%);
+  border-color: #b9cfee;
+}
+.chipGreat .chipLabel,
+.chipGreat .chipValue {
+  color: #1f5fad;
+}
+
+.chipGood {
+  background: linear-gradient(180deg, #effcf3 0%, #d6f3df 100%);
+  border-color: #b1deba;
+}
+.chipGood .chipLabel,
+.chipGood .chipValue {
+  color: #1f9a55;
+}
+
+.chipMiss {
+  background: linear-gradient(180deg, #fff1f3 0%, #ffd9dd 100%);
+  border-color: #f3b8c0;
+}
+.chipMiss .chipLabel,
+.chipMiss .chipValue {
+  color: #c43855;
+}
+
+/* ── Peer comparison ── */
+.peerCard {
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.9fr) minmax(0, 2.2fr) minmax(160px, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.peerLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.peerIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--dash-color-primary-50, #f1edff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.peerLabelText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.peerLabelText strong {
+  font-size: 14px;
+  color: var(--dash-color-text-strong);
+}
+
+.peerLabelText span {
+  font-size: 12px;
+  color: var(--dash-color-text-muted);
+}
+
+.peerBars {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.peerSide {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.peerSideHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.peerSideLabel {
+  color: var(--dash-color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.peerSideValue {
+  font-size: 13px;
+  color: var(--dash-color-text-strong);
+}
+
+.peerBar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--dash-color-surface-muted, #f6f7fb);
+  overflow: hidden;
+}
+
+.peerBarFill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.peerBarOther .peerBarFill {
+  background: var(--dash-color-text-subtle, #b6b4c8);
+}
+
+.peerBarMine .peerBarFill {
+  background: var(--dash-gradient-primary, linear-gradient(90deg, #a892ff, #7c5cff));
+}
+
+.peerVs {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--dash-color-text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dash-color-surface-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peerSummary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--dash-color-primary-50, #f1edff);
+  font-size: 12px;
+  color: var(--dash-color-text-muted);
+  line-height: 1.4;
+}
+
+.peerSummary strong {
+  color: var(--dash-color-primary, #7c5cff);
+  font-weight: 800;
+}
+
+.peerSummaryIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .heroBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .accuracyCard,
+  .peerCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .statRow,
+  .chipRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .heroCard,
+  .mediaSlider,
+  .accuracyCard,
+  .peerCard {
+    min-width: 0;
+  }
+  .heroBody {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .songTitle {
+    font-size: 18px;
+  }
+  .statRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .accuracyCard {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .chipRow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .chip {
+    padding: 8px 4px;
+  }
+  .chipValue {
+    font-size: 18px;
+  }
+  .accuracySub {
+    font-size: 26px;
+  }
+  .peerCard {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .peerBars {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .peerVs {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .chipRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}

@@ -1,0 +1,102 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: e103-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    networks:
+      - e103-platform-network
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: e103-prometheus
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+      - --storage.tsdb.retention.size=10GB
+    ports:
+      - 127.0.0.1:9090:9090
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus:ro
+      - prometheus_data:/prometheus
+    networks:
+      - e103-platform-network
+
+  grafana:
+    image: grafana/grafana:12.1.1
+    container_name: e103-grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    ports:
+      - 127.0.0.1:3000:3000
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/etc/grafana/dashboards:ro
+      - grafana_data:/var/lib/grafana
+    networks:
+      - e103-platform-network
+
+  node-exporter:
+    image: prom/node-exporter:v1.9.1
+    container_name: e103-node-exporter
+    restart: unless-stopped
+    command:
+      - --path.rootfs=/host
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+)($|/)
+    volumes:
+      - /:/host:ro,rslave
+    networks:
+      - e103-platform-network
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
+    container_name: e103-cadvisor
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    networks:
+      - e103-platform-network
+
+  jenkins:
+    build:
+      context: ..
+      dockerfile: infra/jenkins/Dockerfile
+    image: e103-jenkins:dev
+    container_name: e103-jenkins
+    restart: unless-stopped
+    user: root
+    environment:
+      TZ: ${TZ:-Asia/Seoul}
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/ubuntu/S14P31E103:/workspace
+    networks:
+      - e103-platform-network
+
+volumes:
+  jenkins_home:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  e103-platform-network:
+    name: e103-platform-network
+    driver: bridge

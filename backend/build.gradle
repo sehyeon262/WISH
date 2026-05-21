@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.0.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.diffplug.spotless' version '8.4.0'
+}
+
+group = 'com.comong'
+version = '0.0.1-SNAPSHOT'
+description = 'backend'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // Flyway: Spring Boot 4 는 오토컨피그가 별도 모듈(spring-boot-flyway)로 분리돼 있어
+    // flyway-core 만 넣으면 Flyway 가 기동되지 않는다. flyway-database-postgresql 은
+    // Flyway 10+ 에서 DB 벤더 구현이 분리됐기 때문에 런타임에 필요.
+    implementation 'org.springframework.boot:spring-boot-flyway'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // 마을 광장 실시간 동기화 (S14P31E103-714): STOMP over WebSocket.
+    // 외부 broker 없이 인메모리 SimpleBroker 사용 → 단일 인스턴스 운영 전제.
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    implementation 'io.livekit:livekit-server:0.12.1'
+    implementation 'com.google.firebase:firebase-admin:9.7.0'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-actuator-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    // Testcontainers: 실제 Postgres 컨테이너로 Flyway 마이그레이션 + JPA validate 정합성 검증.
+    // spring-boot-testcontainers 가 @ServiceConnection 을 제공하며, Boot 4 는 Testcontainers 2.x 를
+    // 관리한다. 2.x 부터 GA artifact 이름이 testcontainers-* prefix 로 변경됐다.
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
+    // AWS SDK v2 — S3 스토리지 백엔드. BOM 으로 모든 모듈 버전을 한 번에 핀. presigner 는 s3 모듈에 내장,
+    // 100MB 영상 업로드의 multipart 분할은 s3-transfer-manager 가 담당. 본 모듈 자체는 storage.type=local
+    // 환경에서도 클래스패스에 존재하지만, S3Client/S3Presigner 빈은 storage.type=s3 일 때만 등록되므로
+    // 추가 자원 비용은 사실상 없음. (S14P31E103-490)
+    implementation platform('software.amazon.awssdk:bom:2.29.45')
+    implementation 'software.amazon.awssdk:s3'
+    implementation 'software.amazon.awssdk:s3-transfer-manager'
+    // LocalStack: S3*Storage 단위 테스트가 실제 S3 API 와 통신하도록 한다 (Mock 보다 회귀 안정성 ↑).
+    // testcontainers BOM 은 spring-boot-testcontainers 가 관리. (S14P31E103-491)
+    testImplementation 'org.testcontainers:testcontainers-localstack'
+    testCompileOnly 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+spotless {
+    java {
+        target 'src/*/java/**/*.java'
+        googleJavaFormat('1.28.0').aosp()
+        importOrder('java', 'javax', 'jakarta', 'org', 'com', '')
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+

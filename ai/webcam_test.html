@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>태극 1장 채점 — 웹캠 테스트</title>
+
+  <!-- MediaPipe Pose -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js" crossorigin="anonymous"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
+                   "Malgun Gothic", sans-serif;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #f7f8fa;
+      color: #1a1a1a;
+    }
+    h1 { margin: 0 0 4px; font-size: 24px; }
+    .subtitle { color: #666; margin: 0 0 24px; font-size: 14px; }
+
+    .layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    label { display: block; font-size: 13px; color: #555; margin: 12px 0 6px; }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid #d0d4da;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fff;
+    }
+    input:focus, select:focus { outline: none; border-color: #4a7cff; }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .video-wrap video, .video-wrap canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+    .status-overlay {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .status-overlay.ok { background: rgba(40,167,69,0.85); }
+    .status-overlay.warn { background: rgba(255,140,0,0.85); }
+    .status-overlay.err { background: rgba(220,53,69,0.85); }
+
+    .countdown-overlay {
+      position: absolute;
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-size: 120px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+    .recording-dot {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #dc3545;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    button.primary {
+      background: #4a7cff;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+    button.primary:hover { background: #3a6ae8; }
+    button.primary:disabled { background: #ccc; cursor: not-allowed; }
+
+    .angle-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .angle-cell {
+      background: #f7f8fa;
+      padding: 10px 12px;
+      border-radius: 8px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .angle-cell .name { font-size: 12px; color: #666; }
+    .angle-cell .val { font-size: 18px; font-weight: 600; color: #1a1a1a; font-variant-numeric: tabular-nums; }
+
+    .score-big { font-size: 56px; font-weight: 700; text-align: center; margin: 8px 0; color: #4a7cff; }
+    .score-label { text-align: center; color: #666; font-size: 13px; margin-bottom: 16px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .detail-box { background: #f7f8fa; padding: 14px; border-radius: 8px; }
+    .detail-box .name { font-size: 12px; color: #888; margin-bottom: 4px; }
+    .detail-box .val { font-size: 22px; font-weight: 600; }
+    .detail-box .sub { font-size: 12px; color: #666; margin-top: 6px; }
+    .joint-table { width: 100%; font-size: 12px; margin-top: 12px; border-collapse: collapse; }
+    .joint-table th, .joint-table td { padding: 6px 8px; text-align: left; border-bottom: 1px solid #eee; }
+    .joint-table th { color: #888; font-weight: 500; }
+    .joint-table tr.worst { background: #fff4e5; }
+
+    .info-bar { font-size: 12px; color: #666; padding: 8px 12px; background: #f1f3f6; border-radius: 6px; margin-top: 8px; }
+    .error { background: #fee; border: 1px solid #fcc; color: #c00; padding: 12px; border-radius: 8px; font-size: 13px; white-space: pre-wrap; }
+    .hidden { display: none; }
+    .badge { display: inline-block; background: #e8f0ff; color: #4a7cff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .row { display: flex; gap: 8px; }
+    .row > * { flex: 1; }
+    .meter { width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; margin-top: 4px; }
+    .meter-fill { height: 100%; background: #4a7cff; transition: width 0.1s linear; }
+  </style>
+</head>
+<body>
+  <h1>태극 1장 채점 — 웹캠 테스트</h1>
+  <p class="subtitle">웹캠으로 동작 녹화 → 8개 관절 각도 추출 → <code>/api/v1/taekwondo/score</code> 호출</p>
+
+  <div class="layout">
+    <div>
+      <div class="card">
+        <h2>웹캠 <span class="badge" id="modelStatus">로딩 중...</span></h2>
+        <div class="video-wrap">
+          <video id="video" playsinline></video>
+          <canvas id="canvas"></canvas>
+          <div class="status-overlay" id="statusOverlay">초기화 중</div>
+          <div class="recording-dot hidden" id="recDot"></div>
+          <div class="countdown-overlay hidden" id="countdown"></div>
+        </div>
+        <div class="info-bar" id="fpsInfo" style="margin-top:8px">FPS: --, 캡처 프레임: --</div>
+      </div>
+
+      <div class="card">
+        <h2>실시간 관절 각도 (°)</h2>
+        <div class="angle-grid" id="angleGrid"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>1. 서버 설정</h2>
+        <label>API Base URL</label>
+        <input type="text" id="apiBase" value="http://localhost:8000" />
+      </div>
+
+      <div class="card">
+        <h2>2. 동작 선택</h2>
+        <select id="actionName">
+          <option value="기본준비">기본준비</option>
+          <option value="앞굽이하고 아래막기">앞굽이하고 아래막기</option>
+          <option value="앞굽이하고 지르기">앞굽이하고 지르기</option>
+          <option value="앞굽이하고 아래막고 지르기">앞굽이하고 아래막고 지르기</option>
+          <option value="앞서고 아래막기">앞서고 아래막기</option>
+          <option value="앞서고 안막기">앞서고 안막기</option>
+          <option value="앞서고 얼굴막기">앞서고 얼굴막기</option>
+          <option value="앞서고 지르기">앞서고 지르기</option>
+          <option value="앞차고 앞서고 지르기">앞차고 앞서고 지르기</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <h2>3. 녹화</h2>
+        <div class="row">
+          <div>
+            <label>녹화 시간 (초)</label>
+            <input type="number" id="duration" value="3" min="1" max="15" step="0.5" />
+          </div>
+          <div>
+            <label>카운트다운 (초)</label>
+            <input type="number" id="countdownSec" value="3" min="0" max="10" />
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <button class="primary" id="recordBtn" onclick="startRecording()">● 녹화 시작</button>
+        </div>
+        <div class="meter" id="recMeter"><div class="meter-fill" id="recMeterFill" style="width:0%"></div></div>
+        <p class="info-bar" id="recordingInfo">녹화 시작 전</p>
+      </div>
+
+      <div class="card">
+        <h2>4. 채점</h2>
+        <button class="primary" id="scoreBtn" onclick="submitScore()" disabled>채점하기</button>
+        <p class="info-bar" id="scoreInfo">먼저 녹화하세요</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card hidden" id="resultCard">
+    <h2>결과</h2>
+    <div class="score-big" id="finalScore">--</div>
+    <div class="score-label" id="actionLabel">--</div>
+    <div class="detail-grid">
+      <div class="detail-box">
+        <div class="name">LSTM Autoencoder (60%)</div>
+        <div class="val" id="lstmScore">--</div>
+        <div class="sub">recon error: <span id="lstmError">--</span></div>
+        <div class="sub">worst joint: <span id="worstJoint">--</span></div>
+      </div>
+      <div class="detail-box">
+        <div class="name">DTW (40%)</div>
+        <div class="val" id="dtwScore">--</div>
+        <div class="sub">distance: <span id="dtwDistance">--</span></div>
+      </div>
+    </div>
+    <h3 style="font-size:13px; color:#666; margin:18px 0 4px">관절별 오차 (마지막 프레임)</h3>
+    <table class="joint-table" id="jointTable"></table>
+  </div>
+
+  <div class="card hidden" id="errorCard">
+    <h2 style="color:#c00">오류</h2>
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const JOINT_NAMES = [
+      "왼팔꿈치", "오른팔꿈치", "왼어깨", "오른어깨",
+      "왼무릎", "오른무릎", "왼엉덩이", "오른엉덩이",
+    ];
+
+    const MP = {
+      L_SHOULDER: 11, R_SHOULDER: 12,
+      L_ELBOW: 13,    R_ELBOW: 14,
+      L_WRIST: 15,    R_WRIST: 16,
+      L_HIP: 23,      R_HIP: 24,
+      L_KNEE: 25,     R_KNEE: 26,
+      L_ANKLE: 27,    R_ANKLE: 28,
+    };
+
+    let recordedAngles = [];
+    let isRecording = false;
+    let fpsCount = 0;
+    let lastFpsUpdate = performance.now();
+
+    // 녹화 품질 추적 (트래킹 실패 프레임 비율 검증용)
+    let recordingStats = {
+      totalFrames: 0,   // 녹화 중 onResults 호출 총 횟수 (=캡처된 카메라 프레임)
+      validFrames: 0,   // 그중 poseLandmarks 가 인식된 프레임 수
+    };
+
+    // 녹화 품질 임계값
+    const MIN_TOTAL_FRAMES = 5;          // 최소 캡처 프레임 (이 미만은 채점 불가)
+    const MIN_VALID_CAPTURE_RATE = 0.7;  // 최소 트래킹 성공률 (70%)
+
+    function angleAt(a, b, c) {
+      const bax = a.x - b.x, bay = a.y - b.y;
+      const bcx = c.x - b.x, bcy = c.y - b.y;
+      const dot = bax * bcx + bay * bcy;
+      const magA = Math.hypot(bax, bay);
+      const magC = Math.hypot(bcx, bcy);
+      if (magA < 1e-9 || magC < 1e-9) return 0;
+      let cos = dot / (magA * magC);
+      cos = Math.max(-1, Math.min(1, cos));
+      return Math.acos(cos) * 180 / Math.PI;
+    }
+
+    function computeAngles(lm) {
+      const LSh = lm[MP.L_SHOULDER], RSh = lm[MP.R_SHOULDER];
+      const LEl = lm[MP.L_ELBOW],    REl = lm[MP.R_ELBOW];
+      const LWr = lm[MP.L_WRIST],    RWr = lm[MP.R_WRIST];
+      const LHi = lm[MP.L_HIP],      RHi = lm[MP.R_HIP];
+      const LKn = lm[MP.L_KNEE],     RKn = lm[MP.R_KNEE];
+      const LAn = lm[MP.L_ANKLE],    RAn = lm[MP.R_ANKLE];
+
+      return [
+        angleAt(LSh, LEl, LWr),
+        angleAt(RSh, REl, RWr),
+        angleAt(LEl, LSh, LHi),
+        angleAt(REl, RSh, RHi),
+        angleAt(LHi, LKn, LAn),
+        angleAt(RHi, RKn, RAn),
+        angleAt(LSh, LHi, LKn),
+        angleAt(RSh, RHi, RKn),
+      ];
+    }
+
+    const MIN_VISIBILITY = 0.5;
+    function checkTrackingQuality(lm) {
+      const requiredIdx = [
+        MP.L_SHOULDER, MP.R_SHOULDER, MP.L_ELBOW, MP.R_ELBOW,
+        MP.L_WRIST, MP.R_WRIST, MP.L_HIP, MP.R_HIP,
+        MP.L_KNEE, MP.R_KNEE, MP.L_ANKLE, MP.R_ANKLE,
+      ];
+      let okCount = 0;
+      for (const i of requiredIdx) {
+        if (lm[i] && lm[i].visibility >= MIN_VISIBILITY) okCount++;
+      }
+      return okCount / requiredIdx.length;
+    }
+
+    // 관절 그리드 안전하게 생성 (innerHTML 미사용 — XSS 방어)
+    const grid = document.getElementById('angleGrid');
+    JOINT_NAMES.forEach((name, idx) => {
+      const div = document.createElement('div');
+      div.className = 'angle-cell';
+
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'name';
+      nameSpan.textContent = name;
+
+      const valSpan = document.createElement('span');
+      valSpan.className = 'val';
+      valSpan.id = `angle-${idx}`;
+      valSpan.textContent = '--';
+
+      div.appendChild(nameSpan);
+      div.appendChild(valSpan);
+      grid.appendChild(div);
+    });
+
+    function updateAngleDisplay(angles) {
+      angles.forEach((a, i) => {
+        document.getElementById(`angle-${i}`).textContent = a.toFixed(0);
+      });
+    }
+
+    function setStatus(text, level) {
+      const el = document.getElementById('statusOverlay');
+      el.textContent = text;
+      el.className = 'status-overlay ' + (level || '');
+    }
+
+    const videoEl = document.getElementById('video');
+    const canvasEl = document.getElementById('canvas');
+    const canvasCtx = canvasEl.getContext('2d');
+
+    const pose = new Pose({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+    });
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: false,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+    pose.onResults(onResults);
+
+    function onResults(results) {
+      fpsCount++;
+      const now = performance.now();
+      if (now - lastFpsUpdate > 1000) {
+        const fps = fpsCount / ((now - lastFpsUpdate) / 1000);
+        document.getElementById('fpsInfo').textContent =
+          `FPS: ${fps.toFixed(1)}, 캡처 프레임: ${recordedAngles.length}`;
+        fpsCount = 0;
+        lastFpsUpdate = now;
+      }
+
+      canvasEl.width = results.image.width || videoEl.videoWidth || 640;
+      canvasEl.height = results.image.height || videoEl.videoHeight || 480;
+
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasEl.width, canvasEl.height);
+
+      // 녹화 중이면 모든 카메라 프레임을 통계로 카운트
+      if (isRecording) {
+        recordingStats.totalFrames++;
+      }
+
+      if (results.poseLandmarks) {
+        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
+          color: '#4a7cff', lineWidth: 3,
+        });
+        drawLandmarks(canvasCtx, results.poseLandmarks, {
+          color: '#fff', fillColor: '#4a7cff', lineWidth: 1, radius: 4,
+        });
+
+        const quality = checkTrackingQuality(results.poseLandmarks);
+        if (quality < 0.7) {
+          setStatus(`트래킹 약함 (${(quality*100).toFixed(0)}%)`, 'warn');
+        } else {
+          setStatus(`트래킹 OK (${(quality*100).toFixed(0)}%)`, 'ok');
+        }
+
+        const angles = computeAngles(results.poseLandmarks);
+        updateAngleDisplay(angles);
+
+        if (isRecording) {
+          recordedAngles.push(angles);
+          recordingStats.validFrames++;
+        }
+      } else {
+        setStatus('사람이 보이지 않음', 'err');
+      }
+
+      canvasCtx.restore();
+    }
+
+    async function initCamera() {
+      try {
+        document.getElementById('modelStatus').textContent = '카메라 요청 중';
+        const camera = new Camera(videoEl, {
+          onFrame: async () => {
+            await pose.send({ image: videoEl });
+          },
+          width: 640,
+          height: 480,
+        });
+        await camera.start();
+        document.getElementById('modelStatus').textContent = '준비 완료';
+        setStatus('대기 중', '');
+      } catch (err) {
+        document.getElementById('modelStatus').textContent = '카메라 실패';
+        setStatus('카메라 접근 실패', 'err');
+        showError('카메라를 사용할 수 없습니다: ' + err.message);
+      }
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(initCamera, 500);
+    });
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    async function startRecording() {
+      const recordBtn = document.getElementById('recordBtn');
+      const scoreBtn = document.getElementById('scoreBtn');
+      const recDot = document.getElementById('recDot');
+      const cdEl = document.getElementById('countdown');
+      const meterFill = document.getElementById('recMeterFill');
+      const recordingInfo = document.getElementById('recordingInfo');
+
+      const duration = parseFloat(document.getElementById('duration').value) * 1000;
+      const cdSec = parseInt(document.getElementById('countdownSec').value, 10);
+
+      recordBtn.disabled = true;
+      scoreBtn.disabled = true;
+      document.getElementById('resultCard').classList.add('hidden');
+      document.getElementById('errorCard').classList.add('hidden');
+
+      cdEl.classList.remove('hidden');
+      for (let i = cdSec; i > 0; i--) {
+        cdEl.textContent = i;
+        recordingInfo.textContent = `${i}초 후 녹화 시작...`;
+        await sleep(1000);
+      }
+      cdEl.textContent = '시작!';
+      await sleep(500);
+      cdEl.classList.add('hidden');
+
+      recordedAngles = [];
+      recordingStats = { totalFrames: 0, validFrames: 0 };
+      isRecording = true;
+      recDot.classList.remove('hidden');
+      recordingInfo.textContent = '녹화 중...';
+
+      const startTime = performance.now();
+      const tick = () => {
+        const elapsed = performance.now() - startTime;
+        const ratio = Math.min(1, elapsed / duration);
+        meterFill.style.width = (ratio * 100) + '%';
+        if (isRecording && elapsed < duration) {
+          requestAnimationFrame(tick);
+        }
+      };
+      tick();
+
+      await sleep(duration);
+
+      isRecording = false;
+      recDot.classList.add('hidden');
+      meterFill.style.width = '0%';
+
+      const T = recordedAngles.length;
+      const totalFrames = recordingStats.totalFrames;
+      const captureRate = totalFrames > 0 ? recordingStats.validFrames / totalFrames : 0;
+      const ratePct = (captureRate * 100).toFixed(0);
+
+      recordingInfo.textContent =
+        `녹화 완료 — ${T}/${totalFrames} 프레임 (트래킹 ${ratePct}%)`;
+
+      recordBtn.disabled = false;
+
+      // 검증: 최소 프레임 수 + 트래킹 성공률
+      if (T < MIN_TOTAL_FRAMES) {
+        scoreBtn.disabled = true;
+        document.getElementById('scoreInfo').textContent =
+          `❌ 프레임이 너무 적습니다 (${T} < ${MIN_TOTAL_FRAMES}). 다시 녹화하세요.`;
+      } else if (captureRate < MIN_VALID_CAPTURE_RATE) {
+        scoreBtn.disabled = true;
+        document.getElementById('scoreInfo').textContent =
+          `⚠️ 트래킹 품질 낮음 (${ratePct}% — 최소 ${MIN_VALID_CAPTURE_RATE * 100}% 필요). ` +
+          `정확도 위해 전신이 잘 보이게 하고 다시 녹화하세요.`;
+      } else {
+        scoreBtn.disabled = false;
+        document.getElementById('scoreInfo').textContent =
+          `✅ ${T} 프레임 준비됨 (트래킹 ${ratePct}%) — 채점 가능`;
+      }
+    }
+
+    async function submitScore() {
+      const errorCard = document.getElementById('errorCard');
+      const resultCard = document.getElementById('resultCard');
+      const scoreBtn = document.getElementById('scoreBtn');
+
+      errorCard.classList.add('hidden');
+      resultCard.classList.add('hidden');
+
+      if (recordedAngles.length === 0) {
+        showError('녹화된 데이터가 없습니다.');
+        return;
+      }
+
+      const apiBase = document.getElementById('apiBase').value.replace(/\/$/, '');
+      const actionName = document.getElementById('actionName').value;
+      const url = `${apiBase}/api/v1/taekwondo/score`;
+
+      scoreBtn.disabled = true;
+      scoreBtn.textContent = '채점 중...';
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action_name: actionName,
+            keypoints: recordedAngles,
+          }),
+        });
+
+        const body = await res.json();
+
+        if (!res.ok) {
+          showError(`HTTP ${res.status}\n${JSON.stringify(body, null, 2)}`);
+          return;
+        }
+
+        renderResult(body);
+      } catch (err) {
+        showError('네트워크 오류: ' + err.message);
+      } finally {
+        scoreBtn.disabled = false;
+        scoreBtn.textContent = '채점하기';
+      }
+    }
+
+    function renderResult(data) {
+      document.getElementById('finalScore').textContent = data.final_score.toFixed(1);
+      document.getElementById('actionLabel').textContent = data.action_name;
+      document.getElementById('lstmScore').textContent = data.lstm.score.toFixed(1);
+      document.getElementById('lstmError').textContent = data.lstm.recon_error.toFixed(4);
+      document.getElementById('worstJoint').textContent = data.lstm.worst_joint;
+      document.getElementById('dtwScore').textContent = data.dtw.score.toFixed(1);
+      document.getElementById('dtwDistance').textContent = data.dtw.distance.toFixed(2);
+
+      // 관절 오차 테이블 안전하게 생성 (innerHTML 미사용 — XSS 방어)
+      const tbody = document.getElementById('jointTable');
+      const worst = data.lstm.worst_joint;
+
+      // 기존 내용 모두 제거
+      while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+
+      // 헤더 행
+      const headerRow = document.createElement('tr');
+      const thJoint = document.createElement('th');
+      thJoint.textContent = '관절';
+      const thError = document.createElement('th');
+      thError.textContent = '오차 (°)';
+      headerRow.appendChild(thJoint);
+      headerRow.appendChild(thError);
+      tbody.appendChild(headerRow);
+
+      // 데이터 행 — 모든 동적 값은 textContent 로 안전 삽입
+      for (const [joint, err] of Object.entries(data.lstm.joint_errors)) {
+        const tr = document.createElement('tr');
+        if (joint === worst) tr.className = 'worst';
+
+        const tdJoint = document.createElement('td');
+        tdJoint.textContent = joint;
+        tr.appendChild(tdJoint);
+
+        const tdError = document.createElement('td');
+        tdError.textContent = err.toFixed(2);
+        tr.appendChild(tdError);
+
+        tbody.appendChild(tr);
+      }
+
+      document.getElementById('resultCard').classList.remove('hidden');
+      document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showError(msg) {
+      document.getElementById('errorMsg').textContent = msg;
+      document.getElementById('errorCard').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

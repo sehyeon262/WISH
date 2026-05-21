@@ -1,0 +1,77 @@
+.button {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--dash-gradient-primary);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: none;
+  box-shadow: 0 8px 20px rgba(76, 56, 128, 0.22);
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out,
+    background 120ms ease-out;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background: rgba(11, 11, 26, 0.45);
+  color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(11, 11, 26, 0.25);
+  backdrop-filter: blur(6px);
+}
+
+.buttonActive {
+  transform: scale(0.94);
+  box-shadow: 0 6px 14px rgba(255, 71, 87, 0.32);
+  background: linear-gradient(135deg, #ff7a90 0%, #ff4757 100%);
+}
+
+/* Hover tooltip — data-tooltip attribute 로 메시지 전달. button 자체 위로 떠 있는 dark pill.
+   touch 환경(모바일) 에서는 hover 가 의미 없지만, 콘텐츠 시작 후엔 enabled 라 안 보이고
+   disabled 상태에서는 PTT 시도 자체가 없으므로 영향 작음. */
+.button[data-tooltip]:hover::after,
+.button[data-tooltip]:focus-visible::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(11, 11, 26, 0.88);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: 8px;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 18px rgba(11, 11, 26, 0.32);
+}
+
+.button[data-tooltip]:hover::before,
+.button[data-tooltip]:focus-visible::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(11, 11, 26, 0.88);
+  pointer-events: none;
+}

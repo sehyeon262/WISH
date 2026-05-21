@@ -1,0 +1,13 @@
+-- V9: Scope motion master data to gymnastics exercise domain explicitly.
+
+ALTER TABLE motion RENAME TO exercise_motion;
+ALTER TABLE exercise_motion RENAME CONSTRAINT motion_pkey TO exercise_motion_pkey;
+ALTER TABLE exercise_motion RENAME CONSTRAINT uk_motion_exercise_type_routine_order TO uk_exercise_motion_exercise_type_routine_order;
+ALTER TABLE exercise_motion RENAME CONSTRAINT ck_motion_routine_order_positive TO ck_exercise_motion_routine_order_positive;
+ALTER TABLE exercise_motion RENAME CONSTRAINT ck_motion_target_reps_positive TO ck_exercise_motion_target_reps_positive;
+
+ALTER INDEX idx_motion_exercise_type_order RENAME TO idx_exercise_motion_exercise_type_order;
+
+ALTER TABLE exercise_session_motion RENAME COLUMN motion_id TO exercise_motion_id;
+ALTER TABLE exercise_session_motion RENAME CONSTRAINT fk_exercise_session_motion_motion TO fk_exercise_session_motion_exercise_motion;
+ALTER INDEX idx_exercise_session_motion_motion RENAME TO idx_exercise_session_motion_exercise_motion;

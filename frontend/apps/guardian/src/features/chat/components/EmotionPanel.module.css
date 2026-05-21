@@ -1,0 +1,358 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  /* 스크롤바 가는 회색 (다른 패널 톤과 통일) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 92, 255, 0.25) transparent;
+  /* 오른쪽 스크롤바와 카드 그림자가 겹치지 않게 살짝 여백 */
+  padding-right: 4px;
+}
+
+.stack::-webkit-scrollbar {
+  width: 6px;
+}
+.stack::-webkit-scrollbar-thumb {
+  background: rgba(124, 92, 255, 0.25);
+  border-radius: 3px;
+}
+.stack::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card {
+  background: var(--dash-color-surface, #fff);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: var(--dash-shadow-soft, 0 2px 12px rgba(60, 50, 120, 0.06));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.cardTrend {
+  flex: 0 0 auto;
+}
+
+.cardTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sampleBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fff4e0;
+  color: #b07b1a;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.ringWrap {
+  position: relative;
+  width: 92px;
+  height: 92px;
+}
+
+.ringSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ringTrack {
+  fill: none;
+  stroke: #ece8f7;
+  stroke-width: 11;
+}
+
+.ringFill {
+  fill: none;
+  stroke: var(--dash-color-primary, #7c5cff);
+  stroke-width: 11;
+  stroke-linecap: round;
+}
+
+.ringText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.ringScore {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.ringTotal {
+  font-size: 11.5px;
+  color: var(--dash-color-text-muted, #7a7596);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.shareList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shareItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #faf9ff;
+  font-size: 13px;
+}
+
+.shareItemCalm {
+  background: #effaf3;
+}
+.shareItemTired {
+  background: #fff5e9;
+}
+.shareItemWorried {
+  background: #f3f0ff;
+}
+
+.shareLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--dash-color-text, #2a264a);
+}
+
+.sharePct {
+  font-weight: 800;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.chartWrap {
+  width: 100%;
+  flex: 0 0 auto;
+  min-height: 160px;
+}
+
+.signalList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 132px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.signalList::-webkit-scrollbar {
+  display: none;
+}
+
+.signal {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.signalIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.signalIconCalm {
+  background: #e6f7ec;
+}
+.signalIconTired {
+  background: #fff1e1;
+}
+.signalIconWorried {
+  background: #efeaff;
+}
+
+.signalTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+}
+
+.signalDesc {
+  font-size: 12.5px;
+  color: var(--dash-color-text-muted, #7a7596);
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* ===== 오늘의 관찰 카드 — 메모/저널 톤 ===== */
+.observationCard {
+  background: linear-gradient(180deg, #f5f1ff 0%, #fefcff 100%);
+  border: 1px solid #ece5fa;
+  position: relative;
+}
+
+.observationCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--dash-color-primary, #7c5cff);
+  opacity: 0.65;
+}
+
+.observationHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.observationIcon {
+  font-size: 18px;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.observationTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+}
+
+.observationKicker {
+  font-size: 11px;
+  color: var(--dash-color-text-muted, #7a7596);
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+}
+
+.observationBody {
+  margin: 4px 0 0 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #3d3858;
+  white-space: pre-line;
+  font-feature-settings: 'palt' 1;
+}
+
+/* ===== 오늘 감정 요약 카드 disclaimer ===== */
+.disclaimer {
+  font-size: 11px;
+  color: var(--dash-color-text-muted, #9b96b3);
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* ===== 함께 해볼 수 있는 활동 카드 — 권유 톤 ===== */
+.activityCard {
+  background: linear-gradient(180deg, #effaf3 0%, #fbfffd 100%);
+  border: 1px solid #d6efe0;
+}
+
+.activityHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.activityIcon {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.activityTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong, #1f1b3a);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.activityBody {
+  margin: 2px 0 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #2e4636;
+}
+
+/* ===== 오늘 만난 친구들 ===== */
+.npcList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.npcItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: #f7f4ff;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.npcName {
+  color: #445064;
+  font-weight: 600;
+}
+
+.npcMeta {
+  color: #7c5cff;
+}
+
+@media (max-width: 768px) {
+  .stack {
+    height: auto;
+    min-height: 0;
+    min-width: 0;
+  }
+  .card {
+    min-width: 0;
+  }
+  .cardTrend {
+    flex: 0 0 auto;
+  }
+  .chartWrap {
+    flex: 0 0 auto;
+    min-height: 140px;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+}

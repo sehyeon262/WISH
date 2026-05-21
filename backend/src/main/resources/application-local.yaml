@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      # Flyway 가 스키마 소유권을 가지므로 모든 프로파일에서 validate 로 통일.
+      # 엔티티와 실제 DB 스키마가 어긋나면 부팅 단계에서 실패시켜 drift 를 빠르게 잡는다.
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
+
+cors:
+  allowed-origins:
+    - http://localhost:3001
+    - http://localhost:3002
+    - http://127.0.0.1:3001
+    - http://127.0.0.1:3002
+
+# 마을 광장 멀티플레이 활성화 (S14P31E103-755). 기본 yaml 의 enabled=false 는 운영용 안전핀.
+app:
+  realtime:
+    village:
+      enabled: true
+    quiz:
+      enabled: true

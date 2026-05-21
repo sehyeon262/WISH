@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: false
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+# prod 환경 S3 백엔드. dev 와 같은 버킷이지만 prefix 가 분리돼 객체가 섞이지 않는다 (S14P31E103-493).
+# 운영 가이드: infra/aws-s3-bucket-setup-guide.md
+storage:
+  type: s3
+  s3:
+    prefix: prod

@@ -1,0 +1,434 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--dash-color-surface);
+  border-radius: var(--dash-radius-card);
+  box-shadow: var(--dash-shadow-card);
+  overflow: hidden;
+  min-height: 0;
+  flex: 1;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  background-image: var(--fuel-hero-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.18) 100%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: absolute;
+  inset: 0;
+  padding: 56px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.heroLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+  letter-spacing: -0.01em;
+}
+
+.heroLabelStar {
+  color: var(--dash-color-yellow);
+}
+
+.heroBigPercent {
+  margin-top: 8px;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--dash-color-primary);
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 18px rgba(124, 92, 255, 0.18);
+}
+
+.heroBigPercent span {
+  font-size: 60px;
+  margin-left: 4px;
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+}
+
+.heroSubtitle strong {
+  color: var(--dash-color-primary);
+  font-weight: 800;
+}
+
+.heroDesc {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--dash-color-text-muted);
+  font-weight: 500;
+}
+
+.heroProgress {
+  align-self: flex-start;
+  width: min(420px, 70%);
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--dash-shadow-soft);
+  backdrop-filter: blur(6px);
+}
+
+.heroProgressBar {
+  flex: 1;
+  height: 10px;
+  background: var(--dash-color-primary-50);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroProgressFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--dash-gradient-primary);
+  border-radius: 999px;
+  width: var(--fuel-progress);
+  transition: width 0.5s ease;
+}
+
+.heroProgressLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+}
+
+.heroProgressGoal {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-text-muted);
+}
+
+.body {
+  padding: 14px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+.sectionLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+  margin-bottom: 6px;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1.5px solid var(--dash-color-border);
+  background: var(--dash-color-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.1s ease;
+  text-align: left;
+  min-height: 54px;
+}
+
+.option:hover {
+  border-color: var(--dash-color-primary-100);
+  background: var(--dash-color-lavender-soft);
+}
+
+.optionActive {
+  border-color: var(--dash-color-primary);
+  background: var(--dash-color-primary-50);
+}
+
+.optionStar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.optionLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-text-strong);
+}
+
+.optionAmount {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+}
+
+.optionCheck {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--dash-color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.customInput {
+  width: 56px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+  padding: 2px 4px;
+  border-bottom: 1.5px dashed var(--dash-color-primary-100);
+  outline: none;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.customInput::-webkit-outer-spin-button,
+.customInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.customInput:focus {
+  border-bottom-color: var(--dash-color-primary);
+}
+
+.customSuffix {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dash-color-primary);
+}
+
+.messageRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.messageBox {
+  position: relative;
+  border: 1.5px solid var(--dash-color-border);
+  background: var(--dash-color-surface);
+  border-radius: 14px;
+  padding: 10px 14px 24px;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease;
+}
+
+.messageBox:focus-within {
+  border-color: var(--dash-color-primary-100);
+}
+
+.messageInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--dash-color-text-strong);
+  resize: none;
+  min-height: 40px;
+}
+
+.messageInput::placeholder {
+  color: var(--dash-color-text-subtle);
+}
+
+.messageMeta {
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--dash-color-text-muted);
+}
+
+.messageEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dash-color-text-subtle);
+}
+
+.sendColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.sendButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--dash-gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--dash-shadow-pill);
+  min-height: 48px;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.sendButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(124, 92, 255, 0.32);
+}
+
+.sendButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.sendButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sendCaption {
+  font-size: 12px;
+  color: var(--dash-color-text-muted);
+  text-align: center;
+  margin-top: 2px;
+}
+
+@media (max-width: 1024px) {
+  .heroContent {
+    padding: 32px 24px 20px;
+  }
+  .heroBigPercent {
+    font-size: 64px;
+  }
+  .heroBigPercent span {
+    font-size: 44px;
+  }
+  .optionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 auto;
+  }
+  .hero {
+    min-height: 240px;
+  }
+  .heroContent {
+    padding: 24px 18px 16px;
+  }
+  .heroLabel {
+    font-size: 14px;
+  }
+  .heroBigPercent {
+    font-size: 52px;
+    margin-top: 4px;
+  }
+  .heroBigPercent span {
+    font-size: 36px;
+  }
+  .heroSubtitle {
+    font-size: 15px;
+  }
+  .heroDesc {
+    font-size: 12.5px;
+  }
+  .heroProgress {
+    width: 100%;
+  }
+  .body {
+    padding: 12px 16px 16px;
+  }
+  .optionGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .messageRow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .sendButton {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .optionGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
