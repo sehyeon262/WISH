@@ -139,7 +139,7 @@ public class MusicResultService {
 
         int safeLimit = Math.max(1, Math.min(limit, 100));
         List<MusicRankingProjection> topProjections =
-                musicResultRepository.findChartRankingTop(chartId, safeLimit);
+                musicResultRepository.findChartRankingTop(musicChart.getId(), safeLimit);
 
         Long myPatientProfileId =
                 patientProfileService
@@ -155,7 +155,8 @@ public class MusicResultService {
                                                 topProjections.get(i), i + 1, myPatientProfileId))
                         .toList();
 
-        long totalPlayers = musicResultRepository.countDistinctPatientsByChartId(chartId);
+        long totalPlayers =
+                musicResultRepository.countDistinctPatientsByMusicChartId(musicChart.getId());
 
         MusicMyRankingResponse me = buildMyRanking(myPatientProfileId, musicChart);
 
@@ -191,7 +192,7 @@ public class MusicResultService {
                         myBest -> {
                             long better =
                                     musicResultRepository.countPatientsWithBetterScore(
-                                            musicChart.getChartId(), myBest.getScore());
+                                            musicChart.getId(), myBest.getScore());
                             return new MusicMyRankingResponse(
                                     (int) better + 1,
                                     myBest.getScore(),
