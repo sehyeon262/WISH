@@ -31,8 +31,7 @@ public interface MusicResultRepository extends JpaRepository<MusicResult, Long> 
                             + "    r.patient_profile_id, r.score, r.accuracy, "
                             + "    r.max_combo, r.rank, r.played_at "
                             + "  FROM music_result r "
-                            + "  JOIN music_chart c ON c.id = r.music_chart_id "
-                            + "  WHERE c.chart_id = :chartId "
+                            + "  WHERE r.music_chart_id = :musicChartId "
                             + "  ORDER BY r.patient_profile_id, "
                             + "           r.score DESC, r.accuracy DESC, r.played_at DESC "
                             + ") best "
@@ -41,17 +40,16 @@ public interface MusicResultRepository extends JpaRepository<MusicResult, Long> 
                             + "LIMIT :limit",
             nativeQuery = true)
     List<MusicRankingProjection> findChartRankingTop(
-            @Param("chartId") String chartId, @Param("limit") int limit);
+            @Param("musicChartId") Long musicChartId, @Param("limit") int limit);
 
     /** 곡에 결과가 있는 서로 다른 환자 수 (랭킹 총 인원). */
     @Query(
             value =
                     "SELECT COUNT(DISTINCT r.patient_profile_id) "
                             + "FROM music_result r "
-                            + "JOIN music_chart c ON c.id = r.music_chart_id "
-                            + "WHERE c.chart_id = :chartId",
+                            + "WHERE r.music_chart_id = :musicChartId",
             nativeQuery = true)
-    long countDistinctPatientsByChartId(@Param("chartId") String chartId);
+    long countDistinctPatientsByMusicChartId(@Param("musicChartId") Long musicChartId);
 
     /** 곡에서 내 best 점수보다 더 잘 친 환자 수. 내 순위는 이 값 + 1 이다. */
     @Query(
@@ -59,14 +57,13 @@ public interface MusicResultRepository extends JpaRepository<MusicResult, Long> 
                     "SELECT COUNT(*) FROM ( "
                             + "  SELECT r.patient_profile_id, MAX(r.score) AS best_score "
                             + "  FROM music_result r "
-                            + "  JOIN music_chart c ON c.id = r.music_chart_id "
-                            + "  WHERE c.chart_id = :chartId "
+                            + "  WHERE r.music_chart_id = :musicChartId "
                             + "  GROUP BY r.patient_profile_id "
                             + ") bests "
                             + "WHERE bests.best_score > :myScore",
             nativeQuery = true)
     long countPatientsWithBetterScore(
-            @Param("chartId") String chartId, @Param("myScore") int myScore);
+            @Param("musicChartId") Long musicChartId, @Param("myScore") int myScore);
 
     Optional<MusicResult>
             findTopByPatientProfileIdAndMusicChartIdOrderByScoreDescAccuracyDescPlayedAtDesc(

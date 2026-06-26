@@ -20,12 +20,12 @@ scrape_configs:
         labels:
           service: node-exporter
 
-  - job_name: cadvisor
+  - job_name: docker-stats
     static_configs:
       - targets:
-          - cadvisor:8080
+          - docker-stats-exporter:9487
         labels:
-          service: cadvisor
+          service: docker-stats
 
   - job_name: backend-dev
     metrics_path: /api/v1/actuator/prometheus

@@ -266,7 +266,7 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "count(count by (id) (container_last_seen{id=~\".*docker.*\"}))",
+          "expr": "count(dockerstats_cpu_usage_ratio{job=\"docker-stats\"})",
           "range": true,
           "refId": "A"
         }
@@ -308,8 +308,8 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (container_id) (label_replace(rate(container_cpu_usage_seconds_total{id=~\"/system.slice/docker-[0-9a-f]+\\\\.scope.*\"}[5m]), \"container_id\", \"$1\", \"id\", \"/system.slice/docker-([0-9a-f]{12}).*\")) * 100",
-          "legendFormat": "{{container_id}}",
+          "expr": "dockerstats_cpu_usage_ratio{job=\"docker-stats\"}",
+          "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
         }
@@ -351,8 +351,8 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum by (container_id) (label_replace(container_memory_usage_bytes{id=~\".*/docker/[0-9a-f]+$\"}, \"container_id\", \"$1\", \"id\", \".*/docker/([0-9a-f]{12}).*\"))",
-          "legendFormat": "{{container_id}}",
+          "expr": "dockerstats_memory_usage_bytes{job=\"docker-stats\"}",
+          "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
         }

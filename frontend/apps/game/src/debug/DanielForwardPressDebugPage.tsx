@@ -58,7 +58,7 @@ type StateLogEntry = {
   timestampLabel: string
 }
 
-const DEFAULT_AI_BASE_URL = 'http://localhost:8001/api/v1'
+const DEFAULT_AI_BASE_URL = import.meta.env.VITE_AI_BASE_URL ?? 'http://localhost:8001/api/v1'
 const DEFAULT_TARGET_HOLD_MS = 10_000
 const MAX_STATE_LOGS = 12
 
