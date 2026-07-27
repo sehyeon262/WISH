@@ -1,9 +1,23 @@
 # WISH
 
-> **소아암 환아를 위한 행동 기반 감정 회복 마을 플랫폼**
+---
+
+## WISH 소개 영상
+
+<a href="https://youtu.be/tAUvHT38HNQ" target="_blank">
+  <img src="exec/demo-scenario-assets/01-game-start.png" alt="WISH 소개 영상" width="100%" />
+</a>
+
+<br />
+
+<br />
+
+**소아암 환아를 위한 행동 기반 감정 회복 마을 플랫폼**
 
 WISH는 환아가 가상 마을을 탐험하며 미술, 체조, 태권도, 음악 콘텐츠를 경험하는 웹 기반 인터랙티브 게임 플랫폼입니다.  
 환아용 게임 웹, 관리자 웹, 보호자&의료진 웹이 하나의 백엔드와 AI 서비스로 연결되어 활동 수행, 콘텐츠 관리, 환아 활동 모니터링 흐름을 제공합니다.
+
+> SSAFY 14기 자율 프로젝트로 개발된 WISH는 병실 안에서도 즐겁게 움직이고 감정을 표현할 수 있는 경험을 제공합니다.
 
 <br />
 
@@ -62,12 +76,14 @@ WISH는 환아가 가상 마을을 탐험하며 미술, 체조, 태권도, 음�
       </td>
       <td width="280px" valign="top">
         <sub>
-          - 미술 테마 콘텐츠 화면 및 캐치마인드 및 색칠하기 기능 구현<br>
-          - 음악 테마 콘텐츠 화면 및 리듬게임 기능 구현<br>
-          - 보호자 페이지 UI 및 주요 기능 구현<br>
-          - AI 리포트 기능 구현 및 분석 결과 조회/표시 연동<br>
-          - LiveKit 기반 실시간 화상/음성 기능 프론트엔드 구현 및 연동
-        </sub>
+          - Phaser 3 기반 미술·음악 테마 화면 및 콘텐츠 플레이 흐름 구현<br>
+          - 자유 그림·색칠하기·작품 앨범 기능 및 MediaPipe 손동작 입력 연동<br>
+          - REST·STOMP 기반 캐치마인드 방·라운드·스트로크 실시간 동기화 구현<br>
+          - 리듬게임 차트·롱노트·콤보·판정 로직 및 YouTube 음원 연동<br>
+          - MediaRecorder 기반 플레이 영상·썸네일 생성 및 S3 결과 저장 연동<br>
+          - React·React Query 기반 보호자 페이지 및 활동·감정 데이터 시각화<br>
+          - Three.js 기반 3D 동작 리플레이 및 관절 가동 범위 분석 UI 구현<br>
+          - AI 주간 리포트 및 SSE·LiveKit 기반 실시간 알림·화면·음성 공유 구현
       </td>
     </tr>
 
@@ -161,8 +177,71 @@ WISH는 장기 입원 중인 소아암 환아들이 병실 안에서도 신체 �
 | **작품 앨범** | 저장한 작품을 목록/상세로 조회하고 수정 또는 삭제할 수 있습니다. |
 | **체조 콘텐츠** | 카메라로 자세를 인식해 제자리 걷기, 사이드 스텝, 대각선 지르기 등 체조 동작을 수행합니다. |
 | **태권도 콘텐츠** | 자세 정규화, 방향 분류, 품새 선택 등 태권도 활동 흐름을 제공합니다. |
-| **음악 테마** | 마을 내 음악 공간으로 이동할 수 있는 테마 구조를 제공합니다. |
+| **음악 콘텐츠** | 음악 공간에서 곡을 선택하고 리듬 게임을 플레이하며 점수와 콤보 결과를 확인합니다. |
+| **감정 대화 / 별빛 에너지** | NPC와 감정을 나누고 보호자가 보낸 별빛 에너지를 게임 안에서 확인합니다. |
 | **데모 인증** | MVP 환경에서 로그인 없이 데모 토큰을 발급받아 게임을 실행할 수 있습니다. |
+
+**주요 화면**
+
+<p align="center">
+  <img src="exec/demo-scenario-assets/06-game-village-emote.png" alt="마을 탐험과 감정 표현" width="900" />
+  <br />
+  <sub><b>마을 탐험</b></sub>
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/13-game-music-play.png" alt="음악 리듬 게임" width="100%" />
+      <br />
+      <sub><b>리듬 게임</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/24-game-art-coloring-play.png" alt="색칠하기 활동" width="100%" />
+      <br />
+      <sub><b>색칠하기</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/54-game-art-multi-draw.png" alt="멀티 그림 퀴즈" width="100%" />
+      <br />
+      <sub><b>멀티 그림 퀴즈</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/09-game-gallery.jpg" alt="사진 갤러리" width="100%" />
+      <br />
+      <sub><b>위시네컷</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/10-game-omok-mode.png" alt="오목 모드 선택" width="100%" />
+      <br />
+      <sub><b>오목 게임</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/29-game-lighthouse-dialogue.png" alt="등대지기와의 대화" width="100%" />
+      <br />
+      <sub><b>등대지기 대화</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/28-game-gym-feedback.jpg" alt="체조 실시간 피드백" width="100%" />
+      <br />
+      <sub><b>체조 콘텐츠</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/17-game-taekwondo-check.jpg" alt="태권도 동작 확인" width="100%" />
+      <br />
+      <sub><b>태권도 콘텐츠</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/31-game-energy-complete.png" alt="별빛 에너지 충전 완료" width="100%" />
+      <br />
+      <sub><b>별빛 에너지</b></sub>
+    </td>
+  </tr>
+</table>
 
 <br />
 
@@ -171,9 +250,57 @@ WISH는 장기 입원 중인 소아암 환아들이 병실 안에서도 신체 �
 | 기능 | 설명 |
 | --- | --- |
 | **관리자 로그인/회원가입** | JWT 기반 인증을 통해 관리자 기능에 접근합니다. |
+| **운영 대시보드** | 전체 보호자, 환아 프로필, 활성 환아, 이탈 위험 등 서비스 운영 지표를 확인합니다. |
+| **유저 관리** | 사용자 계정, 환아 프로필 등록 여부, 권한 정보를 조회하고 관리합니다. |
 | **체조 동작 목록 조회** | 체조 타입별 동작을 루틴 순서대로 확인합니다. |
 | **체조 동작 등록/수정/삭제** | 동작명, 설명, 목표 횟수, 썸네일, 시범 영상을 관리합니다. |
+| **태권도 동작 관리** | 품새별 동작 순서, 목표 횟수, 썸네일, 시범 영상을 관리합니다. |
 | **미디어 업로드** | multipart 요청으로 썸네일 이미지와 데모 영상을 함께 업로드합니다. |
+
+**주요 화면**
+
+<p align="center">
+  <img src="exec/demo-scenario-assets/47-admin-dashboard-top.png" alt="운영 대시보드" width="900" />
+  <br />
+  <sub><b>운영 대시보드</b></sub>
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/46-admin-login.png" alt="운영자 로그인" width="100%" />
+      <br />
+      <sub><b>운영자 로그인</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/49-admin-user-management.png" alt="유저 관리" width="100%" />
+      <br />
+      <sub><b>유저 관리</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/51-admin-gym-motion-management.png" alt="체조 모션 관리" width="100%" />
+      <br />
+      <sub><b>체조 모션 관리</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/52-admin-taekwondo-motion-management.png" alt="태권도 동작 관리" width="100%" />
+      <br />
+      <sub><b>태권도 동작 관리</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/57-admin-gym-motion-add-form.png" alt="체조 동작 추가" width="100%" />
+      <br />
+      <sub><b>체조 동작 추가</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/56-admin-taekwondo-motion-add-form.png" alt="태권도 동작 추가" width="100%" />
+      <br />
+      <sub><b>태권도 동작 추가</b></sub>
+    </td>
+  </tr>
+</table>
 
 <br />
 
@@ -186,6 +313,71 @@ WISH는 장기 입원 중인 소아암 환아들이 병실 안에서도 신체 �
 | **작품 조회** | 환아가 저장한 색칠하기/그리기 작품과 공개 여부를 확인합니다. |
 | **운동 결과 모니터링** | 체조 세션별 수행 시간, 평균 정확도, 완료 동작 수를 확인합니다. |
 | **피드백 확인** | 동작별 정확도와 대표 피드백을 바탕으로 환아의 수행 상태를 파악합니다. |
+| **주간 리포트** | 사용 시간, 활동 성취, 가동 범위 추이, AI 인사이트를 요약해 확인합니다. |
+| **실시간 모니터링** | 환아의 접속 상태와 게임 화면을 실시간으로 확인하고 알림을 받을 수 있습니다. |
+| **별빛 에너지 응원** | 보호자가 응원 메시지와 에너지를 보내 환아의 활동 여정을 지원합니다. |
+
+**주요 화면**
+
+<p align="center">
+  <img src="exec/demo-scenario-assets/32-guardian-signup.png" alt="보호자 메인 화면" width="900" />
+  <br />
+  <sub><b>운동 결과 모니터링</b></sub>
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/58-guardian-login-hero.png" alt="보호자 로그인" width="100%" />
+      <br />
+      <sub><b>보호자 로그인</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/34-guardian-body-dashboard.png" alt="신체 활동 대시보드" width="100%" />
+      <br />
+      <sub><b>신체 대시보드</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/35-guardian-body-detail.png" alt="감정 대화 메인" width="100%" />
+      <br />
+      <sub><b>감정 대화 확인</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/37-guardian-activity-music.png" alt="음악 활동 결과" width="100%" />
+      <br />
+      <sub><b>음악 활동 확인</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/40-guardian-report-summary.png" alt="체조 활동 확인" width="100%" />
+      <br />
+      <sub><b>체조 활동 확인</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/41-guardian-report-detail.png" alt="AI 주간 리포트" width="100%" />
+      <br />
+      <sub><b>AI 리포트</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/59-guardian-report-detail-bottom.png" alt="주간 리포트 상세 지표" width="100%" />
+      <br />
+      <sub><b>리포트 상세</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/61-guardian-realtime-notifications.png" alt="실시간 모니터링과 알림" width="100%" />
+      <br />
+      <sub><b>실시간 모니터링</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="exec/demo-scenario-assets/60-guardian-energy-send-full.png" alt="별빛 에너지 응원" width="100%" />
+      <br />
+      <sub><b>별빛 에너지</b></sub>
+    </td>
+  </tr>
+</table>
 
 <br />
 
